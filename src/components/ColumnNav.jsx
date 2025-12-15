@@ -140,10 +140,10 @@ const NavCard = ({ item, isHovered, isAnyHovered, onHoverStart, onHoverEnd }) =>
                         height: isHovered ? 'auto' : 0,
                         opacity: isHovered ? 1 : 0,
                         marginTop: isHovered ? '2rem' : 0,
-                        // Animate blur here for perfect sync
+                        backdropFilter: isHovered ? "blur(5px)" : "blur(0px)"
                     }}
                     transition={{ duration: 0.7, ease: [0.4, 0.0, 0.2, 1] }}
-                    style={{ overflow: 'hidden' }}
+                    style={{ overflow: 'hidden', willChange: 'height, opacity' }}
                 >
                     <a href={item.link} className="nav-discover-btn" style={{ backdropFilter: 'none' }}> {/* Remove CSS blur to let parent handle it or double up carefully */}
                         Discover Now
