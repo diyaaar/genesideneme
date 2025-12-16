@@ -3,8 +3,8 @@
     width: 100%;
     padding: 4rem 5%;
     /* var(--spacing-lg) is 4rem */
-    background-color: var(--color-primary);
-    /* Deep Navy */
+    background-color: transparent;
+    /* Transparent to show shared gradient */
     position: relative;
     overflow: hidden;
 }
@@ -94,20 +94,20 @@
     /* Optimize image scale animation */
 }
 
-/* Dark Overlay */
-.nav-bg-image::after {
-    content: '';
+/* Dark Overlay replaced with explicit div */
+.nav-overlay {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     background: rgba(0, 0, 0, 0.6);
-    /* Darkened overlay */
     transition: background 0.7s ease;
+    pointer-events: none;
+    z-index: 1;
 }
 
-.nav-card:hover .nav-bg-image::after {
+.nav-card:hover .nav-overlay {
     background: rgba(0, 0, 0, 0.4);
 }
 

@@ -1,0 +1,177 @@
+.impact-cta {
+    position: relative;
+    width: 100%;
+    max-width: 100%;
+    min-height: 220px;
+    /* robust height for desktop */
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #05060a;
+    margin: 0;
+}
+
+.cta-background-wrapper {
+    position: absolute;
+    /* Cover the container */
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    line-height: 0;
+    /* Remove inline-block spacing */
+}
+
+/* Image Optimization Styling */
+.cta-background-wrapper .img-wrapper {
+    width: 100%;
+    height: 100%;
+}
+
+.cta-background-wrapper img {
+    width: 100%;
+    height: 100% !important;
+    /* Force fill */
+    display: block;
+    object-fit: cover;
+    /* Crop sides, keep height filled */
+    object-position: top center;
+    /* Align to top as requested */
+    transition: transform 1s ease;
+}
+
+/* On load, maybe scale slightly? */
+.cta-background-wrapper img.loaded {
+    animation: none;
+    /* Disable drift to ensure exact fit */
+    transform: scale(1.0);
+}
+
+/* The Overlay - Absolute over the relative image */
+.cta-overlay {
+    position: absolute;
+    inset: 0;
+    /* Deeper vignette for readability on small strip */
+    background: radial-gradient(circle at center, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.7) 90%, #05060a 100%);
+    z-index: 1;
+}
+
+/* Ornamental Frame */
+.cta-frame {
+    position: absolute;
+    inset: 1.5rem;
+    /* Consistent spacing */
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    z-index: 2;
+    pointer-events: none;
+}
+
+/* Corner Accents */
+.cta-frame::before {
+    content: '';
+    position: absolute;
+    top: -1px;
+    left: -1px;
+    width: 15px;
+    height: 15px;
+    border-top: 1px solid rgba(255, 255, 255, 0.3);
+    border-left: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.cta-frame::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    right: -1px;
+    width: 15px;
+    height: 15px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    border-right: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* Text Content - Centered Absolute Overlay */
+.cta-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 5;
+    text-align: center;
+    color: #fff;
+    padding: 2rem 4rem;
+    width: 90%;
+    max-width: 800px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    /* Cinematic backdrop: Ellipse fits wide text better than circle */
+    background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.4) 40%, transparent 80%);
+    /* Generous padding for fade out */
+    border-radius: 100px;
+    /* Soft pill shape */
+}
+
+.cta-label {
+    font-family: var(--font-heading);
+    /* Playfair Italic */
+    font-style: italic;
+    font-size: 1.2rem;
+    /* Slightly larger */
+    color: rgba(255, 255, 255, 0.95);
+    margin: 0;
+    opacity: 0;
+    letter-spacing: 0.05em;
+    /* Adds elegance to italics */
+    animation: fadeInUp 1s ease 0.5s forwards;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+}
+
+.cta-headline {
+    font-family: var(--font-primary);
+    /* Montserrat */
+    font-size: 1.5rem;
+    font-weight: 400;
+    /* Regular weight for clarity */
+    letter-spacing: 0.2em;
+    /* Wider spacing = more premium */
+    text-transform: uppercase;
+    color: #fff;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
+    opacity: 0;
+    animation: fadeInUp 1s ease 0.8s forwards;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .impact-cta {
+        min-height: 140px;
+        height: auto;
+        /* Even thinner on mobile */
+    }
+
+    .cta-headline {
+        font-size: 1.1rem;
+    }
+
+    .cta-label {
+        font-size: 0.9rem;
+    }
+
+    .cta-frame {
+        inset: 0.75rem;
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

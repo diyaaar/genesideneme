@@ -156,6 +156,10 @@ const HeroSection = () => {
                     <img
                         src="/based_in_istanbul.svg"
                         alt="Istanbul"
+                        width="150"
+                        height="100"
+                        loading="eager"
+                        fetchPriority="high"
                         style={{
                             width: '40px',
                             height: 'auto',

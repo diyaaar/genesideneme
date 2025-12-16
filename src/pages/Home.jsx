@@ -11,8 +11,16 @@ const Home = () => {
     return (
         <main>
             <HeroSection />
-            <ImpactCTA />
-            <ColumnNav />
+
+            {/* Unified Gradient Wrapper for CTA and Columns */}
+            <div style={{
+                background: 'linear-gradient(to bottom, rgba(5, 6, 10, 0.8) 0%, rgba(20, 25, 45, 0.2) 100%)',
+                width: '100%'
+            }}>
+                <ImpactCTA />
+                <ColumnNav />
+            </div>
+
             <ChoirUpdates />
             <PodcastUpdates />
             <BlogUpdates />

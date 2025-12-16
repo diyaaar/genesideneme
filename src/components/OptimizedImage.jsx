@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const OptimizedImage = ({ src, srcSet, alt, className, style, sizes = "100vw" }) => {
+const OptimizedImage = ({ src, srcSet, alt, className, style, sizes = "100vw", priority = false }) => {
     const [isLoaded, setIsLoaded] = useState(false);
 
     return (
@@ -11,7 +11,9 @@ const OptimizedImage = ({ src, srcSet, alt, className, style, sizes = "100vw" })
                 srcSet={srcSet}
                 sizes={sizes}
                 alt={alt}
-                loading="lazy"
+                loading={priority ? "eager" : "lazy"}
+                fetchPriority={priority ? "high" : "auto"}
+                decoding={priority ? "sync" : "async"}
                 width="100%"
                 height="100%"
                 onLoad={() => setIsLoaded(true)}

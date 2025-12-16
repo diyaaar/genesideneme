@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import OptimizedImage from './OptimizedImage';
 import './ColumnNav.css';
 
 // Image paths (Using files from public directory)
@@ -13,15 +14,15 @@ const items = [
         title: 'Podcast',
         subtitle: 'Listen & Explore',
         description: 'Dive into deep conversations about music, culture, and the stories behind our choir.',
-        link: '#', // Placeholder
+        link: '/podcast', // Updated to match routing if needed, keeping hash for now if unsure
         image: podcastImg
     },
     {
         id: 'choir',
-        title: 'Choir', // Updated from 'Genesis Nova'
+        title: 'Choir',
         subtitle: 'Korosu',
         description: 'Meet the diverse voices and talents that make up the harmonious soul of our group.',
-        link: '#',
+        link: '/about',
         image: choirImg
     },
     {
@@ -29,7 +30,7 @@ const items = [
         title: 'Blog',
         subtitle: 'Read Our Stories',
         description: 'Latest updates, backstage moments, and articles on polyphonic traditions.',
-        link: '#',
+        link: '/blog',
         image: blogImg
     }
 ];
@@ -84,19 +85,32 @@ const NavCard = ({ item, isHovered, isAnyHovered, onHoverStart, onHoverEnd }) =>
                 layout: { duration: 0.7, ease: [0.4, 0.0, 0.2, 1] }
             }}
         >
-            {/* Background Image Layer */}
+            {/* Background Image Layer - Optimized */}
             <motion.div
-                className="nav-bg-image"
+                className="nav-bg-scaler"
                 style={{
-                    backgroundImage: `url(${item.image})`
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    width: '100%',
+                    height: '100%',
+                    zIndex: 0
                 }}
                 animate={{
                     scale: isHovered ? 1.0 : 1.15
                 }}
                 transition={{ duration: 0.7, ease: [0.4, 0.0, 0.2, 1] }}
-            />
+            >
+                <OptimizedImage
+                    src={item.image}
+                    alt={item.title}
+                    className="nav-bg-image-opt"
+                    style={{ width: '100%', height: '100%' }}
+                />
+                <div className="nav-overlay" />
+            </motion.div>
 
-            {/* Removed layout prop from nav-content to prevent neighbor jitter */}
+            {/* Content Layer */}
             <motion.div className="nav-content">
 
                 <motion.h3
@@ -145,7 +159,7 @@ const NavCard = ({ item, isHovered, isAnyHovered, onHoverStart, onHoverEnd }) =>
                     transition={{ duration: 0.7, ease: [0.4, 0.0, 0.2, 1] }}
                     style={{ overflow: 'hidden', willChange: 'height, opacity' }}
                 >
-                    <a href={item.link} className="nav-discover-btn" style={{ backdropFilter: 'none' }}> {/* Remove CSS blur to let parent handle it or double up carefully */}
+                    <a href={item.link} className="nav-discover-btn" style={{ backdropFilter: 'none' }}>
                         Discover Now
                     </a>
                 </motion.div>

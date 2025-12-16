@@ -133,11 +133,40 @@
 
 @media (max-width: 768px) {
     .nav-menu {
-        gap: 0.8rem 1.2rem;
-        flex-wrap: wrap;
-        justify-content: center;
-        flex-direction: row;
-        /* Ensure row wrapping */
+        gap: 2rem;
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+        /* items flow from left */
+        overflow-x: auto;
+        width: 100vw;
+        /* Full width swipe area */
+        padding: 0 1.5rem;
+        /* Horizontal start/end padding */
+        scrollbar-width: none;
+        /* Hide scrollbar Firefox */
+        -webkit-overflow-scrolling: touch;
+        /* Momentum scroll */
+        mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
+        /* Fade edges */
+        -webkit-mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
+    }
+
+    .nav-menu::-webkit-scrollbar {
+        display: none;
+        /* Hide scrollbar Chrome/Safari */
+    }
+
+    .nav-menu li {
+        flex-shrink: 0;
+        /* Prevent squishing */
+    }
+
+    /* Adjust container to handle the full width scroll */
+    .header-content {
+        width: 100%;
+        max-width: 100%;
+        overflow: hidden;
+        /* Contain the scroll items */
     }
 
     .logo-container {
