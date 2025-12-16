@@ -1,26 +1,23 @@
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Header from './components/Header';
-import HeroSection from './components/HeroSection';
-import ImpactCTA from './components/ImpactCTA';
-import ColumnNav from './components/ColumnNav';
-import ChoirUpdates from './components/ChoirUpdates';
-import PodcastUpdates from './components/PodcastUpdates';
-import BlogUpdates from './components/BlogUpdates';
-import AboutSection from './components/AboutSection';
 import Footer from './components/Footer';
+import Home from './pages/Home';
+import Store from './pages/Store';
+import ScrollToTop from './components/ScrollToTop';
 
 function App() {
   return (
-    <div className="app">
-      <Header />
-      <HeroSection />
-      <ImpactCTA />
-      <ColumnNav />
-      <ChoirUpdates />
-      <PodcastUpdates />
-      <BlogUpdates />
-      <AboutSection />
-      <Footer />
-    </div>
+    <Router>
+      <ScrollToTop />
+      <div className="app">
+        <Header />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/store" element={<Store />} />
+        </Routes>
+        <Footer />
+      </div>
+    </Router>
   );
 }
 

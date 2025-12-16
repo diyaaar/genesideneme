@@ -1,25 +1,33 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { useLocation, useNavigate } from 'react-router-dom';
 import './Header.css';
 
 const Header = () => {
     const [activeSection, setActiveSection] = React.useState('home');
     const [isSticky, setIsSticky] = React.useState(false);
 
+    const location = useLocation();
+    const navigate = useNavigate();
+    const isStorePage = location.pathname === '/store';
+
     React.useEffect(() => {
         const handleScroll = () => {
-            // Update sticky state
             setIsSticky(window.scrollY > 50);
 
-            // Update active section
-            const sections = ['home', 'about', 'collab', 'media', 'podcast', 'blog', 'store', 'contact'];
+            if (isStorePage) {
+                setActiveSection('store');
+                return;
+            }
+
+            // Active section logic for Homepage
+            const sections = ['home', 'about', 'collab', 'media', 'podcast', 'blog', 'contact'];
             let current = 'home';
 
             for (const section of sections) {
                 const element = document.getElementById(section);
                 if (element) {
                     const rect = element.getBoundingClientRect();
-                    // If top of section is within the viewport (with some offset)
                     if (rect.top <= 150 && rect.bottom >= 150) {
                         current = section;
                         break;
@@ -30,11 +38,47 @@ const Header = () => {
         };
 
         window.addEventListener('scroll', handleScroll);
-        // Trigger once on mount
-        handleScroll();
+        handleScroll(); // Trigger once
 
         return () => window.removeEventListener('scroll', handleScroll);
-    }, []);
+    }, [isStorePage]);
+
+    const handleNavClick = (e, item) => {
+        e.preventDefault();
+        const sectionId = item.toLowerCase();
+
+        if (sectionId === 'store') {
+            navigate('/store');
+            return;
+        }
+
+        if (sectionId === 'home') {
+            if (isStorePage) {
+                navigate('/');
+            } else {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+            return;
+        }
+
+        // For other sections (About, etc.)
+        if (isStorePage) {
+            // If on Store page, navigate to Home and then scroll (simulated by passing hash)
+            // Ideally navigate to combined path, but simple navigate works
+            navigate('/');
+            // A small timeout to let page load before scrolling (naive but functional for minimal app)
+            setTimeout(() => {
+                const element = document.getElementById(sectionId);
+                if (element) element.scrollIntoView({ behavior: 'smooth' });
+            }, 100);
+        } else {
+            // Already on Home
+            const element = document.getElementById(sectionId);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+    };
 
     const navItems = ['Home', 'About', 'Collab', 'Media', 'Podcast', 'Blog', 'Store', 'Contact'];
 
@@ -60,7 +104,7 @@ const Header = () => {
 
             <div className="header-content">
                 <div className="logo-container">
-                    <a href="#home">
+                    <a href="/" onClick={(e) => { e.preventDefault(); navigate('/'); }}>
                         <img
                             src="/genesi_nova.svg"
                             alt="Genesi Nova Logo"
@@ -83,15 +127,9 @@ const Header = () => {
                             return (
                                 <li key={item}>
                                     <a
-                                        href={`#${sectionId}`}
+                                        href={sectionId === 'store' ? '/store' : `/#${sectionId}`}
                                         className={`nav-link ${isActive ? 'active' : ''}`}
-                                        onClick={(e) => {
-                                            e.preventDefault();
-                                            const element = document.getElementById(sectionId);
-                                            if (element) {
-                                                element.scrollIntoView({ behavior: 'smooth' });
-                                            }
-                                        }}
+                                        onClick={(e) => handleNavClick(e, item)}
                                     >
                                         {item}
                                     </a>
