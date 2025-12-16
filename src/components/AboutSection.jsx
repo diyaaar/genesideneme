@@ -3,11 +3,11 @@ import ScrollReveal from './ScrollReveal';
 
 const AboutSection = () => {
     return (
-        <section className="about-section section" style={{ backgroundColor: 'var(--color-primary)', color: 'var(--color-bg-light)' }}>
+        <section id="about" className="about-section section" style={{ backgroundColor: 'var(--color-primary)', color: 'var(--color-bg-light)' }}>
             <div className="container">
                 <ScrollReveal>
                     <div style={{ maxWidth: '800px', margin: '0 auto', textAlign: 'center' }}>
-                        <h2 style={{ color: 'inherit', marginBottom: 'var(--spacing-md)', fontFamily: 'var(--font-heading)' }}>Genesis Nova Nedir?</h2>
+                        <h2 style={{ color: 'inherit', marginBottom: 'var(--spacing-md)', fontFamily: 'var(--font-heading)' }}>Genesi Nova Nedir?</h2>
 
                         <p style={{ fontSize: '1.2rem', marginBottom: '1.5rem', lineHeight: '1.8', opacity: '0.9' }}>
                             Genesi Nova Korosu is a contemporary polyphonic ensemble dedicated to exploring the boundaries of vocal music.

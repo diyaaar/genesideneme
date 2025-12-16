@@ -12,7 +12,7 @@ const ChoirUpdates = () => {
                         textTransform: 'uppercase',
                         letterSpacing: '2px'
                     }}>
-                        Koro'daki Son Gelişmeler
+                        Latest Choir Updates
                     </h2>
 
                     <div className="update-content" style={{ maxWidth: '900px', margin: '0 auto' }}>

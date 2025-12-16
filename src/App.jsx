@@ -1,3 +1,4 @@
+import Header from './components/Header';
 import HeroSection from './components/HeroSection';
 import ImpactCTA from './components/ImpactCTA';
 import ColumnNav from './components/ColumnNav';
@@ -10,6 +11,7 @@ import Footer from './components/Footer';
 function App() {
   return (
     <div className="app">
+      <Header />
       <HeroSection />
       <ImpactCTA />
       <ColumnNav />

@@ -167,9 +167,7 @@
     background: rgba(255, 255, 255, 0.05);
 }
 
-.nav-card:hover .nav-discover-btn {
-    /* blur handled in JS */
-}
+
 
 .nav-discover-btn:hover {
     background: #fff;

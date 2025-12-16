@@ -1,5 +1,7 @@
 import React, { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
+import TypewriterText from './TypewriterText';
+import './HeroSection.css';
 
 const HeroSection = () => {
     const ref = useRef(null);
@@ -15,18 +17,13 @@ const HeroSection = () => {
     return (
         <header
             ref={ref}
+            id="home"
             className="hero"
             style={{
-                height: '100vh',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                overflow: 'hidden',
-                position: 'relative',
-                backgroundColor: '#111'
+                // Styles moved to HeroSection.css for responsiveness
             }}
         >
-            {/* Parallax Background */}
+            {/* Parallax Background - Velvet Effect */}
             <motion.div
                 className="hero-bg"
                 style={{
@@ -34,28 +31,17 @@ const HeroSection = () => {
                     top: 0,
                     left: 0,
                     width: '100%',
-                    height: '120%', // Taller for parallax
+                    height: '120%',
                     y: yBg,
-                    backgroundImage: 'radial-gradient(circle at 50% 50%, #282e50 0%, #000 70%)',
                     zIndex: 1,
-                    opacity: 0.8
+                    background: 'transparent'
                 }}
             />
 
             {/* Decorative Elements */}
-            <div style={{
-                position: 'absolute',
-                top: '50%',
-                left: '50%',
-                transform: 'translate(-50%, -50%)',
-                width: '80vw',
-                height: '80vh',
-                border: '1px solid rgba(255,255,255,0.05)',
-                zIndex: 1,
-                pointerEvents: 'none'
-            }}></div>
 
-            {/* Main Content */}
+
+            {/* Main Content - Empty for now as requested for Full-Width Visual */}
             <motion.div
                 className="container"
                 style={{
@@ -64,97 +50,132 @@ const HeroSection = () => {
                     textAlign: 'center',
                     color: '#fff',
                     y: yText,
-                    opacity: opacityText
+                    opacity: opacityText,
+                    height: '100%',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    justifyContent: 'center'
                 }}
             >
-                <motion.p
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8, delay: 0.2 }}
-                    style={{
-                        fontSize: 'clamp(0.9rem, 1.5vw, 1.2rem)',
-                        letterSpacing: '0.5em',
-                        textTransform: 'uppercase',
-                        marginBottom: 'var(--spacing-md)',
-                        color: 'var(--color-secondary)'
-                    }}
-                >
-                    Polyphonic • Dynamic • Innovative
-                </motion.p>
-
-                <h1 style={{
-                    fontSize: 'clamp(3rem, 8vw, 7rem)',
-                    fontWeight: 700,
-                    lineHeight: 1.1,
-                    marginBottom: 'var(--spacing-md)',
-                    fontFamily: 'var(--font-heading)'
+                {/* Centered Content Block */}
+                <div style={{
+                    position: 'absolute',
+                    top: '42%', /* Slightly higher visual center for laptop screens */
+                    left: '50%',
+                    transform: 'translate(-50%, -50%)',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    width: '100%',
+                    zIndex: 20
                 }}>
-                    <span style={{ display: 'block', overflow: 'hidden' }}>
-                        <motion.span
-                            initial={{ y: "100%" }}
-                            animate={{ y: 0 }}
-                            transition={{ duration: 0.8, ease: [0.33, 1, 0.68, 1] }}
-                            style={{ display: 'block' }}
-                        >
-                            GENESIS NOVA
-                        </motion.span>
-                    </span>
-                    <span style={{ display: 'block', overflow: 'hidden' }}>
-                        <motion.span
-                            initial={{ y: "100%" }}
-                            animate={{ y: 0 }}
-                            transition={{ duration: 0.8, delay: 0.1, ease: [0.33, 1, 0.68, 1] }}
-                            style={{ display: 'block', fontStyle: 'italic', opacity: 0.8 }}
-                        >
-                            CHORUS
-                        </motion.span>
-                    </span>
-                </h1>
-
-                <motion.div
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.5, delay: 0.8 }}
-                >
-                    <a href="#listen" className="btn btn-outline" style={{
+                    <h1 style={{
+                        fontSize: 'clamp(2.5rem, 6vw, 5rem)', /* Optimized clamp for 13" screens */
+                        fontWeight: 700,
+                        lineHeight: 1,
+                        marginBottom: '1rem',
+                        fontFamily: 'var(--font-heading)',
+                        letterSpacing: '-0.02em',
                         color: '#fff',
-                        borderColor: 'rgba(255,255,255,0.3)',
-                        padding: '1rem 3rem',
-                        fontSize: '0.9rem',
-                        letterSpacing: '2px',
-                        marginTop: '2rem',
-                        backdropFilter: 'blur(5px)',
-                        transition: 'all 0.3s ease'
+                        textShadow: '0 10px 30px rgba(0,0,0,0.5)'
+                    }}>
+                        <span style={{ display: 'block', overflow: 'hidden' }}>
+                            <motion.span
+                                initial={{ y: "110%" }}
+                                animate={{ y: 0 }}
+                                transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
+                                style={{ display: 'block' }}
+                            >
+                                GENESI NOVA
+                            </motion.span>
+                        </span>
+                        <span style={{ display: 'block', overflow: 'hidden', marginTop: '-0.2em' }}>
+                            <motion.span
+                                initial={{ y: "110%" }}
+                                animate={{ y: 0 }}
+                                transition={{ duration: 1, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
+                                style={{ display: 'block', fontStyle: 'italic', opacity: 0.9, color: 'var(--color-secondary)' }}
+                            >
+                                CHOIR
+                            </motion.span>
+                        </span>
+                    </h1>
+
+                    <div style={{
+                        fontFamily: 'var(--font-primary)',
+                        fontSize: 'clamp(0.8rem, 1vw, 1rem)',
+                        fontWeight: 400,
+                        color: 'rgba(255, 255, 255, 0.9)',
+                        maxWidth: '800px',
+                        lineHeight: 1.6,
+                        letterSpacing: '0.05em',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        gap: '0.5rem',
+                        textTransform: 'uppercase'
+                    }}>
+                        <div style={{ overflow: 'hidden' }}>
+                            <motion.div
+                                initial={{ y: "100%" }}
+                                animate={{ y: 0 }}
+                                transition={{ duration: 0.8, delay: 0.8, ease: [0.22, 1, 0.36, 1] }}
+                            >
+                                This is not just an a cappella group.
+                            </motion.div>
+                        </div>
+                        <div style={{ overflow: 'hidden' }}>
+                            <motion.div
+                                initial={{ y: "100%" }}
+                                animate={{ y: 0 }}
+                                transition={{ duration: 0.8, delay: 1.0, ease: [0.22, 1, 0.36, 1] }}
+                            >
+                                It's a collective of voices, shaping a new sound culture.
+                            </motion.div>
+                        </div>
+                    </div>
+                </div>
+
+                {/* Locations / Bottom Info */}
+                <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 1.2, duration: 1.5 }}
+                    style={{
+                        position: 'absolute',
+                        bottom: '8vh', /* Uses viewport height unit for responsiveness */
+                        left: '50%',
+                        transform: 'translateX(-50%)',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                        gap: '0.3rem'
                     }}
-                        onMouseOver={(e) => {
-                            e.currentTarget.style.borderColor = 'var(--color-secondary)';
-                            e.currentTarget.style.backgroundColor = 'rgba(186, 180, 162, 0.1)';
+                >
+                    <img
+                        src="/based_in_istanbul.svg"
+                        alt="Istanbul"
+                        style={{
+                            width: '40px',
+                            height: 'auto',
+                            opacity: 0.9,
                         }}
-                        onMouseOut={(e) => {
-                            e.currentTarget.style.borderColor = 'rgba(255,255,255,0.3)';
-                            e.currentTarget.style.backgroundColor = 'transparent';
-                        }}
-                    >
-                        LISTEN NOW
-                    </a>
+                    />
+                    <span style={{
+                        fontFamily: 'var(--font-primary)',
+                        fontSize: '0.65rem',
+                        letterSpacing: '0.2em',
+                        textTransform: 'uppercase',
+                        color: 'rgba(255, 255, 255, 0.5)'
+                    }}>
+                        Based in İstanbul
+                    </span>
                 </motion.div>
             </motion.div>
 
             {/* Scroll Indicator */}
-            <motion.div
-                style={{
-                    position: 'absolute',
-                    bottom: '40px',
-                    left: '50%',
-                    x: '-50%',
-                    zIndex: 10,
-                    color: 'rgba(255,255,255,0.5)'
-                }}
-                animate={{ y: [0, 10, 0] }}
-                transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-            >
-                ↓
-            </motion.div>
+
         </header>
     );
 };

@@ -12,7 +12,7 @@ const PodcastUpdates = () => {
                         textTransform: 'uppercase',
                         letterSpacing: '2px'
                     }}>
-                        Podcast'teki Son Gelişmeler
+                        Latest Podcast Updates
                     </h2>
 
                     <div className="podcast-grid" style={{
@@ -44,7 +44,7 @@ const PodcastUpdates = () => {
 
                         {/* Center: Links */}
                         <div className="links" style={{ textAlign: 'center' }}>
-                            <h3 style={{ marginBottom: '1.5rem', fontFamily: 'var(--font-heading)', fontSize: '1.8rem' }}>The Sound of Genesis</h3>
+                            <h3 style={{ marginBottom: '1.5rem', fontFamily: 'var(--font-heading)', fontSize: '1.8rem' }}>The Sound of Genesi</h3>
                             <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', alignItems: 'center' }}>
                                 <button className="btn" style={{ width: '200px', borderRadius: '30px' }}>Listen on Spotify</button>
                                 <button className="btn" style={{ width: '200px', borderRadius: '30px' }}>Apple Podcasts</button>

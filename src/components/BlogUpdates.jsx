@@ -27,7 +27,7 @@ const BlogUpdates = () => {
         <section className="blog-updates section">
             <div className="container">
                 <ScrollReveal>
-                    <h2 style={{ textAlign: 'center', marginBottom: 'var(--spacing-md)', textTransform: 'uppercase' }}>Blog'daki Son Gelişmeler</h2>
+                    <h2 style={{ textAlign: 'center', marginBottom: 'var(--spacing-md)', textTransform: 'uppercase' }}>Latest Blog Updates</h2>
 
                     <div className="blog-grid" style={{
                         display: 'grid',

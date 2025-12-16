@@ -1,0 +1,171 @@
+.header-container {
+    background-color: #111524;
+    padding: 0.5rem 0;
+    /* Reduced padding */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: fixed;
+    /* Changed to fixed for sticky behavior */
+    top: 0;
+    left: 0;
+    width: 100%;
+    transition: all 0.4s ease;
+    /* Smooth transition for height/padding */
+    overflow: hidden;
+    z-index: 50;
+    /* Ensure it stays on top */
+}
+
+/* Minimal Sticky State */
+.header-container.sticky-header {
+    padding: 0.25rem 0;
+    /* Even tighter sticky */
+    background-color: rgba(17, 21, 36, 0.65);
+    /* 65% opacity for elegance */
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Decorative Spiral/Curve Lines */
+.header-bg-decoration {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.3;
+    transition: opacity 0.4s ease;
+}
+
+.header-container.sticky-header .header-bg-decoration {
+    opacity: 0;
+    /* Hide decoration on scroll */
+}
+
+.header-content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 1400px;
+}
+
+.logo-container {
+    margin-bottom: 0.5rem;
+    /* Reduced margin */
+    transition: all 0.4s ease;
+    overflow: hidden;
+    max-height: 180px;
+    /* Reduced max height constraint */
+    opacity: 1;
+}
+
+/* Hide Logo on Sticky */
+.header-container.sticky-header .logo-container {
+    margin-bottom: 0;
+    max-height: 0;
+    opacity: 0;
+    transform: translateY(-20px);
+}
+
+.logo-container:hover {
+    transform: scale(1.02);
+}
+
+.header-logo {
+    width: 220px;
+    /* Reduced width */
+    height: auto;
+    filter: drop-shadow(0 0 10px rgba(186, 180, 162, 0.2));
+    /* Slight glow using secondary color */
+}
+
+.nav-menu {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.nav-link {
+    font-family: var(--font-primary);
+    font-size: 0.9rem;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #ffffff;
+    /* Start with white for contrast on black */
+    text-decoration: none;
+    position: relative;
+    padding: 0.5rem 0;
+    transition: color 0.3s ease;
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background-color: var(--color-secondary);
+    transform: scaleX(0);
+    transform-origin: center;
+    transition: transform 0.3s ease;
+}
+
+.nav-link:hover::after,
+.nav-link.active::after {
+    transform: scaleX(1);
+}
+
+.nav-link.active {
+    color: var(--color-secondary);
+}
+
+@media (max-width: 768px) {
+    .nav-menu {
+        gap: 0.8rem 1.2rem;
+        flex-wrap: wrap;
+        justify-content: center;
+        flex-direction: row;
+        /* Ensure row wrapping */
+    }
+
+    .logo-container {
+        margin-bottom: 0.25rem;
+    }
+
+    .header-logo {
+        width: 150px;
+    }
+
+    .nav-link {
+        font-size: 0.75rem;
+        letter-spacing: 1px;
+    }
+
+    /* Ensure sticky header handles the wrapped nav gracefully */
+    .header-container.sticky-header {
+        padding: 0.5rem 0;
+        /* A bit more breathing room for wrapped links */
+    }
+}
+
+@media (max-width: 400px) {
+    .nav-menu {
+        gap: 0.5rem 0.8rem;
+    }
+
+    .nav-link {
+        font-size: 0.7rem;
+    }
+}
