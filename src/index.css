@@ -33,11 +33,18 @@
   box-sizing: border-box;
 }
 
+html {
+  /* Prevent white flash on overscroll/rubber-banding */
+  background-color: #05060a;
+}
+
 body {
   font-family: var(--font-primary);
   color: var(--color-text-main);
   /* Gravity Gradient: Lighter (but still dark) at top, falling into total shadow at bottom */
   background: linear-gradient(to bottom, #111524 0%, #05060a 100%);
+  background-color: #05060a;
+  /* Fallback matches html */
   background-attachment: fixed;
   /* Ensures the curtain feels static/heavy */
   line-height: 1.6;
@@ -45,6 +52,8 @@ body {
   -webkit-font-smoothing: antialiased;
   /* Crisp text */
   scroll-behavior: smooth;
+  min-height: 100vh;
+  /* Ensure body fills viewport */
 }
 
 /* Texture Overlay for Velvet Nap - Ultra Fine Grain */
