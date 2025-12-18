@@ -34,8 +34,8 @@
 }
 
 html {
-  /* Prevent white flash on overscroll/rubber-banding */
-  background-color: #05060a;
+  /* Match top of body gradient to prevent dark bar on top overscroll */
+  background-color: #111524;
 }
 
 body {
