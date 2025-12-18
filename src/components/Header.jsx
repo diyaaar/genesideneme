@@ -10,6 +10,7 @@ const Header = () => {
     const location = useLocation();
     const navigate = useNavigate();
     const isStorePage = location.pathname === '/store';
+    const isCollabPage = location.pathname === '/collab';
 
     React.useEffect(() => {
         const handleScroll = () => {
@@ -19,9 +20,13 @@ const Header = () => {
                 setActiveSection('store');
                 return;
             }
+            if (isCollabPage) {
+                setActiveSection('collab');
+                return;
+            }
 
             // Active section logic for Homepage
-            const sections = ['home', 'about', 'collab', 'media', 'podcast', 'blog', 'contact'];
+            const sections = ['home', 'about', 'media', 'podcast', 'blog', 'contact'];
             let current = 'home';
 
             for (const section of sections) {
@@ -41,7 +46,7 @@ const Header = () => {
         handleScroll(); // Trigger once
 
         return () => window.removeEventListener('scroll', handleScroll);
-    }, [isStorePage]);
+    }, [isStorePage, isCollabPage]);
 
     const handleNavClick = (e, item) => {
         e.preventDefault();
@@ -52,8 +57,13 @@ const Header = () => {
             return;
         }
 
+        if (sectionId === 'collab') {
+            navigate('/collab');
+            return;
+        }
+
         if (sectionId === 'home') {
-            if (isStorePage) {
+            if (isStorePage || isCollabPage) {
                 navigate('/');
             } else {
                 window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -62,7 +72,7 @@ const Header = () => {
         }
 
         // For other sections (About, etc.)
-        if (isStorePage) {
+        if (isStorePage || isCollabPage) {
             // If on Store page, navigate to Home and then scroll (simulated by passing hash)
             // Ideally navigate to combined path, but simple navigate works
             navigate('/');
@@ -124,10 +134,14 @@ const Header = () => {
                             const sectionId = item.toLowerCase();
                             const isActive = activeSection === sectionId;
 
+                            let href = `/#${sectionId}`;
+                            if (sectionId === 'store') href = '/store';
+                            if (sectionId === 'collab') href = '/collab';
+
                             return (
                                 <li key={item}>
                                     <a
-                                        href={sectionId === 'store' ? '/store' : `/#${sectionId}`}
+                                        href={href}
                                         className={`nav-link ${isActive ? 'active' : ''}`}
                                         onClick={(e) => handleNavClick(e, item)}
                                     >

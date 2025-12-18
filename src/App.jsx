@@ -3,6 +3,7 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import Home from './pages/Home';
 import Store from './pages/Store';
+import Collab from './pages/Collab';
 import ScrollToTop from './components/ScrollToTop';
 
 function App() {
@@ -13,6 +14,7 @@ function App() {
         <Header />
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/collab" element={<Collab />} />
           <Route path="/store" element={<Store />} />
         </Routes>
         <Footer />
