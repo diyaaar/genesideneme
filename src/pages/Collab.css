@@ -312,7 +312,6 @@
     border-radius: 3px;
 }
 
-/* Atmospheric overlay — subtle fade/softness */
 /* Atmospheric overlay — subtle fade/softness + vignette */
 .figure-atmosphere {
     position: absolute;
@@ -344,7 +343,6 @@
     filter: saturate(1) contrast(1);
 }
 
-/* Choir image — larger, primary focus */
 /* Choir image — larger, primary focus */
 .gallery-figure--choir {
     width: 92%;
@@ -559,7 +557,7 @@
     font-family: var(--font-primary);
     font-size: 1rem;
     transition: all 0.3s ease;
-    resize: vertical;
+    resize: none;
 }
 
 .form-group input::placeholder,
@@ -625,7 +623,7 @@
    RESPONSIVE DESIGN
    ───────────────────────────────────────────────────────────────────────────── */
 
-@media (max-width: 1024px) {
+@media (max-width: 900px) {
     .collab-hero {
         min-height: 60vh;
         padding: 160px 0 100px;
@@ -642,7 +640,7 @@
 
     .showcase-gallery {
         grid-template-columns: 1fr;
-        gap: 2rem;
+        gap: 1.25rem;
     }
 
     .gallery-figure--audience {
