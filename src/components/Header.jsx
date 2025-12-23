@@ -11,6 +11,7 @@ const Header = () => {
     const navigate = useNavigate();
     const isStorePage = location.pathname === '/store';
     const isCollabPage = location.pathname === '/collab';
+    const isBlogPage = location.pathname.startsWith('/blog');
 
     React.useEffect(() => {
         const handleScroll = () => {
@@ -24,9 +25,13 @@ const Header = () => {
                 setActiveSection('collab');
                 return;
             }
+            if (isBlogPage) {
+                setActiveSection('blog');
+                return;
+            }
 
             // Active section logic for Homepage
-            const sections = ['home', 'about', 'media', 'podcast', 'blog', 'contact'];
+            const sections = ['home', 'about', 'media', 'podcast', 'contact'];
             let current = 'home';
 
             for (const section of sections) {
@@ -46,7 +51,7 @@ const Header = () => {
         handleScroll(); // Trigger once
 
         return () => window.removeEventListener('scroll', handleScroll);
-    }, [isStorePage, isCollabPage]);
+    }, [isStorePage, isCollabPage, isBlogPage]);
 
     const handleNavClick = (e, item) => {
         e.preventDefault();
@@ -62,8 +67,13 @@ const Header = () => {
             return;
         }
 
+        if (sectionId === 'blog') {
+            navigate('/blog');
+            return;
+        }
+
         if (sectionId === 'home') {
-            if (isStorePage || isCollabPage) {
+            if (isStorePage || isCollabPage || isBlogPage) {
                 navigate('/');
             } else {
                 window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -72,7 +82,7 @@ const Header = () => {
         }
 
         // For other sections (About, etc.)
-        if (isStorePage || isCollabPage) {
+        if (isStorePage || isCollabPage || isBlogPage) {
             // If on Store page, navigate to Home and then scroll (simulated by passing hash)
             // Ideally navigate to combined path, but simple navigate works
             navigate('/');
@@ -137,6 +147,7 @@ const Header = () => {
                             let href = `/#${sectionId}`;
                             if (sectionId === 'store') href = '/store';
                             if (sectionId === 'collab') href = '/collab';
+                            if (sectionId === 'blog') href = '/blog';
 
                             return (
                                 <li key={item}>
