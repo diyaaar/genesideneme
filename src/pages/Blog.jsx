@@ -242,6 +242,7 @@ const Blog = () => {
                                     </div>
                                 </div>
                                 <div className="author-social">
+                                    <span className="follow-label">Follow</span>
                                     <a
                                         href="https://instagram.com/marcusthorne"
                                         target="_blank"
@@ -319,6 +320,7 @@ const Blog = () => {
                                             </div>
                                         </div>
                                         <div className="author-social">
+                                            <span className="follow-label">Follow</span>
                                             <a
                                                 href={post.author.instagram}
                                                 target="_blank"
