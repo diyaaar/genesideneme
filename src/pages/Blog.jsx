@@ -21,7 +21,13 @@ const POSTS = [
         image: choirImg,
         date: "Dec 15, 2024",
         readTime: "5 min read",
-        author: "Sarah Jenkins"
+        author: {
+            name: "Sarah Jenkins",
+            initials: "SJ",
+            avatarColor: "#a89080",
+            instagram: "https://instagram.com/sarahjenkins",
+            twitter: "https://twitter.com/sarahjenkins"
+        }
     },
     {
         id: 2,
@@ -31,7 +37,13 @@ const POSTS = [
         image: podcastImg,
         date: "Dec 02, 2024",
         readTime: "8 min read",
-        author: "Dr. Alan Grant"
+        author: {
+            name: "Dr. Alan Grant",
+            initials: "AG",
+            avatarColor: "#8a9ba8",
+            instagram: "https://instagram.com/alangrant",
+            twitter: "https://twitter.com/alangrant"
+        }
     },
     {
         id: 3,
@@ -41,7 +53,13 @@ const POSTS = [
         image: blogSmall,
         date: "Nov 28, 2024",
         readTime: "4 min read",
-        author: "Elena Fisher"
+        author: {
+            name: "Elena Fisher",
+            initials: "EF",
+            avatarColor: "#b4a89a",
+            instagram: "https://instagram.com/elenafisher",
+            twitter: "https://twitter.com/elenafisher"
+        }
     },
     {
         id: 4,
@@ -51,7 +69,13 @@ const POSTS = [
         image: choirSmall,
         date: "Nov 15, 2024",
         readTime: "12 min read",
-        author: "Genesi Team"
+        author: {
+            name: "Genesi Team",
+            initials: "GT",
+            avatarColor: "#9a8a7a",
+            instagram: "https://instagram.com/genesinovachoir",
+            twitter: "https://twitter.com/genesinovachoir"
+        }
     }
 ];
 
@@ -66,7 +90,25 @@ const Blog = () => {
     const handleSubscribeScroll = () => {
         const newsletterSection = document.getElementById('newsletter-section');
         if (newsletterSection) {
-            newsletterSection.scrollIntoView({ behavior: 'smooth' });
+            const isMobile = window.innerWidth <= 768;
+
+            if (isMobile) {
+                // Mobile: Custom scroll with larger offset to prevent footer overshoot
+                const targetPosition = newsletterSection.getBoundingClientRect().top + window.pageYOffset;
+                const offset = 180; // Generous offset for mobile - lands above footer
+                window.scrollTo({
+                    top: targetPosition - offset,
+                    behavior: 'smooth'
+                });
+            } else {
+                // Desktop: Use scrollIntoView with scroll-margin-top
+                newsletterSection.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                    // Respects scroll-margin-top CSS property for proper offset
+                });
+            }
+
             newsletterSection.classList.add('highlight-subtly');
             setTimeout(() => {
                 newsletterSection.classList.remove('highlight-subtly');
@@ -109,11 +151,43 @@ const Blog = () => {
                             Subscribe to our Notebook →
                         </motion.div>
                     </div>
+
+                    {/* Notebook Icon - Bottom Positioned */}
+                    {/* Notebook Icon - Bottom Positioned */}
+                    <motion.div
+                        className="notebook-group"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ delay: 1.2, duration: 1.5 }}
+                        onClick={() => {
+                            const target = document.getElementById('featured-post');
+                            if (target) {
+                                const targetPosition = target.getBoundingClientRect().top + window.pageYOffset;
+                                const offset = 120; // Natural offset space above section
+                                window.scrollTo({
+                                    top: targetPosition - offset,
+                                    behavior: 'smooth'
+                                });
+                            }
+                        }}
+                    >
+                        <img
+                            src="/blog_page_notebook.svg"
+                            alt="Notebook"
+                            style={{
+                                width: '36px',
+                                height: 'auto',
+                                opacity: 0.6,
+                                filter: 'brightness(0) invert(1)'
+                            }}
+                        />
+                        <span className="notebook-label">READ OUR NOTEBOOK</span>
+                    </motion.div>
                 </section>
 
                 {/* Hero Section - Featured Post */}
                 <ScrollReveal>
-                    <section className="blog-hero">
+                    <a href="/blog/featured" className="blog-hero" id="featured-post">
                         <div className="blog-hero-image-wrapper">
                             <OptimizedImage
                                 src={blogMain}
@@ -133,15 +207,41 @@ const Blog = () => {
                             <p className="blog-hero-excerpt">
                                 From Billie Eilish to Jacob Collier, complex vocal layering is making a massive comeback. We explore how classical techniques are shaping the future of pop music.
                             </p>
-                            <div className="author-block">
-                                <div className="author-avatar" style={{ background: '#bab4a2' }}></div>
-                                <div>
-                                    <p className="author-name">By Marcus Thorne</p>
-                                    <span className="reading-time">10 min read</span>
+
+                            {/* Featured Author Metadata - Refined */}
+                            <div className="featured-author-metadata">
+                                <div className="author-info">
+                                    <div className="author-avatar" style={{ backgroundColor: '#bab4a2' }}>
+                                        MT
+                                    </div>
+                                    <div className="author-details">
+                                        <div className="author-name">Marcus Thorne</div>
+                                        <time className="post-date">Dec 20, 2024</time>
+                                    </div>
+                                </div>
+                                <div className="author-social">
+                                    <a
+                                        href="https://instagram.com/marcusthorne"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="social-link"
+                                        onClick={(e) => e.stopPropagation()}
+                                    >
+                                        <img src="/instagram.svg" alt="Instagram" />
+                                    </a>
+                                    <a
+                                        href="https://twitter.com/marcusthorne"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="social-link"
+                                        onClick={(e) => e.stopPropagation()}
+                                    >
+                                        <img src="/soical media icons/twitter.svg" alt="Twitter" />
+                                    </a>
                                 </div>
                             </div>
                         </div>
-                    </section>
+                    </a>
                 </ScrollReveal>
 
                 {/* Filter Navigation */}
@@ -182,35 +282,47 @@ const Blog = () => {
                                     </div>
                                     <h3 className="blog-card-title">{post.title}</h3>
                                     <p className="blog-card-excerpt">{post.excerpt}</p>
-                                    <div className="author-block">
-                                        <div className="author-name">By {post.author}</div>
+                                    {/* Author Metadata Block */}
+                                    <div className="author-metadata">
+                                        <div className="author-info">
+                                            <div
+                                                className="author-avatar"
+                                                style={{ backgroundColor: post.author.avatarColor }}
+                                            >
+                                                {post.author.initials}
+                                            </div>
+                                            <div className="author-details">
+                                                <div className="author-name">{post.author.name}</div>
+                                                <time className="post-date">{post.date}</time>
+                                            </div>
+                                        </div>
+                                        <div className="author-social">
+                                            <a
+                                                href={post.author.instagram}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="social-link"
+                                                onClick={(e) => e.stopPropagation()}
+                                            >
+                                                <img src="/instagram.svg" alt="Instagram" />
+                                            </a>
+                                            <a
+                                                href={post.author.twitter}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="social-link"
+                                                onClick={(e) => e.stopPropagation()}
+                                            >
+                                                <img src="/soical media icons/twitter.svg" alt="Twitter" />
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
                             </a>
                         </ScrollReveal>
                     ))}
 
-                    {/* Newsletter In-Stream */}
-                    <ScrollReveal>
-                        <div className="blog-newsletter-section">
-                            <h3 className="blog-newsletter-title">Subscribe to our Notebook</h3>
-                            <p className="blog-newsletter-subtitle">
-                                Get the latest stories, theory deep-dives, and concert announcements delivered to your inbox.
-                            </p>
-                            <button
-                                className="btn btn-primary"
-                                style={{ padding: '0.8rem 3rem' }}
-                                onClick={() => {
-                                    const footerNewsletter = document.getElementById('newsletter-section');
-                                    if (footerNewsletter) {
-                                        footerNewsletter.scrollIntoView({ behavior: 'smooth' });
-                                    }
-                                }}
-                            >
-                                SUBSCRIBE
-                            </button>
-                        </div>
-                    </ScrollReveal>
+
                 </div>
             </main>
         </div>

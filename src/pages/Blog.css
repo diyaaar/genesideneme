@@ -14,21 +14,26 @@
    Intro Section (New)
    ========================================= */
 .blog-intro-section {
-    min-height: 100vh;
-    width: 90%;
-    max-width: 1200px;
-    margin: 0 auto;
+    height: 100vh;
+    min-height: 450px;
+    /* Minimum height for very small screens */
     position: relative;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    padding-top: 80px;
-    /* Offset for safe header clearance */
-    padding-bottom: 2rem;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding: 180px 0 0;
+    /* Top padding for header, no bottom padding needed */
+    overflow: hidden;
 }
 
 .blog-intro-content {
-    max-width: 900px;
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 var(--spacing-md);
+    position: relative;
+    z-index: 10;
 }
 
 .blog-eyebrow {
@@ -92,6 +97,15 @@
     grid-template-columns: 1.2fr 0.8fr;
     gap: 4rem;
     align-items: center;
+    text-decoration: none;
+    /* Clickable link */
+    cursor: pointer;
+    transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.blog-hero:hover {
+    transform: translateY(-2px);
+    /* Subtle lift on hover */
 }
 
 .blog-hero-image-wrapper {
@@ -111,7 +125,8 @@
 }
 
 .blog-hero:hover .blog-hero-img {
-    transform: scale(1.03);
+    transform: scale(1.04);
+    /* Subtle, editorial zoom */
 }
 
 .blog-hero-content {
@@ -126,7 +141,7 @@
     color: var(--color-secondary);
     text-transform: uppercase;
     letter-spacing: 2px;
-    margin-bottom: 1.5rem;
+    margin-bottom: 0;
     align-items: center;
 }
 
@@ -137,6 +152,12 @@
     margin-bottom: 1.5rem;
     color: #fff;
     font-weight: 400;
+    transition: color 0.3s ease;
+}
+
+.blog-hero:hover .blog-hero-title {
+    color: var(--color-secondary);
+    /* Subtle color shift on hover */
 }
 
 .blog-hero-excerpt {
@@ -146,6 +167,11 @@
     color: rgba(255, 255, 255, 0.7);
     margin-bottom: 2rem;
     max-width: 95%;
+}
+
+.blog-hero-meta .read-time {
+    color: rgba(255, 255, 255, 0.5);
+    /* Lighter for subtle hierarchy */
 }
 
 .reading-time {
@@ -231,8 +257,8 @@
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     /* 3 Columns for density */
-    gap: 3rem;
-    /* Generous breathing room */
+    gap: 2.25rem;
+    /* Tighter, editorial rhythm */
 }
 
 .blog-card {
@@ -240,16 +266,24 @@
     flex-direction: column;
     text-decoration: none;
     position: relative;
+    transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.blog-card:hover {
+    transform: translateY(-3px);
 }
 
 .blog-card-image-wrapper {
     width: 100%;
-    aspect-ratio: 4/3;
+    aspect-ratio: 16/11;
+    /* More compact, less bulky */
     overflow: hidden;
-    border-radius: 4px;
-    margin-bottom: 1.5rem;
+    border-radius: 3px;
+    margin-bottom: 0.9rem;
+    /* Tighter spacing */
     position: relative;
-    background-color: rgba(255, 255, 255, 0.05);
+    background-color: rgba(255, 255, 255, 0.03);
+    /* Reduced background weight */
 }
 
 .blog-card-img {
@@ -260,27 +294,49 @@
 }
 
 .blog-card:hover .blog-card-img {
-    transform: scale(1.05);
+    transform: scale(1.04);
+    /* Subtle, editorial */
+}
+
+.blog-card-content {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
 }
 
 .blog-card-meta {
-    font-size: 0.75rem;
+    font-size: 0.65rem;
+    /* Smaller for compactness */
     color: var(--color-secondary);
     text-transform: uppercase;
     letter-spacing: 1.5px;
-    margin-bottom: 0.8rem;
+    margin-bottom: 0.6rem;
+    /* Tighter */
+    opacity: 0.72;
+    /* Lighter */
     display: flex;
     align-items: center;
-    gap: 0.8rem;
+    gap: 0.65rem;
 }
 
 .blog-card-title {
     font-family: var(--font-heading);
-    font-size: 1.5rem;
-    line-height: 1.3;
+    font-size: 1.25rem;
+    /* Smaller for compactness */
+    line-height: 1.32;
+    /* Precise for 2-line allocation */
     color: #fff;
-    margin-bottom: 1rem;
+    margin-bottom: 0.65rem;
+    /* Reduced spacing */
     transition: color 0.3s ease;
+    /* Fixed height allocation for grid alignment */
+    min-height: calc(1.25rem * 1.32 * 2);
+    /* Exactly 2 lines */
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 
 .blog-card:hover .blog-card-title {
@@ -289,36 +345,251 @@
 
 .blog-card-excerpt {
     font-family: var(--font-primary);
-    font-size: 0.95rem;
-    line-height: 1.6;
-    color: rgba(255, 255, 255, 0.6);
-    margin-bottom: 1.5rem;
+    font-size: 0.85rem;
+    /* Smaller for compactness */
+    line-height: 1.55;
+    /* Precise for 3-line allocation */
+    color: rgba(255, 255, 255, 0.52);
+    /* Lighter */
+    margin-bottom: 1rem;
+    /* Reduced */
+    /* Fixed height allocation for grid alignment */
+    min-height: calc(0.85rem * 1.55 * 3);
+    /* Exactly 3 lines */
     display: -webkit-box;
     -webkit-line-clamp: 3;
     line-clamp: 3;
-    /* Standard property */
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
 
-.author-block {
+/* =========================================
+   Author Metadata (Blog Cards)
+   ========================================= */
+.author-metadata {
     margin-top: auto;
+    padding-top: 0.95rem;
+    /* Tighter for compactness */
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    /* Lighter divider */
     display: flex;
     align-items: center;
-    gap: 0.8rem;
+    justify-content: space-between;
+    gap: 0.85rem;
+}
+
+.author-info {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex: 1;
+    min-width: 0;
+    /* Allow text truncation */
 }
 
 .author-avatar {
     width: 30px;
+    /* Smaller for compact cards */
     height: 30px;
     border-radius: 50%;
     background-color: var(--color-secondary);
-    opacity: 0.8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-primary);
+    font-size: 0.62rem;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    color: #fff;
+    flex-shrink: 0;
+    opacity: 0.85;
+    /* Lighter */
+    transition: opacity 0.3s ease;
+}
+
+.blog-card:hover .author-avatar {
+    opacity: 1;
+}
+
+.author-details {
+    display: flex;
+    flex-direction: column;
+    gap: 0.08rem;
+    /* Tighter for compact */
+    min-width: 0;
 }
 
 .author-name {
-    font-size: 0.8rem;
+    font-family: var(--font-primary);
+    font-size: 0.78rem;
+    /* Smaller for compact */
+    font-weight: 500;
     color: rgba(255, 255, 255, 0.9);
+    /* Lighter */
+    line-height: 1.3;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.post-date {
+    font-family: var(--font-primary);
+    font-size: 0.65rem;
+    /* Smaller for compact */
+    color: rgba(255, 255, 255, 0.38);
+    /* Lighter */
+    letter-spacing: 0.02em;
+}
+
+.author-social {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    /* Tighter for compact */
+    flex-shrink: 0;
+}
+
+.social-link {
+    width: 15px;
+    /* Smaller for compact cards */
+    height: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.28;
+    /* Lighter default state */
+    transition: all 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+    position: relative;
+}
+
+.social-link img {
+    width: 100%;
+    height: 100%;
+    filter: brightness(0) invert(1);
+    transition: filter 0.25s ease;
+}
+
+.social-link:hover {
+    opacity: 0.85;
+    /* Subtle hover */
+    transform: translateY(-1px);
+}
+
+.social-link:hover img {
+    filter: brightness(0) invert(1) sepia(1) saturate(3) hue-rotate(20deg);
+}
+
+/* Ensure social links don't trigger card navigation */
+.social-link:active {
+    transform: translateY(0);
+}
+
+/* Featured Post Author Metadata - Refined to match blog cards */
+.featured-author-metadata {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    /* Slightly more visible than cards */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.featured-author-metadata .author-info {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    flex: 1;
+    min-width: 0;
+}
+
+.featured-author-metadata .author-avatar {
+    width: 38px;
+    /* Slightly larger for featured */
+    height: 38px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-primary);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    color: #fff;
+    flex-shrink: 0;
+    opacity: 0.9;
+    transition: opacity 0.3s ease;
+}
+
+.blog-hero:hover .featured-author-metadata .author-avatar {
+    opacity: 1;
+}
+
+.featured-author-metadata .author-details {
+    display: flex;
+    flex-direction: column;
+    gap: 0.12rem;
+    min-width: 0;
+}
+
+.featured-author-metadata .author-name {
+    font-family: var(--font-primary);
+    font-size: 0.9rem;
+    /* Slightly larger for featured */
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.95);
+    line-height: 1.3;
+}
+
+.featured-author-metadata .post-date {
+    font-family: var(--font-primary);
+    font-size: 0.72rem;
+    color: rgba(255, 255, 255, 0.42);
+    letter-spacing: 0.02em;
+}
+
+.featured-author-metadata .author-social {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    flex-shrink: 0;
+}
+
+.featured-author-metadata .social-link {
+    width: 18px;
+    /* Slightly larger for featured */
+    height: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.32;
+    transition: all 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+    position: relative;
+}
+
+.featured-author-metadata .social-link img {
+    width: 100%;
+    height: 100%;
+    filter: brightness(0) invert(1);
+    transition: filter 0.25s ease;
+}
+
+.featured-author-metadata .social-link:hover {
+    opacity: 0.88;
+    transform: translateY(-1px);
+}
+
+.featured-author-metadata .social-link:hover img {
+    filter: brightness(0) invert(1) sepia(1) saturate(3) hue-rotate(20deg);
+}
+
+/* Deprecated - old author block styles */
+.blog-hero .author-block {
+    margin-top: auto;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
 }
 
 /* =========================================
@@ -357,7 +628,8 @@
 @media (max-width: 1024px) {
     .blog-grid {
         grid-template-columns: repeat(2, 1fr);
-        gap: 2.5rem;
+        gap: 2rem;
+        /* Maintain editorial rhythm */
     }
 
     .blog-hero {
@@ -369,10 +641,42 @@
     }
 }
 
+/* Tablet Optimization */
+@media (max-width: 900px) {
+    .blog-intro-section {
+        height: 100vh;
+        padding: 160px 0 0;
+        /* Adjusted for tablet header */
+    }
+}
+
 @media (max-width: 768px) {
     .blog-page {
-        padding-top: 140px;
-        /* More space for mobile header */
+        padding-top: 0;
+        /* Remove extra padding - hero handles its own */
+    }
+
+    .blog-intro-section {
+        height: 100vh;
+        min-height: 400px;
+        padding: 140px 0 0;
+        /* Reduced top padding for mobile header */
+    }
+
+    .blog-intro-content {
+        z-index: 10;
+        /* Ensure text is above background/overlays */
+        position: relative;
+    }
+
+    .blog-intro-headline {
+        font-size: clamp(2rem, 8vw, 2.5rem);
+    }
+
+    /* Mobile: Notebook group stays absolute but with adjusted positioning */
+    .notebook-group {
+        bottom: 6vh;
+        /* Slightly closer to bottom on mobile */
     }
 
     .blog-hero {
@@ -399,7 +703,8 @@
 
     .blog-grid {
         grid-template-columns: 1fr;
-        gap: 3rem;
+        gap: 2.25rem;
+        /* Consistent rhythm on mobile */
     }
 
     .blog-nav {
@@ -425,4 +730,120 @@
     .blog-newsletter-title {
         font-size: 1.8rem;
     }
+
+    /* Author Metadata - Mobile Adjustments */
+    .author-metadata {
+        padding-top: 0.9rem;
+        /* Maintain compact spacing */
+    }
+
+    .author-avatar {
+        width: 28px;
+        /* Proportionally smaller on mobile */
+        height: 28px;
+        font-size: 0.6rem;
+    }
+
+    .author-name {
+        font-size: 0.75rem;
+    }
+
+    .post-date {
+        font-size: 0.63rem;
+    }
+
+    .social-link {
+        width: 14px;
+        /* Maintain compact proportion */
+        height: 14px;
+    }
+
+    /* Featured Author Metadata - Mobile */
+    .featured-author-metadata {
+        padding-top: 1.2rem;
+        margin-top: 1.5rem;
+    }
+
+    .featured-author-metadata .author-avatar {
+        width: 34px;
+        height: 34px;
+        font-size: 0.68rem;
+    }
+
+    .featured-author-metadata .author-name {
+        font-size: 0.85rem;
+    }
+
+    .featured-author-metadata .post-date {
+        font-size: 0.68rem;
+    }
+
+    .featured-author-metadata .social-link {
+        width: 16px;
+        height: 16px;
+    }
+}
+
+/* Very Small Mobile Devices */
+@media (max-width: 400px) {
+    .blog-intro-section {
+        height: 100vh;
+        padding: 130px 0 0;
+        /* Further reduced padding for very small screens */
+    }
+
+    .blog-intro-content {
+        padding: 0 1rem;
+        /* Tighter horizontal padding */
+    }
+
+    .notebook-group {
+        bottom: 5vh;
+        /* Even closer on very small screens */
+    }
+}
+
+/* Notebook Group Styles */
+.notebook-group {
+    position: absolute;
+    bottom: 8vh;
+    /* Uses viewport height unit for responsiveness */
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 20;
+    /* Ensure it's above other content */
+}
+
+.notebook-group:hover {
+    transform: translateX(-50%) translateY(-3px);
+    /* Gentle lift, not dramatic */
+}
+
+.notebook-group img {
+    transition: opacity 0.4s cubic-bezier(0.22, 1, 0.36, 1), transform 0.3s ease;
+}
+
+.notebook-group:hover img {
+    opacity: 0.68;
+    /* Subtle increase - keeps translucent, refined feel */
+}
+
+.notebook-label {
+    font-family: var(--font-primary);
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.5);
+    transition: color 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.notebook-group:hover .notebook-label {
+    color: rgba(255, 255, 255, 0.7);
+    /* Subtle brightening, not bold accent */
 }

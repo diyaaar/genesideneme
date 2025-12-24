@@ -84,8 +84,9 @@
 }
 
 .inline-collab-link {
-    display: inline-block;
-    margin-left: 0.5rem;
+    display: block;
+    margin-top: 0.5rem;
+    /* Vertical shift - one line below */
     color: var(--color-secondary);
     font-weight: 400;
     font-style: italic;
@@ -93,6 +94,8 @@
     transition: all 0.3s ease;
     opacity: 0.9;
     border-bottom: 1px solid transparent;
+    width: fit-content;
+    /* Prevents full-width block */
 }
 
 .inline-collab-link:hover {
