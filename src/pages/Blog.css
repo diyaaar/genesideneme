@@ -23,7 +23,7 @@
     justify-content: flex-start;
     align-items: flex-start;
     padding: 180px 0 0;
-    /* Top padding for header, no bottom padding needed */
+    /* Top padding for header */
     overflow: hidden;
 }
 
@@ -275,8 +275,8 @@
 
 .blog-card-image-wrapper {
     width: 100%;
-    aspect-ratio: 16/11;
-    /* More compact, less bulky */
+    aspect-ratio: 16/5.5;
+    /* Reduced vertical size - lighter, more compact */
     overflow: hidden;
     border-radius: 3px;
     margin-bottom: 0.9rem;
@@ -789,7 +789,7 @@
     .blog-intro-section {
         height: 100vh;
         padding: 130px 0 0;
-        /* Further reduced padding for very small screens */
+        /* Further reduced for very small screens */
     }
 
     .blog-intro-content {

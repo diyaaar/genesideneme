@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { motion } from 'framer-motion';
 import ScrollReveal from '../components/ScrollReveal';
 import TypewriterText from '../components/TypewriterText';
 import OptimizedImage from '../components/OptimizedImage';
+import HeroTypewriterHeadlines from '../components/HeroTypewriterHeadlines';
 import './Blog.css';
 
 // Import Assets
@@ -11,6 +12,15 @@ import choirImg from '../assets/images/choir-large.webp';
 import podcastImg from '../assets/images/podcast-large.webp';
 import blogSmall from '../assets/images/blog-small.webp';
 import choirSmall from '../assets/images/choir-small.webp';
+
+// Sample blog headlines for typewriter effect
+const TYPEWRITER_HEADLINES = [
+    "The Resurgence of Polyphony in Modern Pop",
+    "Echoes from the Past: The Making of Our New Album",
+    "The Science of Harmony: Why We Love Chords",
+    "Vocal Health 101 for Touring Choirs",
+    "Interview: The Future of Choral Music"
+];
 
 const POSTS = [
     {
@@ -83,6 +93,10 @@ const Blog = () => {
     const [activeCategory, setActiveCategory] = useState('All');
     const categories = ['All', 'Behind the Scenes', 'Music Theory', 'Education', 'Interviews'];
 
+    // Refs for dynamic typewriter positioning
+    const subscribeCtaRef = useRef(null);
+    const notebookRef = useRef(null);
+
     const filteredPosts = activeCategory === 'All'
         ? POSTS
         : POSTS.filter(post => post.category === activeCategory);
@@ -142,6 +156,7 @@ const Blog = () => {
                         </motion.h1>
 
                         <motion.div
+                            ref={subscribeCtaRef}
                             className="blog-intro-cta"
                             initial={{ opacity: 0, y: 10 }}
                             animate={{ opacity: 1, y: 0 }}
@@ -152,9 +167,16 @@ const Blog = () => {
                         </motion.div>
                     </div>
 
-                    {/* Notebook Icon - Bottom Positioned */}
+                    {/* Center-Screen Typewriter Headlines */}
+                    <HeroTypewriterHeadlines
+                        headlines={TYPEWRITER_HEADLINES}
+                        subscribeRef={subscribeCtaRef}
+                        notebookRef={notebookRef}
+                    />
+
                     {/* Notebook Icon - Bottom Positioned */}
                     <motion.div
+                        ref={notebookRef}
                         className="notebook-group"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
