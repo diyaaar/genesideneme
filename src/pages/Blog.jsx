@@ -236,7 +236,7 @@ const Blog = () => {
                                         className="social-link"
                                         onClick={(e) => e.stopPropagation()}
                                     >
-                                        <img src="/soical media icons/twitter.svg" alt="Twitter" />
+                                        <img src="/twitter.svg" alt="Twitter" />
                                     </a>
                                 </div>
                             </div>
@@ -313,7 +313,7 @@ const Blog = () => {
                                                 className="social-link"
                                                 onClick={(e) => e.stopPropagation()}
                                             >
-                                                <img src="/soical media icons/twitter.svg" alt="Twitter" />
+                                                <img src="/twitter.svg" alt="Twitter" />
                                             </a>
                                         </div>
                                     </div>
