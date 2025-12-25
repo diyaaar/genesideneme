@@ -5,19 +5,21 @@ import Home from './pages/Home';
 import Store from './pages/Store';
 import Collab from './pages/Collab';
 import Blog from './pages/Blog';
+import Media from './pages/Media';
 import ScrollToTop from './components/ScrollToTop';
 
 function App() {
   return (
     <Router>
       <ScrollToTop />
-      <div className="app">
+      <div className="app" style={{ backgroundColor: '#05060a' }}>
         <Header />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/collab" element={<Collab />} />
           <Route path="/store" element={<Store />} />
           <Route path="/blog" element={<Blog />} />
+          <Route path="/media" element={<Media />} />
         </Routes>
         <Footer />
       </div>

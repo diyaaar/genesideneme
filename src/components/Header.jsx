@@ -12,6 +12,7 @@ const Header = () => {
     const isStorePage = location.pathname === '/store';
     const isCollabPage = location.pathname === '/collab';
     const isBlogPage = location.pathname.startsWith('/blog');
+    const isMediaPage = location.pathname === '/media';
 
     React.useEffect(() => {
         const handleScroll = () => {
@@ -27,6 +28,10 @@ const Header = () => {
             }
             if (isBlogPage) {
                 setActiveSection('blog');
+                return;
+            }
+            if (isMediaPage) {
+                setActiveSection('media');
                 return;
             }
 
@@ -72,8 +77,13 @@ const Header = () => {
             return;
         }
 
+        if (sectionId === 'media') {
+            navigate('/media');
+            return;
+        }
+
         if (sectionId === 'home') {
-            if (isStorePage || isCollabPage || isBlogPage) {
+            if (isStorePage || isCollabPage || isBlogPage || isMediaPage) {
                 navigate('/');
             } else {
                 window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -82,7 +92,7 @@ const Header = () => {
         }
 
         // For other sections (About, etc.)
-        if (isStorePage || isCollabPage || isBlogPage) {
+        if (isStorePage || isCollabPage || isBlogPage || isMediaPage) {
             // If on Store page, navigate to Home and then scroll (simulated by passing hash)
             // Ideally navigate to combined path, but simple navigate works
             navigate('/');
@@ -148,6 +158,7 @@ const Header = () => {
                             if (sectionId === 'store') href = '/store';
                             if (sectionId === 'collab') href = '/collab';
                             if (sectionId === 'blog') href = '/blog';
+                            if (sectionId === 'media') href = '/media';
 
                             return (
                                 <li key={item}>

@@ -10,9 +10,13 @@ const HeroSection = () => {
         offset: ["start start", "end start"]
     });
 
-    const yBg = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
-    const yText = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
-    const opacityText = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
+    // Detect mobile for performance optimization (disable parallax on mobile)
+    const isMobile = typeof window !== 'undefined' && window.innerWidth <= 768;
+
+    // Only apply parallax transforms on desktop for smooth mobile scrolling
+    const yBg = useTransform(scrollYProgress, [0, 1], isMobile ? ["0%", "0%"] : ["0%", "50%"]);
+    const yText = useTransform(scrollYProgress, [0, 1], isMobile ? ["0%", "0%"] : ["0%", "100%"]);
+    const opacityText = useTransform(scrollYProgress, [0, 0.5], [1, isMobile ? 1 : 0]);
 
     return (
         <header
@@ -20,7 +24,9 @@ const HeroSection = () => {
             id="home"
             className="hero"
             style={{
-                // Styles moved to HeroSection.css for responsiveness
+                // GPU compositing for smoother rendering
+                willChange: 'transform',
+                transform: 'translateZ(0)'
             }}
         >
             {/* Parallax Background - Velvet Effect */}
@@ -34,7 +40,8 @@ const HeroSection = () => {
                     height: '120%',
                     y: yBg,
                     zIndex: 1,
-                    background: 'transparent'
+                    background: 'transparent',
+                    willChange: isMobile ? 'auto' : 'transform'
                 }}
             />
 
@@ -55,7 +62,8 @@ const HeroSection = () => {
                     display: 'flex',
                     flexDirection: 'column',
                     alignItems: 'center',
-                    justifyContent: 'center'
+                    justifyContent: 'center',
+                    willChange: isMobile ? 'auto' : 'transform, opacity'
                 }}
             >
                 {/* Centered Content Block */}

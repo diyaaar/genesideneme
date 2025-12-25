@@ -9,6 +9,9 @@
     overflow: hidden;
     position: relative;
     background: transparent;
+    /* GPU compositing for smooth scroll */
+    transform: translateZ(0);
+    backface-visibility: hidden;
 }
 
 /* Mobile & Tablet Optimization */

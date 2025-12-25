@@ -92,7 +92,7 @@ const Footer = () => {
                             <div className="footer-links">
                                 <Link to="/about" className="footer-link">About Us</Link>
                                 <Link to="/contact" className="footer-link">Contact</Link>
-                                <Link to="/shop" className="footer-link">Store</Link>
+                                <Link to="/store" className="footer-link">Store</Link>
                                 <Link to="/collab" className="footer-link">Collab</Link>
                             </div>
                         </div>
@@ -103,6 +103,7 @@ const Footer = () => {
                             <div className="footer-links">
                                 <Link to="/choir" className="footer-link">Choir</Link>
                                 <Link to="/podcast" className="footer-link">Podcast</Link>
+                                <Link to="/media" className="footer-link">Media</Link>
                                 <Link to="/blog" className="footer-link">Blog</Link>
                             </div>
                         </div>
