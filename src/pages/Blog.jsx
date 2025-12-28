@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { motion } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import ScrollReveal from '../components/ScrollReveal';
 import TypewriterText from '../components/TypewriterText';
 import OptimizedImage from '../components/OptimizedImage';
@@ -96,6 +96,17 @@ const Blog = () => {
     // Refs for dynamic typewriter positioning
     const subscribeCtaRef = useRef(null);
     const notebookRef = useRef(null);
+    const introRef = useRef(null);
+
+    // Parallax Logic matching Home Page
+    const { scrollYProgress } = useScroll({
+        target: introRef,
+        offset: ["start start", "end start"]
+    });
+
+    const isMobile = typeof window !== 'undefined' && window.innerWidth <= 768;
+    const yContent = useTransform(scrollYProgress, [0, 1], isMobile ? ["0%", "0%"] : ["0%", "100%"]);
+    const opacityContent = useTransform(scrollYProgress, [0, 0.5], [1, isMobile ? 1 : 0]);
 
     const filteredPosts = activeCategory === 'All'
         ? POSTS
@@ -134,219 +145,239 @@ const Blog = () => {
         <div className="blog-page">
             <main>
                 {/* Intro Section - Editorial Opening */}
-                <section className="blog-intro-section">
-                    <div className="blog-intro-content">
-                        <motion.div
-                            className="blog-eyebrow"
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.8, delay: 0.2 }}
-                        >
-                            The Notebook
-                        </motion.div>
-                        <motion.h1
-                            className="blog-intro-headline"
-                            initial={{ opacity: 0, y: 30 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 1, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
-                        >
-                            Ideas behind the music,
-                            <br />
-                            <span className="italic">Inspirations shaping our journey.</span>
-                        </motion.h1>
-
-                        <motion.div
-                            ref={subscribeCtaRef}
-                            className="blog-intro-cta"
-                            initial={{ opacity: 0, y: 10 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.8, delay: 0.8 }}
-                            onClick={handleSubscribeScroll}
-                        >
-                            Subscribe to our Notebook →
-                        </motion.div>
-                    </div>
-
-                    {/* Center-Screen Typewriter Headlines */}
-                    <HeroTypewriterHeadlines
-                        headlines={TYPEWRITER_HEADLINES}
-                        subscribeRef={subscribeCtaRef}
-                        notebookRef={notebookRef}
-                    />
-
-                    {/* Notebook Icon - Bottom Positioned */}
+                <section
+                    ref={introRef}
+                    className="blog-intro-section"
+                    style={{
+                        position: 'relative',
+                        zIndex: 10
+                    }}
+                >
                     <motion.div
-                        ref={notebookRef}
-                        className="notebook-group"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ delay: 1.2, duration: 1.5 }}
-                        onClick={() => {
-                            const target = document.getElementById('featured-post');
-                            if (target) {
-                                const targetPosition = target.getBoundingClientRect().top + window.pageYOffset;
-                                const offset = 120; // Natural offset space above section
-                                window.scrollTo({
-                                    top: targetPosition - offset,
-                                    behavior: 'smooth'
-                                });
-                            }
+                        style={{
+                            y: yContent,
+                            opacity: opacityContent,
+                            width: '100%',
+                            height: '100%',
+                            position: 'relative',
+                            willChange: 'transform, opacity'
                         }}
                     >
-                        <img
-                            src="/blog_page_notebook.svg"
-                            alt="Notebook"
-                            style={{
-                                width: '36px',
-                                height: 'auto',
-                                opacity: 0.6,
-                                filter: 'brightness(0) invert(1)'
-                            }}
+                        <div className="blog-intro-content">
+                            <motion.div
+                                className="blog-eyebrow"
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.8, delay: 0.2 }}
+                            >
+                                The Notebook
+                            </motion.div>
+                            <motion.h1
+                                className="blog-intro-headline"
+                                initial={{ opacity: 0, y: 30 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 1, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                            >
+                                Ideas behind the music,
+                                <br />
+                                <span className="italic">Inspirations shaping our journey.</span>
+                            </motion.h1>
+
+                            <motion.div
+                                ref={subscribeCtaRef}
+                                className="blog-intro-cta"
+                                initial={{ opacity: 0, y: 10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.8, delay: 0.8 }}
+                                onClick={handleSubscribeScroll}
+                            >
+                                Subscribe to our Notebook →
+                            </motion.div>
+                        </div>
+
+                        {/* Center-Screen Typewriter Headlines */}
+                        <HeroTypewriterHeadlines
+                            headlines={TYPEWRITER_HEADLINES}
+                            subscribeRef={subscribeCtaRef}
+                            notebookRef={notebookRef}
                         />
-                        <span className="notebook-label">READ OUR NOTEBOOK</span>
+
+                        {/* Notebook Icon - Bottom Positioned */}
+                        <motion.div
+                            ref={notebookRef}
+                            className="notebook-group"
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ delay: 1.2, duration: 1.5 }}
+                            onClick={() => {
+                                const target = document.getElementById('featured-post');
+                                if (target) {
+                                    const targetPosition = target.getBoundingClientRect().top + window.pageYOffset;
+                                    const offset = 120; // Natural offset space above section
+                                    window.scrollTo({
+                                        top: targetPosition - offset,
+                                        behavior: 'smooth'
+                                    });
+                                }
+                            }}
+                        >
+                            <img
+                                src="/blog_page_notebook.svg"
+                                alt="Notebook"
+                                style={{
+                                    width: '36px',
+                                    height: 'auto',
+                                    opacity: 0.6,
+                                    filter: 'brightness(0) invert(1)'
+                                }}
+                            />
+                            <span className="notebook-label">READ OUR NOTEBOOK</span>
+                        </motion.div>
                     </motion.div>
                 </section>
 
                 {/* Hero Section - Featured Post */}
-                <ScrollReveal>
-                    <a href="/blog/featured" className="blog-hero" id="featured-post">
-                        <div className="blog-hero-image-wrapper">
-                            <OptimizedImage
-                                src={blogMain}
-                                alt="Featured Blog Post"
-                                className="blog-hero-img"
-                            />
-                        </div>
-                        <div className="blog-hero-content">
-                            <div className="blog-hero-meta">
-                                <span className="category-tag">Featured</span>
-                                <span className="divider">•</span>
-                                <span className="date">Dec 20, 2024</span>
+                <div style={{ position: 'relative', zIndex: 20, backgroundColor: '#05060a' }}>
+                    <ScrollReveal>
+                        <a href="/blog/featured" className="blog-hero" id="featured-post">
+                            <div className="blog-hero-image-wrapper">
+                                <OptimizedImage
+                                    src={blogMain}
+                                    alt="Featured Blog Post"
+                                    className="blog-hero-img"
+                                />
                             </div>
-                            <h2 className="blog-hero-title">
-                                The Resurgence of Polyphony in Modern Pop
-                            </h2>
-                            <p className="blog-hero-excerpt">
-                                From Billie Eilish to Jacob Collier, complex vocal layering is making a massive comeback. We explore how classical techniques are shaping the future of pop music.
-                            </p>
+                            <div className="blog-hero-content">
+                                <div className="blog-hero-meta">
+                                    <span className="category-tag">Featured</span>
+                                    <span className="divider">•</span>
+                                    <span className="date">Dec 20, 2024</span>
+                                </div>
+                                <h2 className="blog-hero-title">
+                                    The Resurgence of Polyphony in Modern Pop
+                                </h2>
+                                <p className="blog-hero-excerpt">
+                                    From Billie Eilish to Jacob Collier, complex vocal layering is making a massive comeback. We explore how classical techniques are shaping the future of pop music.
+                                </p>
 
-                            {/* Featured Author Metadata - Refined */}
-                            <div className="featured-author-metadata">
-                                <div className="author-info">
-                                    <div className="author-avatar" style={{ backgroundColor: '#bab4a2' }}>
-                                        MT
+                                {/* Featured Author Metadata - Refined */}
+                                <div className="featured-author-metadata">
+                                    <div className="author-info">
+                                        <div className="author-avatar" style={{ backgroundColor: '#bab4a2' }}>
+                                            MT
+                                        </div>
+                                        <div className="author-details">
+                                            <div className="author-name">Marcus Thorne</div>
+                                            <time className="post-date">Dec 20, 2024</time>
+                                        </div>
                                     </div>
-                                    <div className="author-details">
-                                        <div className="author-name">Marcus Thorne</div>
-                                        <time className="post-date">Dec 20, 2024</time>
+                                    <div className="author-social">
+                                        <span className="follow-label">Follow</span>
+                                        <a
+                                            href="https://instagram.com/marcusthorne"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="social-link"
+                                            onClick={(e) => e.stopPropagation()}
+                                        >
+                                            <img src="/instagram.svg" alt="Instagram" />
+                                        </a>
+                                        <a
+                                            href="https://twitter.com/marcusthorne"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="social-link"
+                                            onClick={(e) => e.stopPropagation()}
+                                        >
+                                            <img src="/twitter.svg" alt="Twitter" />
+                                        </a>
                                     </div>
                                 </div>
-                                <div className="author-social">
-                                    <span className="follow-label">Follow</span>
-                                    <a
-                                        href="https://instagram.com/marcusthorne"
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="social-link"
-                                        onClick={(e) => e.stopPropagation()}
-                                    >
-                                        <img src="/instagram.svg" alt="Instagram" />
-                                    </a>
-                                    <a
-                                        href="https://twitter.com/marcusthorne"
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="social-link"
-                                        onClick={(e) => e.stopPropagation()}
-                                    >
-                                        <img src="/twitter.svg" alt="Twitter" />
-                                    </a>
-                                </div>
                             </div>
-                        </div>
-                    </a>
-                </ScrollReveal>
+                        </a>
+                    </ScrollReveal>
 
-                {/* Filter Navigation */}
-                <nav className="blog-nav">
-                    <div className="blog-nav-container">
-                        <div className="blog-categories">
-                            {categories.map(cat => (
-                                <span
-                                    key={cat}
-                                    className={`category-link ${activeCategory === cat ? 'active' : ''}`}
-                                    onClick={() => setActiveCategory(cat)}
-                                >
-                                    {cat}
-                                </span>
-                            ))}
+                    {/* Filter Navigation */}
+                    <nav className="blog-nav">
+                        <div className="blog-nav-container">
+                            <div className="blog-categories">
+                                {categories.map(cat => (
+                                    <span
+                                        key={cat}
+                                        className={`category-link ${activeCategory === cat ? 'active' : ''}`}
+                                        onClick={() => setActiveCategory(cat)}
+                                    >
+                                        {cat}
+                                    </span>
+                                ))}
+                            </div>
+                            {/* Optional Search Icon or minimal input here */}
                         </div>
-                        {/* Optional Search Icon or minimal input here */}
+                    </nav>
+
+                    {/* Main Grid */}
+                    <div className="blog-grid">
+                        {filteredPosts.map((post, index) => (
+                            <ScrollReveal key={post.id} delay={index * 0.1}>
+                                <a href={`/blog/${post.id}`} className="blog-card">
+                                    <div className="blog-card-image-wrapper">
+                                        <OptimizedImage
+                                            src={post.image}
+                                            alt={post.title}
+                                            className="blog-card-img"
+                                        />
+                                    </div>
+                                    <div className="blog-card-content">
+                                        <div className="blog-card-meta">
+                                            <span className="category-tag">{post.category}</span>
+                                            <span className="divider">•</span>
+                                            <span className="read-time">{post.readTime}</span>
+                                        </div>
+                                        <h3 className="blog-card-title">{post.title}</h3>
+                                        <p className="blog-card-excerpt">{post.excerpt}</p>
+                                        {/* Author Metadata Block */}
+                                        <div className="author-metadata">
+                                            <div className="author-info">
+                                                <div
+                                                    className="author-avatar"
+                                                    style={{ backgroundColor: post.author.avatarColor }}
+                                                >
+                                                    {post.author.initials}
+                                                </div>
+                                                <div className="author-details">
+                                                    <div className="author-name">{post.author.name}</div>
+                                                    <time className="post-date">{post.date}</time>
+                                                </div>
+                                            </div>
+                                            <div className="author-social">
+                                                <span className="follow-label">Follow</span>
+                                                <a
+                                                    href={post.author.instagram}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    className="social-link"
+                                                    onClick={(e) => e.stopPropagation()}
+                                                >
+                                                    <img src="/instagram.svg" alt="Instagram" />
+                                                </a>
+                                                <a
+                                                    href={post.author.twitter}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    className="social-link"
+                                                    onClick={(e) => e.stopPropagation()}
+                                                >
+                                                    <img src="/twitter.svg" alt="Twitter" />
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </ScrollReveal>
+                        ))}
+
+
                     </div>
-                </nav>
-
-                {/* Main Grid */}
-                <div className="blog-grid">
-                    {filteredPosts.map((post, index) => (
-                        <ScrollReveal key={post.id} delay={index * 0.1}>
-                            <a href={`/blog/${post.id}`} className="blog-card">
-                                <div className="blog-card-image-wrapper">
-                                    <OptimizedImage
-                                        src={post.image}
-                                        alt={post.title}
-                                        className="blog-card-img"
-                                    />
-                                </div>
-                                <div className="blog-card-content">
-                                    <div className="blog-card-meta">
-                                        <span className="category-tag">{post.category}</span>
-                                        <span className="divider">•</span>
-                                        <span className="read-time">{post.readTime}</span>
-                                    </div>
-                                    <h3 className="blog-card-title">{post.title}</h3>
-                                    <p className="blog-card-excerpt">{post.excerpt}</p>
-                                    {/* Author Metadata Block */}
-                                    <div className="author-metadata">
-                                        <div className="author-info">
-                                            <div
-                                                className="author-avatar"
-                                                style={{ backgroundColor: post.author.avatarColor }}
-                                            >
-                                                {post.author.initials}
-                                            </div>
-                                            <div className="author-details">
-                                                <div className="author-name">{post.author.name}</div>
-                                                <time className="post-date">{post.date}</time>
-                                            </div>
-                                        </div>
-                                        <div className="author-social">
-                                            <span className="follow-label">Follow</span>
-                                            <a
-                                                href={post.author.instagram}
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                                className="social-link"
-                                                onClick={(e) => e.stopPropagation()}
-                                            >
-                                                <img src="/instagram.svg" alt="Instagram" />
-                                            </a>
-                                            <a
-                                                href={post.author.twitter}
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                                className="social-link"
-                                                onClick={(e) => e.stopPropagation()}
-                                            >
-                                                <img src="/twitter.svg" alt="Twitter" />
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </ScrollReveal>
-                    ))}
-
-
                 </div>
             </main>
         </div>
