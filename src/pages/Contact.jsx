@@ -66,8 +66,11 @@ const Contact = () => {
             <main className="contact-hero">
                 {/* Visual Atmosphere */}
                 <div className="contact-bg-atmosphere">
-                    <div className="contact-spotlight"></div>
-                    <div className="contact-gold-glow"></div>
+                    <picture className="contact-bg-img">
+                        <source media="(max-width: 768px)" srcSet="/contactmobile.svg" />
+                        <img src="/contact.svg" alt="" className="contact-bg-img" />
+                    </picture>
+                    <div className="contact-overlay"></div>
                 </div>
 
                 <div className="contact-grid">
@@ -95,11 +98,7 @@ const Contact = () => {
                             </div>
                             <div className="detail-item">
                                 <span className="detail-label">Phone</span>
-                                <span className="detail-value">
-                                    +90 531 568 18 00
-                                    <br />
-                                    +90 543 383 17 95
-                                </span>
+                                <span className="detail-value">+90 531 568 18 00</span>
                             </div>
                             <div className="detail-item">
                                 <span className="detail-label">Rehearsals</span>
