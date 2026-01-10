@@ -18,7 +18,7 @@ const TypewriterText = ({ text, delay = 0, speed = 30, className = "" }) => {
         let index = 0;
         const intervalId = setInterval(() => {
             if (index < text.length) {
-                setDisplayedText((prev) => text.slice(0, index + 1));
+                setDisplayedText(text.slice(0, index + 1));
                 index++;
             } else {
                 clearInterval(intervalId);

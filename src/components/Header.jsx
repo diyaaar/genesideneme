@@ -57,7 +57,7 @@ const Header = () => {
         handleScroll(); // Trigger once
 
         return () => window.removeEventListener('scroll', handleScroll);
-    }, [isStorePage, isCollabPage, isBlogPage]);
+    }, [isStorePage, isCollabPage, isBlogPage, isMediaPage]);
 
     const handleNavClick = (e, item) => {
         e.preventDefault();

@@ -23,7 +23,7 @@ let manifest = {};
 if (fs.existsSync(MANIFEST_PATH)) {
     try {
         manifest = JSON.parse(fs.readFileSync(MANIFEST_PATH, 'utf-8'));
-    } catch (e) {
+    } catch {
         console.warn("Could not parse existing manifest, starting fresh.");
     }
 }
