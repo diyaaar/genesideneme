@@ -1,5 +1,6 @@
-import React, { useRef } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import React from 'react';
+import { motion } from 'framer-motion';
+import OptimizedImage from './OptimizedImage';
 import './ShopSection.css';
 
 const items = [
@@ -38,11 +39,10 @@ const GalleryItem = ({ item, index }) => {
             <div className="gallery-card">
                 <div className="card-image-wrapper">
                     {/* Security Blur: Image is permanently obscured */}
-                    <img
+                    <OptimizedImage
                         src={item.image}
                         alt="Locked Content"
                         className="card-img-locked"
-                        loading="lazy"
                     />
 
                     {/* Permanent Overlay */}

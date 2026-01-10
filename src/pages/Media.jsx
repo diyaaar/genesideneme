@@ -5,12 +5,8 @@ import EventModal from '../components/EventModal';
 import './Media.css';
 
 // Import Assets
-import blogLarge from '../assets/images/blog-large.webp';
-import blogSmall from '../assets/images/blog-small.webp';
-import choirLarge from '../assets/images/choir-large.webp';
-import choirSmall from '../assets/images/choir-small.webp';
-import podcastLarge from '../assets/images/podcast-large.webp';
-import podcastSmall from '../assets/images/podcast-small.webp';
+// Assets are now managed via manifest or remote URLs
+
 
 // Consolidating all media into "Events"
 const MEDIA_EVENTS = [

@@ -1,6 +1,7 @@
 import React, { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import TypewriterText from './TypewriterText';
+import OptimizedImage from './OptimizedImage';
 import './HeroSection.css';
 
 const HeroSection = () => {
@@ -161,19 +162,15 @@ const HeroSection = () => {
                         gap: '0.3rem'
                     }}
                 >
-                    <img
-                        src="/based_in_istanbul.svg"
-                        alt="Istanbul"
-                        width="150"
-                        height="100"
-                        loading="eager"
-                        fetchPriority="high"
-                        style={{
-                            width: '40px',
-                            height: 'auto',
-                            opacity: 0.9,
-                        }}
-                    />
+                    <div style={{ width: '150px', maxWidth: '40px', opacity: 0.9 }}>
+                        <OptimizedImage
+                            src="/based_in_istanbul.svg"
+                            alt="Istanbul"
+                            priority={true}
+                            width={150}
+                            height={100}
+                        />
+                    </div>
                     <span style={{
                         fontFamily: 'var(--font-primary)',
                         fontSize: '0.65rem',

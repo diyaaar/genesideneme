@@ -1,5 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 import ScrollReveal from '../components/ScrollReveal';
 import TypewriterText from '../components/TypewriterText';
 import OptimizedImage from '../components/OptimizedImage';
@@ -7,11 +8,15 @@ import HeroTypewriterHeadlines from '../components/HeroTypewriterHeadlines';
 import './Blog.css';
 
 // Import Assets
-import blogMain from '../assets/images/blog-large.webp';
-import choirImg from '../assets/images/choir-large.webp';
-import podcastImg from '../assets/images/podcast-large.webp';
-import blogSmall from '../assets/images/blog-small.webp';
-import choirSmall from '../assets/images/choir-small.webp';
+// Import Assets
+import manifest from '../lib/media/manifest.json';
+
+const blogMain = manifest['blog-hero'];
+const choirImg = manifest['choir-hero'];
+const podcastImg = manifest['podcast-hero'];
+// Reuse the same assets for small versions, the component handles sizing
+const blogSmall = manifest['blog-hero'];
+const choirSmall = manifest['choir-hero'];
 
 // Sample blog headlines for typewriter effect
 const TYPEWRITER_HEADLINES = [
@@ -90,6 +95,7 @@ const POSTS = [
 ];
 
 const Blog = () => {
+    const navigate = useNavigate();
     const [activeCategory, setActiveCategory] = useState('All');
     const categories = ['All', 'Behind the Scenes', 'Music Theory', 'Education', 'Interviews'];
 
@@ -239,12 +245,21 @@ const Blog = () => {
                 {/* Hero Section - Featured Post */}
                 <div style={{ position: 'relative', zIndex: 20, backgroundColor: '#05060a' }}>
                     <ScrollReveal>
-                        <a href="/blog/featured" className="blog-hero" id="featured-post">
+                        <div
+                            className="blog-hero"
+                            id="featured-post"
+                            onClick={() => navigate('/blog/featured')}
+                            role="link"
+                            tabIndex={0}
+                            style={{ cursor: 'pointer' }}
+                        >
                             <div className="blog-hero-image-wrapper">
                                 <OptimizedImage
                                     src={blogMain}
                                     alt="Featured Blog Post"
                                     className="blog-hero-img"
+                                    priority={true}
+                                    sizes="100vw"
                                 />
                             </div>
                             <div className="blog-hero-content">
@@ -294,7 +309,7 @@ const Blog = () => {
                                     </div>
                                 </div>
                             </div>
-                        </a>
+                        </div>
                     </ScrollReveal>
 
                     {/* Filter Navigation */}
@@ -319,12 +334,19 @@ const Blog = () => {
                     <div className="blog-grid">
                         {filteredPosts.map((post, index) => (
                             <ScrollReveal key={post.id} delay={index * 0.1}>
-                                <a href={`/blog/${post.id}`} className="blog-card">
+                                <div
+                                    className="blog-card"
+                                    onClick={() => navigate(`/blog/${post.id}`)}
+                                    role="link"
+                                    tabIndex={0}
+                                    style={{ cursor: 'pointer' }}
+                                >
                                     <div className="blog-card-image-wrapper">
                                         <OptimizedImage
                                             src={post.image}
                                             alt={post.title}
                                             className="blog-card-img"
+                                            sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
                                         />
                                     </div>
                                     <div className="blog-card-content">
@@ -372,7 +394,7 @@ const Blog = () => {
                                             </div>
                                         </div>
                                     </div>
-                                </a>
+                                </div>
                             </ScrollReveal>
                         ))}
 

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import ScrollReveal from './ScrollReveal';
+import OptimizedImage from './OptimizedImage';
 import './Footer.css';
 
 // Import Social Icons
@@ -20,7 +21,11 @@ const SocialIcon = ({ name, href, src }) => (
         onClick={(e) => !href || href === '#' ? e.preventDefault() : null}
         style={{ cursor: !href || href === '#' ? 'default' : 'pointer' }}
     >
-        <img src={src} alt={name} className="social-icon-img" />
+        <OptimizedImage
+            src={src}
+            alt={name}
+            className="social-icon-img"
+        />
     </a>
 );
 

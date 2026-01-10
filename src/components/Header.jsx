@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import OptimizedImage from './OptimizedImage';
 import { useLocation, useNavigate } from 'react-router-dom';
 import './Header.css';
 
@@ -135,7 +136,7 @@ const Header = () => {
             <div className="header-content">
                 <div className="logo-container">
                     <a href="/" onClick={(e) => { e.preventDefault(); navigate('/'); }}>
-                        <img
+                        <OptimizedImage
                             src="/genesi_nova.svg"
                             alt="Genesi Nova Logo"
                             className="header-logo"

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
+import OptimizedImage from '../components/OptimizedImage';
 import './Collab.css';
 
 const Collab = () => {
@@ -150,13 +151,13 @@ const Collab = () => {
                                 rel="noopener noreferrer"
                                 className="logo-link"
                             >
-                                <img
+                                <OptimizedImage
                                     src="/genesi_nova.svg"
                                     alt="Genesi Nova"
                                     className="brand-logo genesi-logo"
                                 />
                             </a>
-                            <img
+                            <OptimizedImage
                                 src="/collab/X.svg"
                                 alt="×"
                                 className="collaboration-x"
@@ -167,7 +168,7 @@ const Collab = () => {
                                 rel="noopener noreferrer"
                                 className="logo-link"
                             >
-                                <img
+                                <OptimizedImage
                                     src="/collab/salter/shalter-logo-white.svg"
                                     alt="Şalter"
                                     className="brand-logo salter-logo"
@@ -199,10 +200,9 @@ const Collab = () => {
                             transition={{ duration: 0.8 }}
                         >
                             <div className="figure-atmosphere" />
-                            <img
+                            <OptimizedImage
                                 src="/collab/salter/choir_salter.svg"
                                 alt="Genesi Nova Choir performing at Holyween"
-                                loading="lazy"
                             />
                         </motion.figure>
 
@@ -215,10 +215,9 @@ const Collab = () => {
                             transition={{ duration: 0.8, delay: 0.15 }}
                         >
                             <div className="figure-atmosphere" />
-                            <img
+                            <OptimizedImage
                                 src="/collab/salter/audience_salter.svg"
                                 alt="Audience at Holyween"
-                                loading="lazy"
                             />
                         </motion.figure>
                     </div>

@@ -105,13 +105,18 @@ const HeroTypewriterHeadlines = ({
         }
 
         if (!isDeleting && displayText === currentHeadline) {
-            setIsPaused(true);
-            return;
+            // Avoid synchronous state update
+            const timer = setTimeout(() => {
+                setIsPaused(true);
+            }, 0);
+            return () => clearTimeout(timer);
         }
 
         if (isDeleting && displayText === '') {
-            setIsDeleting(false);
-            setCurrentIndex((prev) => (prev + 1) % headlines.length);
+            setTimeout(() => {
+                setIsDeleting(false);
+                setCurrentIndex((prev) => (prev + 1) % headlines.length);
+            }, 0);
             return;
         }
 

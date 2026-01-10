@@ -31,9 +31,26 @@ const ArrowUpRight = () => (
 const EventModal = ({ isOpen, onClose, event }) => {
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
+    // Helper functions
+    const nextImage = React.useCallback((e) => {
+        if (e) e.stopPropagation();
+        if (event && event.images && event.images.length > 1) {
+            setCurrentImageIndex((prev) => (prev + 1) % event.images.length);
+        }
+    }, [event]);
+
+    const prevImage = React.useCallback((e) => {
+        if (e) e.stopPropagation();
+        if (event && event.images && event.images.length > 1) {
+            setCurrentImageIndex((prev) => (prev - 1 + event.images.length) % event.images.length);
+        }
+    }, [event]);
+
     // Reset index when event changes
     useEffect(() => {
-        if (isOpen) setCurrentImageIndex(0);
+        if (isOpen) {
+            setTimeout(() => setCurrentImageIndex(0), 0);
+        }
     }, [isOpen, event]);
 
     // Keyboard navigation
@@ -48,24 +65,9 @@ const EventModal = ({ isOpen, onClose, event }) => {
 
         window.addEventListener('keydown', handleKeyDown);
         return () => window.removeEventListener('keydown', handleKeyDown);
-    }, [isOpen, event, currentImageIndex]); // Added dependencies for safety
+    }, [isOpen, onClose, nextImage, prevImage]);
 
     if (!event) return null;
-
-    // Helper functions
-    const nextImage = (e) => {
-        if (e) e.stopPropagation();
-        if (event.images && event.images.length > 1) {
-            setCurrentImageIndex((prev) => (prev + 1) % event.images.length);
-        }
-    };
-
-    const prevImage = (e) => {
-        if (e) e.stopPropagation();
-        if (event.images && event.images.length > 1) {
-            setCurrentImageIndex((prev) => (prev - 1 + event.images.length) % event.images.length);
-        }
-    };
 
     const hasMultipleImages = event.images && event.images.length > 1;
 
