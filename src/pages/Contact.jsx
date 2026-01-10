@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import Footer from '../components/Footer';
+
+
 import OptimizedImage from '../components/OptimizedImage';
 import './Contact.css';
 
@@ -20,6 +21,28 @@ const Contact = () => {
 
     const [status, setStatus] = useState('idle'); // idle, submitting, success, error
     const [errors, setErrors] = useState({});
+
+    // Mobile detection for strict background removal (< 768px)
+    const [isMobile, setIsMobile] = useState(() => {
+        if (typeof window !== 'undefined') {
+            return window.innerWidth < 768; // Initial check
+        }
+        return false;
+    });
+
+    useEffect(() => {
+        const mediaQuery = window.matchMedia('(max-width: 767px)');
+
+        const handleResize = (e) => {
+            setIsMobile(e.matches);
+        };
+
+        // Set initial value based on listener status (safeguard)
+        setIsMobile(mediaQuery.matches);
+
+        mediaQuery.addEventListener('change', handleResize);
+        return () => mediaQuery.removeEventListener('change', handleResize);
+    }, []);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -64,14 +87,15 @@ const Contact = () => {
     return (
         <div className="contact-page">
             <main className="contact-hero">
-                {/* Visual Atmosphere */}
-                <div className="contact-bg-atmosphere">
-                    <picture className="contact-bg-img">
-                        <source media="(max-width: 768px)" srcSet="/contactmobile.svg" />
-                        <img src="/contact.svg" alt="" className="contact-bg-img" />
-                    </picture>
-                    <div className="contact-overlay"></div>
-                </div>
+                {/* Visual Atmosphere - Desktop Only (>= 768px) */}
+                {!isMobile && (
+                    <div className="contact-bg-atmosphere">
+                        <picture className="contact-bg-img">
+                            <img src="/contact.svg" alt="" className="contact-bg-img" />
+                        </picture>
+                        <div className="contact-overlay"></div>
+                    </div>
+                )}
 
                 <div className="contact-grid">
                     {/* Left Column: Info */}
@@ -220,7 +244,7 @@ const Contact = () => {
                     </motion.div>
                 </div>
             </main>
-            <Footer />
+
         </div>
     );
 };
