@@ -14,6 +14,8 @@ const Header = () => {
     const isCollabPage = location.pathname === '/collab';
     const isBlogPage = location.pathname.startsWith('/blog');
     const isMediaPage = location.pathname === '/media';
+    const isPodcastPage = location.pathname === '/podcast';
+    const isContactPage = location.pathname === '/contact';
 
     React.useEffect(() => {
         const handleScroll = () => {
@@ -33,6 +35,14 @@ const Header = () => {
             }
             if (isMediaPage) {
                 setActiveSection('media');
+                return;
+            }
+            if (isPodcastPage) {
+                setActiveSection('podcast');
+                return;
+            }
+            if (isContactPage) {
+                setActiveSection('contact');
                 return;
             }
 
@@ -57,7 +67,7 @@ const Header = () => {
         handleScroll(); // Trigger once
 
         return () => window.removeEventListener('scroll', handleScroll);
-    }, [isStorePage, isCollabPage, isBlogPage, isMediaPage]);
+    }, [isStorePage, isCollabPage, isBlogPage, isMediaPage, isPodcastPage, isContactPage]);
 
     const handleNavClick = (e, item) => {
         e.preventDefault();
@@ -83,8 +93,18 @@ const Header = () => {
             return;
         }
 
+        if (sectionId === 'podcast') {
+            navigate('/podcast');
+            return;
+        }
+
+        if (sectionId === 'contact') {
+            navigate('/contact');
+            return;
+        }
+
         if (sectionId === 'home') {
-            if (isStorePage || isCollabPage || isBlogPage || isMediaPage) {
+            if (isStorePage || isCollabPage || isBlogPage || isMediaPage || isContactPage) {
                 navigate('/');
             } else {
                 window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -93,7 +113,7 @@ const Header = () => {
         }
 
         // For other sections (About, etc.)
-        if (isStorePage || isCollabPage || isBlogPage || isMediaPage) {
+        if (isStorePage || isCollabPage || isBlogPage || isMediaPage || isPodcastPage || isContactPage) {
             // If on Store page, navigate to Home and then scroll (simulated by passing hash)
             // Ideally navigate to combined path, but simple navigate works
             navigate('/');
@@ -160,6 +180,8 @@ const Header = () => {
                             if (sectionId === 'collab') href = '/collab';
                             if (sectionId === 'blog') href = '/blog';
                             if (sectionId === 'media') href = '/media';
+                            if (sectionId === 'podcast') href = '/podcast';
+                            if (sectionId === 'contact') href = '/contact';
 
                             return (
                                 <li key={item}>

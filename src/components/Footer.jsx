@@ -41,6 +41,42 @@ const Footer = () => {
         setEmail('');
     };
 
+    React.useEffect(() => {
+        const handleSync = (e) => {
+            const { email: syncedEmail } = e.detail;
+            if (syncedEmail) {
+                setEmail(syncedEmail);
+                setName(''); // Ensure name is empty
+
+                const newsletterSection = document.getElementById('newsletter-section');
+                const emailInput = document.getElementById('footer-email-input');
+
+                if (newsletterSection) {
+                    newsletterSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    // Remove class first to re-trigger animation if needed
+                    newsletterSection.classList.remove('highlight-subtly');
+                    // Force reflow
+                    void newsletterSection.offsetWidth;
+                    newsletterSection.classList.add('highlight-subtly');
+
+                    setTimeout(() => {
+                        newsletterSection.classList.remove('highlight-subtly');
+                    }, 2000);
+                }
+
+                if (emailInput) {
+                    // Small delay to allow scroll to settle before focus
+                    setTimeout(() => {
+                        emailInput.focus({ preventScroll: true });
+                    }, 600);
+                }
+            }
+        };
+
+        window.addEventListener('footer-subscribe-sync', handleSync);
+        return () => window.removeEventListener('footer-subscribe-sync', handleSync);
+    }, []);
+
     return (
         <footer className="footer-section">
             <div className="footer-container">
@@ -68,6 +104,7 @@ const Footer = () => {
                                             required
                                         />
                                         <input
+                                            id="footer-email-input"
                                             type="email"
                                             placeholder="Email Address *"
                                             className="compact-input"

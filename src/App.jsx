@@ -6,6 +6,8 @@ import Store from './pages/Store';
 import Collab from './pages/Collab';
 import Blog from './pages/Blog';
 import Media from './pages/Media';
+import Podcast from './pages/Podcast';
+import Contact from './pages/Contact';
 import ScrollToTop from './components/ScrollToTop';
 
 function App() {
@@ -20,6 +22,8 @@ function App() {
           <Route path="/store" element={<Store />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="/media" element={<Media />} />
+          <Route path="/podcast" element={<Podcast />} />
+          <Route path="/contact" element={<Contact />} />
         </Routes>
         <Footer />
       </div>
