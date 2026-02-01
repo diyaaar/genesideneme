@@ -1,16 +1,11 @@
 {
   "blog-hero": {
     "id": "blog-hero",
-    "src": "/images/optimized/blog-hero-1920.webp",
-    "width": 1200,
-    "height": 1200,
+    "src": "/images/optimized/blog-hero-1024.webp",
+    "width": 1024,
+    "height": 1024,
     "lastModified": 1768028263210.5906,
     "variants": {
-      "avif": [
-        480,
-        768,
-        1024
-      ],
       "webp": [
         480,
         768,
@@ -21,16 +16,11 @@
   },
   "choir-hero": {
     "id": "choir-hero",
-    "src": "/images/optimized/choir-hero-1920.webp",
-    "width": 1200,
-    "height": 1200,
+    "src": "/images/optimized/choir-hero-1024.webp",
+    "width": 1024,
+    "height": 1024,
     "lastModified": 1768028285002.5452,
     "variants": {
-      "avif": [
-        480,
-        768,
-        1024
-      ],
       "webp": [
         480,
         768,
@@ -41,16 +31,11 @@
   },
   "podcast-hero": {
     "id": "podcast-hero",
-    "src": "/images/optimized/podcast-hero-1920.webp",
-    "width": 1200,
-    "height": 1200,
+    "src": "/images/optimized/podcast-hero-1024.webp",
+    "width": 1024,
+    "height": 1024,
     "lastModified": 1768028285045.51,
     "variants": {
-      "avif": [
-        480,
-        768,
-        1024
-      ],
       "webp": [
         480,
         768,
