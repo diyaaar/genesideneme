@@ -68,20 +68,23 @@
 .blog-intro-cta {
     display: inline-block;
     margin-top: 1.5rem;
-    color: var(--color-secondary);
+    color: #fff;
     font-family: var(--font-primary);
-    font-size: 1rem;
-    font-style: italic;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
     cursor: pointer;
-    border-bottom: 1px solid transparent;
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 0.7rem 1.4rem;
+    border-radius: 2px;
     transition: all 0.3s ease;
-    opacity: 0.8;
 }
 
 .blog-intro-cta:hover {
-    opacity: 1;
-    border-bottom-color: var(--color-secondary);
-    transform: translateX(4px);
+    background: rgba(255, 255, 255, 0.15);
+    color: #fff;
+    border-color: rgba(255, 255, 255, 0.5);
 }
 
 /* =========================================

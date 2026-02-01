@@ -121,7 +121,7 @@ const Blog = () => {
                                 <span className="italic">Inspirations shaping our journey.</span>
                             </motion.h1>
 
-                            <motion.div
+                            <motion.button
                                 ref={subscribeCtaRef}
                                 className="blog-intro-cta"
                                 initial={{ opacity: 0, y: 10 }}
@@ -129,8 +129,8 @@ const Blog = () => {
                                 transition={{ duration: 0.8, delay: 0.8 }}
                                 onClick={handleSubscribeScroll}
                             >
-                                Subscribe to our Notebook →
-                            </motion.div>
+                                Subscribe to our Notebook
+                            </motion.button>
                         </div>
 
                         {/* Center-Screen Typewriter Headlines */}
