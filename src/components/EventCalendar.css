@@ -1,0 +1,287 @@
+/* EventCalendar.css */
+
+.event-calendar-section {
+    padding: 5rem 0;
+    position: relative;
+    overflow: hidden;
+    background: transparent;
+    /* Assuming dark background from parent or body */
+}
+
+.event-calendar-container {
+    max-width: 1200px;
+    /* Standard wide container */
+    margin: 0 auto;
+    padding: 0 1.5rem;
+    position: relative;
+}
+
+.event-calendar-header {
+    text-align: center;
+    margin-bottom: 4rem;
+}
+
+.event-calendar-eyebrow {
+    font-family: var(--font-primary, sans-serif);
+    color: var(--color-secondary, #bab4a2);
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    font-size: 0.85rem;
+    display: block;
+    margin-bottom: 1rem;
+    opacity: 0.8;
+}
+
+.event-calendar-title {
+    font-family: var(--font-heading, serif);
+    font-size: 3rem;
+    color: #fff;
+    font-weight: 300;
+    margin: 0;
+    letter-spacing: -0.02em;
+}
+
+/* Carousel wrapper */
+.calendar-carousel-wrapper {
+    position: relative;
+    overflow: hidden;
+    /* We handle overflow hidden here to mask the sliding track */
+    padding: 1rem 0;
+    /* Space for shadows/hover effects */
+}
+
+.calendar-track {
+    display: flex;
+    gap: 2rem;
+    /* Gap between cards */
+    /* Width will be calculated dynamically or standard flex behavior */
+    cursor: grab;
+}
+
+.calendar-track:active {
+    cursor: grabbing;
+}
+
+/* CARDS */
+.event-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 4px;
+    /* Minimal rounded corners */
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    /* Changed from space-between for better control */
+    height: 420px;
+    /* Fixed height for consistency */
+    position: relative;
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    min-width: calc((100% - 4rem) / 3);
+    /* 3 items visible, minus gaps */
+    /* (100% - (2 * gap)) / 3 */
+    flex-shrink: 0;
+}
+
+.event-card:hover {
+    transform: translateY(-5px);
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.5);
+}
+
+/* TOP: Date */
+.card-date-group {
+    border-left: 2px solid var(--color-secondary, #bab4a2);
+    padding-left: 1rem;
+    margin-bottom: 2rem;
+}
+
+.card-date-numerals {
+    display: block;
+    font-family: var(--font-heading, serif);
+    font-size: 2.5rem;
+    color: #fff;
+    line-height: 1;
+    margin-bottom: 0.25rem;
+}
+
+.card-date-month {
+    display: block;
+    font-family: var(--font-primary, sans-serif);
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--color-secondary, #bab4a2);
+}
+
+/* Card Top Section */
+.card-top {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    /* Controls spacing between date, badge, and title */
+}
+
+/* MIDDLE: Info */
+.card-info-group {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.card-type {
+    font-family: var(--font-primary, sans-serif);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: rgba(255, 255, 255, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 0.25em 0.75em;
+    border-radius: 100px;
+    align-self: flex-start;
+    margin-left: -0.75em;
+    /* Align text inside badge with title text */
+}
+
+.card-title {
+    font-family: var(--font-heading, serif);
+    font-size: 1.5rem;
+    color: #fff;
+    line-height: 1.2;
+    margin: 0;
+}
+
+/* BOTTOM: Details */
+.card-meta-group {
+    margin-top: auto;
+    /* Push to bottom using auto margin */
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.meta-row {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: rgba(255, 255, 255, 0.6);
+    font-family: var(--font-primary, sans-serif);
+    font-size: 0.9rem;
+}
+
+.meta-icon {
+    opacity: 0.5;
+}
+
+.card-actions {
+    margin-top: 1.5rem;
+}
+
+.details-btn {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #fff;
+    font-family: var(--font-primary, sans-serif);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding: 0.8rem 1.5rem;
+    cursor: pointer;
+    width: 100%;
+    text-align: center;
+    transition: all 0.3s ease;
+    border-radius: 2px;
+}
+
+.event-card:hover .details-btn {
+    background: #fff;
+    color: #000;
+    border-color: #fff;
+}
+
+/* NAVIGATION CONTROLS */
+/* Dots Container */
+.carousel-dots-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 3rem;
+}
+
+.dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.dot:hover {
+    background: rgba(255, 255, 255, 0.4);
+}
+
+.dot.active {
+    background: var(--color-secondary, #bab4a2);
+    transform: scale(1.2);
+}
+
+/* Arrows Container */
+.carousel-arrows-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.nav-arrow {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #fff;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.nav-arrow:hover:not(:disabled) {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+.nav-arrow:disabled {
+    opacity: 0.3;
+    cursor: default;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    .event-calendar-section {
+        padding: 5rem 0;
+    }
+
+    .event-calendar-title {
+        font-size: 2rem;
+    }
+
+    .calendar-track {
+        gap: 1rem;
+    }
+
+    .event-card {
+        min-width: 100%;
+        /* Show 1 at a time on mobile */
+        height: 420px;
+        /* Fixed height on mobile too */
+    }
+}

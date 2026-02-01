@@ -18,11 +18,11 @@ const MEDIA_EVENTS = [
         venue: 'En Passant, Beyoğlu',
         description: 'Together with Şalter, Genesi Nova transformed En Passant into a living soundscape. In a church-turned-stage, voices echoed beyond genre, creating a night shaped by ritual, presence, and shared listening.',
         images: [
+            'https://res.cloudinary.com/dfwioqqgc/image/upload/v1766945200/10_zbkzcd.jpg',
             'https://res.cloudinary.com/dfwioqqgc/image/upload/v1766945202/11_lbchr0.jpg',
             'https://res.cloudinary.com/dfwioqqgc/image/upload/v1766945202/8_pbopqq.jpg',
             'https://res.cloudinary.com/dfwioqqgc/image/upload/v1766945201/9_nwobjl.jpg',
             'https://res.cloudinary.com/dfwioqqgc/image/upload/v1766945200/7_q8k0e5.jpg',
-            'https://res.cloudinary.com/dfwioqqgc/image/upload/v1766945200/10_zbkzcd.jpg',
             'https://res.cloudinary.com/dfwioqqgc/image/upload/v1766945199/6_o9a5tp.jpg',
             'https://res.cloudinary.com/dfwioqqgc/image/upload/v1766945198/5_g4fqc3.jpg',
             'https://res.cloudinary.com/dfwioqqgc/image/upload/v1766945198/4_tfchzd.jpg',
@@ -35,225 +35,29 @@ const MEDIA_EVENTS = [
         type: 'performance'
     },
     {
-        id: 1,
-        title: 'Winter Solstice Concert 2024',
-        category: 'Performances',
-        date: 'Dec 21, 2024',
-        venue: 'Metropolitan Cathedral',
-        description: 'A full recording of our annual winter performance. The acoustics of the cathedral provided a natural reverb that enhanced our polyphonic arrangements, creating a truly ethereal atmosphere for the 2,000 attendees.',
+        id: 'vocal-painting-workshop',
+        title: 'Açık Prova: Vocal Painting Atölyesi',
+        category: 'Workshop',
+        date: 'Jun 28, 2025',
+        venue: 'Base Gastro Pub',
+        description: 'Our vocal painting workshop merged with the energy of a mini concert. As the participants witnessed sounds still taking shape, they experienced the unique feeling of interacting with music in real time.',
         images: [
-            'https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?auto=format&fit=crop&q=80&w=1200',
-            'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&q=80&w=1200'
+            'https://res.cloudinary.com/dfwioqqgc/image/upload/v1769974490/WhatsApp_Image_2026-02-01_at_22.16.27_nv5w0y.jpg',
+            'https://res.cloudinary.com/dfwioqqgc/image/upload/v1769974489/WhatsApp_Image_2026-02-01_at_22.16.28_1_b8esqo.jpg',
+            'https://res.cloudinary.com/dfwioqqgc/image/upload/v1769974487/WhatsApp_Image_2026-02-01_at_22.16.27_2_ey0hm4.jpg',
+            'https://res.cloudinary.com/dfwioqqgc/image/upload/v1769974487/WhatsApp_Image_2026-02-01_at_22.16.27_1_wg3bsw.jpg',
+            'https://res.cloudinary.com/dfwioqqgc/video/upload/v1769974519/WhatsApp_Video_2026-02-01_at_22.17.02_k4hpsl.mp4',
+            'https://res.cloudinary.com/dfwioqqgc/video/upload/v1769974515/WhatsApp_Video_2026-02-01_at_22.17.02_1_rrz0ur.mp4'
         ],
         links: [
-            { label: 'Watch Full Concert', url: 'https://youtube.com', type: 'primary' },
-            { label: 'View Gallery', url: '#', type: 'secondary' }
+            { label: 'View Details', url: 'https://www.instagram.com/p/DKaHE-rsWWP/?img_index=1', type: 'primary' }
         ],
-        type: 'performance'
-    },
-    {
-        id: 2,
-        title: 'Morning Echoes Rehearsal',
-        category: 'Rehearsals',
-        date: 'Nov 12, 2024',
-        venue: 'Studio A',
-        description: 'Capturing the first light in the rehearsal hall. Before the world wakes up, we find our harmony in the quiet moments of dawn. This session focused on the intricate layers of our upcoming album.',
-        images: [
-            'https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?auto=format&fit=crop&q=80&w=1200',
-            'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&q=80&w=1200'
-        ],
-        links: [
-            { label: 'View on Instagram', url: 'https://instagram.com/genexinova' }
-        ],
-        type: 'rehearsal'
-    },
-    {
-        id: 3,
-        title: 'The Velvet Night Gala',
-        category: 'Galas',
-        date: 'Oct 15, 2024',
-        venue: 'Grand Opera House',
-        description: 'An evening of classical reimagining and velvet-draped stages. We collaborated with the National Orchestra to bring a fusion of choral and symphonic sound to life.',
-        images: [
-            'https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?auto=format&fit=crop&q=80&w=1200',
-            'https://images.unsplash.com/photo-1544211086-6eff66f9776f?auto=format&fit=crop&q=80&w=1200'
-        ],
-        links: [
-            { label: 'Event Recap', url: '#' },
-            { label: 'Sponsor Info', url: '#' }
-        ],
-        type: 'event'
-    },
-    {
-        id: 4,
-        title: 'Crafting the Harmony',
-        category: 'Behind the Scenes',
-        date: 'Sep 28, 2024',
-        venue: 'Main Hall',
-        description: 'A look into our vocal arrangement process and collective ritual. See how we break down complex chords into individual vocal lines.',
-        images: [
-            'https://images.unsplash.com/photo-1516280440614-37939bbacd81?auto=format&fit=crop&q=80&w=1200'
-        ],
-        links: [
-            { label: 'Watch Documentary', url: 'https://youtube.com' }
-        ],
-        type: 'behind-the-scenes'
-    },
-    {
-        id: 5,
-        title: 'Final Bow',
-        category: 'Concerts',
-        date: 'Aug 30, 2024',
-        venue: 'Open Air Theatre',
-        description: 'The moment after the last note fades. The energy of the crowd at the Open Air Theatre was palpable even after the lights went down.',
-        images: [
-            'https://images.unsplash.com/photo-1429962714451-bb934ecdc4ec?auto=format&fit=crop&q=80&w=1200'
-        ],
-        links: [
-            { label: 'View on Instagram', url: '#' }
-        ],
-        type: 'concert'
-    },
-    {
-        id: 6,
-        title: 'Shadow and Soul',
-        category: 'Performances',
-        date: 'Jul 14, 2024',
-        venue: 'Blackbox Theater',
-        description: 'Soloist performance under the spotlight. An experimental night featuring individual members showcasing their unique vocal colors.',
-        images: [
-            'https://images.unsplash.com/photo-1482442120256-9c03866de390?auto=format&fit=crop&q=80&w=1200'
-        ],
-        links: [
-            { label: 'Watch Clip', url: '#' }
-        ],
-        type: 'performance'
-    },
-    // --- TESTING DUPLICATES ---
-    {
-        id: '1_copy',
-        title: 'Winter Solstice Concert 2024',
-        category: 'Performances',
-        date: 'Dec 21, 2024',
-        venue: 'Metropolitan Cathedral',
-        description: 'A full recording of our annual winter performance. The acoustics of the cathedral provided a natural reverb that enhanced our polyphonic arrangements, creating a truly ethereal atmosphere for the 2,000 attendees.',
-        images: [
-            'https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?auto=format&fit=crop&q=80&w=1200',
-            'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&q=80&w=1200'
-        ],
-        links: [
-            { label: 'Watch Full Concert', url: 'https://youtube.com', type: 'primary' },
-            { label: 'View Gallery', url: '#', type: 'secondary' }
-        ],
-        type: 'performance'
-    },
-    {
-        id: '2_copy',
-        title: 'Morning Echoes Rehearsal',
-        category: 'Rehearsals',
-        date: 'Nov 12, 2024',
-        venue: 'Studio A',
-        description: 'Capturing the first light in the rehearsal hall. Before the world wakes up, we find our harmony in the quiet moments of dawn. This session focused on the intricate layers of our upcoming album.',
-        images: [
-            'https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?auto=format&fit=crop&q=80&w=1200',
-            'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&q=80&w=1200'
-        ],
-        links: [
-            { label: 'View on Instagram', url: 'https://instagram.com/genexinova' }
-        ],
-        type: 'rehearsal'
-    },
-    {
-        id: '3_copy',
-        title: 'The Velvet Night Gala',
-        category: 'Galas',
-        date: 'Oct 15, 2024',
-        venue: 'Grand Opera House',
-        description: 'An evening of classical reimagining and velvet-draped stages. We collaborated with the National Orchestra to bring a fusion of choral and symphonic sound to life.',
-        images: [
-            'https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?auto=format&fit=crop&q=80&w=1200',
-            'https://images.unsplash.com/photo-1544211086-6eff66f9776f?auto=format&fit=crop&q=80&w=1200'
-        ],
-        links: [
-            { label: 'Event Recap', url: '#' },
-            { label: 'Sponsor Info', url: '#' }
-        ],
-        type: 'event'
-    },
-    {
-        id: '4_copy',
-        title: 'Crafting the Harmony',
-        category: 'Behind the Scenes',
-        date: 'Sep 28, 2024',
-        venue: 'Main Hall',
-        description: 'A look into our vocal arrangement process and collective ritual. See how we break down complex chords into individual vocal lines.',
-        images: [
-            'https://images.unsplash.com/photo-1516280440614-37939bbacd81?auto=format&fit=crop&q=80&w=1200'
-        ],
-        links: [
-            { label: 'Watch Documentary', url: 'https://youtube.com' }
-        ],
-        type: 'behind-the-scenes'
-    },
-    {
-        id: '5_copy',
-        title: 'Final Bow',
-        category: 'Concerts',
-        date: 'Aug 30, 2024',
-        venue: 'Open Air Theatre',
-        description: 'The moment after the last note fades. The energy of the crowd at the Open Air Theatre was palpable even after the lights went down.',
-        images: [
-            'https://images.unsplash.com/photo-1429962714451-bb934ecdc4ec?auto=format&fit=crop&q=80&w=1200'
-        ],
-        links: [
-            { label: 'View on Instagram', url: '#' }
-        ],
-        type: 'concert'
-    },
-    {
-        id: '6_copy',
-        title: 'Shadow and Soul',
-        category: 'Performances',
-        date: 'Jul 14, 2024',
-        venue: 'Blackbox Theater',
-        description: 'Soloist performance under the spotlight. An experimental night featuring individual members showcasing their unique vocal colors.',
-        images: [
-            'https://images.unsplash.com/photo-1482442120256-9c03866de390?auto=format&fit=crop&q=80&w=1200'
-        ],
-        links: [
-            { label: 'Watch Clip', url: '#' }
-        ],
-        type: 'performance'
+        type: 'workshop'
     }
 ];
 
 const Media = () => {
-    const [filter, setFilter] = useState('All');
     const [selectedEvent, setSelectedEvent] = useState(null);
-    const [visibleCount, setVisibleCount] = useState(6);
-
-    const categories = ['All', 'Performances', 'Rehearsals', 'Galas'];
-
-    const handleFilterChange = (cat) => {
-        setFilter(cat);
-        setVisibleCount(6);
-    };
-
-    const filteredData = filter === 'All'
-        ? MEDIA_EVENTS
-        : MEDIA_EVENTS.filter(item => item.category === filter);
-
-    const handleShowMore = () => setVisibleCount(prev => Math.min(prev + 6, filteredData.length));
-    const handleShowLess = () => {
-        const gridSection = document.querySelector('.media-grid-section');
-        if (gridSection) {
-            const targetY = gridSection.getBoundingClientRect().top + window.pageYOffset - 100;
-            window.scrollTo({ top: targetY, behavior: 'smooth' });
-            setTimeout(() => setVisibleCount(6), 400);
-        } else {
-            setVisibleCount(6);
-        }
-    };
 
     const openModal = (event) => setSelectedEvent(event);
     const closeModal = () => setSelectedEvent(null);
@@ -276,35 +80,12 @@ const Media = () => {
                 </div>
             </section>
 
-            {/* Filter Bar */}
-            <section className="media-filters">
-                <div className="container">
-                    <div className="filter-wrapper">
-                        {categories.map((cat) => (
-                            <button
-                                key={cat}
-                                className={`filter-btn ${filter === cat ? 'active' : ''}`}
-                                onClick={() => handleFilterChange(cat)}
-                            >
-                                {cat}
-                                {filter === cat && (
-                                    <motion.div
-                                        className="filter-underline"
-                                        layoutId="underline"
-                                    />
-                                )}
-                            </button>
-                        ))}
-                    </div>
-                </div>
-            </section>
-
             {/* Content Grid */}
             <section className="media-grid-section">
                 <div className="container">
                     <div className="media-grid">
                         <AnimatePresence mode="popLayout">
-                            {filteredData.slice(0, visibleCount).map((event) => (
+                            {MEDIA_EVENTS.map((event) => (
                                 <motion.div
                                     key={event.id}
                                     initial={{ opacity: 0 }}
@@ -342,27 +123,6 @@ const Media = () => {
                             ))}
                         </AnimatePresence>
                     </div>
-
-                    {/* Show More / Show Less */}
-                    {filteredData.length > 6 && (
-                        <div className="media-load-more">
-                            {visibleCount < filteredData.length ? (
-                                <button onClick={handleShowMore} className="show-more-btn">
-                                    <span>Show more</span>
-                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                                        <path d="M6 9l6 6 6-6" />
-                                    </svg>
-                                </button>
-                            ) : (
-                                <button onClick={handleShowLess} className="show-more-btn">
-                                    <span>Show less</span>
-                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                                        <path d="M18 15l-6-6-6 6" />
-                                    </svg>
-                                </button>
-                            )}
-                        </div>
-                    )}
                 </div>
             </section>
 

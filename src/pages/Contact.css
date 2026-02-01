@@ -33,39 +33,7 @@
     margin: 0 auto;
 }
 
-/* Background Atmosphere (Scoped) */
-.contact-bg-atmosphere {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100%;
-    margin-left: max(-50vw + 50%, calc(-100vw / 2 + 1200px / 2));
-    /* Break out of container */
-    z-index: 0;
-    pointer-events: none;
-    overflow: hidden;
-}
-
-.contact-bg-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    position: absolute;
-    top: 0;
-    left: 0;
-}
-
-.contact-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(to bottom, rgba(5, 6, 10, 0.3) 0%, rgba(5, 6, 10, 0.8) 100%);
-    /* Vignette */
-    box-shadow: inset 0 0 150px rgba(0, 0, 0, 0.7);
-}
+/* Background Atmosphere Removed */
 
 /* Content Grid */
 .contact-grid {
@@ -362,12 +330,7 @@
         padding: 160px 0 60px;
     }
 
-    /* Mobile background: fill viewport, center portrait artwork */
-    .contact-bg-atmosphere {
-        height: 100vh;
-        margin-left: 0;
-        width: 100%;
-    }
+
 
     .form-card {
         padding: 2rem;
@@ -400,14 +363,7 @@
         padding-top: 3rem;
     }
 
-    .contact-bg-img {
-        object-fit: contain;
-        /* Show full portrait image */
-        object-position: center top;
-        /* Align to top for better framing */
-        width: 100%;
-        height: 100%;
-    }
+
 
     .submit-btn {
         width: 100%;

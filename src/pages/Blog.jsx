@@ -10,6 +10,8 @@ import './Blog.css';
 // Import Assets
 // Import Assets
 import manifest from '../lib/media/manifest.json';
+import instagramIcon from '../assets/icons/instagram.svg';
+import twitterIcon from '../assets/icons/twitter.svg';
 
 const blogMain = manifest['blog-hero'];
 const choirImg = manifest['choir-hero'];
@@ -27,78 +29,10 @@ const TYPEWRITER_HEADLINES = [
     "Interview: The Future of Choral Music"
 ];
 
-const POSTS = [
-    {
-        id: 1,
-        title: "Echoes from the Past: The Making of Our New Album",
-        excerpt: "Journey with us as we explore the ancient acoustics that inspired our latest collection of polyphonic arrangements.",
-        category: "Behind the Scenes",
-        image: choirImg,
-        date: "Dec 15, 2024",
-        readTime: "5 min read",
-        author: {
-            name: "Sarah Jenkins",
-            initials: "SJ",
-            avatarColor: "#a89080",
-            instagram: "https://instagram.com/sarahjenkins",
-            twitter: "https://twitter.com/sarahjenkins"
-        }
-    },
-    {
-        id: 2,
-        title: "The Science of Harmony: Why We Love Chords",
-        excerpt: "A deep dive into the psychoacoustics of harmony and why certain chord progressions trigger such powerful emotional responses.",
-        category: "Music Theory",
-        image: podcastImg,
-        date: "Dec 02, 2024",
-        readTime: "8 min read",
-        author: {
-            name: "Dr. Alan Grant",
-            initials: "AG",
-            avatarColor: "#8a9ba8",
-            instagram: "https://instagram.com/alangrant",
-            twitter: "https://twitter.com/alangrant"
-        }
-    },
-    {
-        id: 3,
-        title: "Vocal Health 101 for Touring Choirs",
-        excerpt: "Essential tips and warm-up routines that keep our voices crystal clear during our intense touring schedule.",
-        category: "Education",
-        image: blogSmall,
-        date: "Nov 28, 2024",
-        readTime: "4 min read",
-        author: {
-            name: "Elena Fisher",
-            initials: "EF",
-            avatarColor: "#b4a89a",
-            instagram: "https://instagram.com/elenafisher",
-            twitter: "https://twitter.com/elenafisher"
-        }
-    },
-    {
-        id: 4,
-        title: "Interview: The Future of Choral Music",
-        excerpt: "We sat down with contemporary composer Eric Whitacre to discuss where choral music is heading in the digital age.",
-        category: "Interviews",
-        image: choirSmall,
-        date: "Nov 15, 2024",
-        readTime: "12 min read",
-        author: {
-            name: "Genesi Team",
-            initials: "GT",
-            avatarColor: "#9a8a7a",
-            instagram: "https://instagram.com/genesinovachoir",
-            twitter: "https://twitter.com/genesinovachoir"
-        }
-    }
-];
+import { POSTS } from '../data/blogPosts';
 
 const Blog = () => {
     const navigate = useNavigate();
-    const [activeCategory, setActiveCategory] = useState('All');
-    const categories = ['All', 'Behind the Scenes', 'Music Theory', 'Education', 'Interviews'];
-
     // Refs for dynamic typewriter positioning
     const subscribeCtaRef = useRef(null);
     const notebookRef = useRef(null);
@@ -114,9 +48,7 @@ const Blog = () => {
     const yContent = useTransform(scrollYProgress, [0, 1], isMobile ? ["0%", "0%"] : ["0%", "100%"]);
     const opacityContent = useTransform(scrollYProgress, [0, 0.5], [1, isMobile ? 1 : 0]);
 
-    const filteredPosts = activeCategory === 'All'
-        ? POSTS
-        : POSTS.filter(post => post.category === activeCategory);
+
 
     const handleSubscribeScroll = () => {
         const newsletterSection = document.getElementById('newsletter-section');
@@ -216,10 +148,10 @@ const Blog = () => {
                             animate={{ opacity: 1 }}
                             transition={{ delay: 1.2, duration: 1.5 }}
                             onClick={() => {
-                                const target = document.getElementById('featured-post');
+                                const target = document.getElementById('blog-grid');
                                 if (target) {
                                     const targetPosition = target.getBoundingClientRect().top + window.pageYOffset;
-                                    const offset = 120; // Natural offset space above section
+                                    const offset = 100;
                                     window.scrollTo({
                                         top: targetPosition - offset,
                                         behavior: 'smooth'
@@ -228,13 +160,14 @@ const Blog = () => {
                             }}
                         >
                             <img
-                                src="/blog_page_notebook.svg"
-                                alt="Notebook"
+                                src="/arrow.svg"
+                                alt="Scroll Down"
                                 style={{
-                                    width: '36px',
+                                    width: '24px',
                                     height: 'auto',
-                                    opacity: 0.6,
-                                    filter: 'brightness(0) invert(1)'
+                                    opacity: 0.8,
+                                    filter: 'brightness(0) invert(1)',
+                                    marginBottom: '8px'
                                 }}
                             />
                             <span className="notebook-label">READ OUR NOTEBOOK</span>
@@ -242,164 +175,75 @@ const Blog = () => {
                     </motion.div>
                 </section>
 
-                {/* Hero Section - Featured Post */}
-                <div style={{ position: 'relative', zIndex: 20, backgroundColor: '#05060a' }}>
-                    <ScrollReveal>
-                        <div
-                            className="blog-hero"
-                            id="featured-post"
-                            onClick={() => navigate('/blog/featured')}
-                            role="link"
-                            tabIndex={0}
-                            style={{ cursor: 'pointer' }}
-                        >
-                            <div className="blog-hero-image-wrapper">
-                                <OptimizedImage
-                                    src={blogMain}
-                                    alt="Featured Blog Post"
-                                    className="blog-hero-img"
-                                    priority={true}
-                                    sizes="100vw"
-                                />
-                            </div>
-                            <div className="blog-hero-content">
-                                <div className="blog-hero-meta">
-                                    <span className="category-tag">Featured</span>
-                                    <span className="divider">•</span>
-                                    <span className="date">Dec 20, 2024</span>
+                {/* Main Grid */}
+                <div id="blog-grid" className="blog-grid" style={{ marginTop: '4rem' }}>
+                    {POSTS.slice(0, 3).map((post, index) => (
+                        <ScrollReveal key={post.id} delay={index * 0.1}>
+                            <div
+                                className="blog-card"
+                                onClick={() => navigate(`/blog/${post.id}`)}
+                                role="link"
+                                tabIndex={0}
+                                style={{ cursor: 'pointer' }}
+                            >
+                                <div className="blog-card-image-wrapper">
+                                    <OptimizedImage
+                                        src={post.image}
+                                        alt={post.title}
+                                        className="blog-card-img"
+                                        sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+                                    />
                                 </div>
-                                <h2 className="blog-hero-title">
-                                    The Resurgence of Polyphony in Modern Pop
-                                </h2>
-                                <p className="blog-hero-excerpt">
-                                    From Billie Eilish to Jacob Collier, complex vocal layering is making a massive comeback. We explore how classical techniques are shaping the future of pop music.
-                                </p>
-
-                                {/* Featured Author Metadata - Refined */}
-                                <div className="featured-author-metadata">
-                                    <div className="author-info">
-                                        <div className="author-avatar" style={{ backgroundColor: '#bab4a2' }}>
-                                            MT
-                                        </div>
-                                        <div className="author-details">
-                                            <div className="author-name">Marcus Thorne</div>
-                                            <time className="post-date">Dec 20, 2024</time>
-                                        </div>
+                                <div className="blog-card-content">
+                                    <div className="blog-card-meta">
+                                        <span className="category-tag">{post.category}</span>
+                                        <span className="divider">•</span>
+                                        <span className="read-time">{post.readTime}</span>
                                     </div>
-                                    <div className="author-social">
-                                        <span className="follow-label">Follow</span>
-                                        <a
-                                            href="https://instagram.com/marcusthorne"
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className="social-link"
-                                            onClick={(e) => e.stopPropagation()}
-                                        >
-                                            <img src="/instagram.svg" alt="Instagram" />
-                                        </a>
-                                        <a
-                                            href="https://twitter.com/marcusthorne"
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className="social-link"
-                                            onClick={(e) => e.stopPropagation()}
-                                        >
-                                            <img src="/twitter.svg" alt="Twitter" />
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </ScrollReveal>
-
-                    {/* Filter Navigation */}
-                    <nav className="blog-nav">
-                        <div className="blog-nav-container">
-                            <div className="blog-categories">
-                                {categories.map(cat => (
-                                    <span
-                                        key={cat}
-                                        className={`category-link ${activeCategory === cat ? 'active' : ''}`}
-                                        onClick={() => setActiveCategory(cat)}
-                                    >
-                                        {cat}
-                                    </span>
-                                ))}
-                            </div>
-                            {/* Optional Search Icon or minimal input here */}
-                        </div>
-                    </nav>
-
-                    {/* Main Grid */}
-                    <div className="blog-grid">
-                        {filteredPosts.map((post, index) => (
-                            <ScrollReveal key={post.id} delay={index * 0.1}>
-                                <div
-                                    className="blog-card"
-                                    onClick={() => navigate(`/blog/${post.id}`)}
-                                    role="link"
-                                    tabIndex={0}
-                                    style={{ cursor: 'pointer' }}
-                                >
-                                    <div className="blog-card-image-wrapper">
-                                        <OptimizedImage
-                                            src={post.image}
-                                            alt={post.title}
-                                            className="blog-card-img"
-                                            sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
-                                        />
-                                    </div>
-                                    <div className="blog-card-content">
-                                        <div className="blog-card-meta">
-                                            <span className="category-tag">{post.category}</span>
-                                            <span className="divider">•</span>
-                                            <span className="read-time">{post.readTime}</span>
-                                        </div>
-                                        <h3 className="blog-card-title">{post.title}</h3>
-                                        <p className="blog-card-excerpt">{post.excerpt}</p>
-                                        {/* Author Metadata Block */}
-                                        <div className="author-metadata">
-                                            <div className="author-info">
-                                                <div
-                                                    className="author-avatar"
-                                                    style={{ backgroundColor: post.author.avatarColor }}
-                                                >
-                                                    {post.author.initials}
-                                                </div>
-                                                <div className="author-details">
-                                                    <div className="author-name">{post.author.name}</div>
-                                                    <time className="post-date">{post.date}</time>
-                                                </div>
+                                    <h3 className="blog-card-title">{post.title}</h3>
+                                    <p className="blog-card-excerpt">{post.excerpt}</p>
+                                    {/* Author Metadata Block */}
+                                    <div className="author-metadata">
+                                        <div className="author-info">
+                                            <div
+                                                className="author-avatar"
+                                                style={{ backgroundColor: post.author.avatarColor }}
+                                            >
+                                                {post.author.initials}
                                             </div>
-                                            <div className="author-social">
-                                                <span className="follow-label">Follow</span>
-                                                <a
-                                                    href={post.author.instagram}
-                                                    target="_blank"
-                                                    rel="noopener noreferrer"
-                                                    className="social-link"
-                                                    onClick={(e) => e.stopPropagation()}
-                                                >
-                                                    <img src="/instagram.svg" alt="Instagram" />
-                                                </a>
-                                                <a
-                                                    href={post.author.twitter}
-                                                    target="_blank"
-                                                    rel="noopener noreferrer"
-                                                    className="social-link"
-                                                    onClick={(e) => e.stopPropagation()}
-                                                >
-                                                    <img src="/twitter.svg" alt="Twitter" />
-                                                </a>
+                                            <div className="author-details">
+                                                <div className="author-name">{post.author.name}</div>
+                                                <time className="post-date">{post.date}</time>
                                             </div>
                                         </div>
+                                        <div className="author-social">
+                                            <span className="follow-label">Follow</span>
+                                            <a
+                                                href={post.author.instagram}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="social-link"
+                                                onClick={(e) => e.stopPropagation()}
+                                            >
+                                                <img src={instagramIcon} alt="Instagram" />
+                                            </a>
+                                            <a
+                                                href={post.author.twitter}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="social-link"
+                                                onClick={(e) => e.stopPropagation()}
+                                            >
+                                                <img src={twitterIcon} alt="Twitter" />
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
-                            </ScrollReveal>
-                        ))}
+                            </div>
+                        </ScrollReveal>
+                    ))}
 
 
-                    </div>
                 </div>
             </main>
         </div>

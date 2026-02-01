@@ -5,6 +5,7 @@ import './Collab.css';
 
 const Collab = () => {
     const [selectedOption, setSelectedOption] = useState(null);
+    const [isSubmitted, setIsSubmitted] = useState(false);
     const [formData, setFormData] = useState({
         name: '',
         email: '',
@@ -32,9 +33,27 @@ const Collab = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         if (!selectedOption) return;
-        // For now, just show confirmation
-        alert("Thank you for reaching out. We'll be in touch soon.");
-        alert("Thank you for reaching out. We'll be in touch soon.");
+
+        // Show success message
+        setIsSubmitted(true);
+
+        // Smooth scroll to success message after a brief delay
+        setTimeout(() => {
+            const formSection = document.getElementById('collab-form');
+            if (formSection) {
+                formSection.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'center'
+                });
+            }
+        }, 100);
+
+        // Reset form after 5 seconds
+        setTimeout(() => {
+            setIsSubmitted(false);
+            setSelectedOption(null);
+            setFormData({ name: '', email: '', message: '' });
+        }, 5000);
     };
 
     const scrollToForm = () => {
@@ -80,13 +99,22 @@ const Collab = () => {
                     >
                         This is a space for shared rituals — where artists, institutions,
                         and ideas come together to create something beyond the expected.
-                        <span
-                            className="inline-collab-link"
-                            onClick={scrollToForm}
-                        >
-                            Collaborate →
-                        </span>
                     </motion.p>
+
+                    <motion.button
+                        className="hero-collab-btn"
+                        onClick={scrollToForm}
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.8, delay: 1 }}
+                        whileHover={{ scale: 1.02 }}
+                        whileTap={{ scale: 0.98 }}
+                    >
+                        <span>Collaborate</span>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                            <path d="M5 12h14M12 5l7 7-7 7" />
+                        </svg>
+                    </motion.button>
                 </div>
             </section>
 
@@ -245,100 +273,141 @@ const Collab = () => {
                         </p>
                     </motion.div>
 
-                    <motion.form
-                        className="collab-form"
-                        onSubmit={handleSubmit}
-                        initial={{ opacity: 0 }}
-                        whileInView={{ opacity: 1 }}
-                        viewport={{ once: true, margin: "-50px" }}
-                        transition={{ duration: 0.8, delay: 0.2 }}
-                    >
-                        {/* Option Selection */}
-                        <div className="form-options">
-                            {collaborationOptions.map((option) => (
-                                <button
-                                    key={option.id}
-                                    type="button"
-                                    className={`form-option ${selectedOption === option.id ? 'active' : ''}`}
-                                    onClick={() => setSelectedOption(option.id)}
-                                >
-                                    <span className="option-indicator" />
-                                    <span className="option-label">{option.label}</span>
-                                </button>
-                            ))}
-                        </div>
-
-                        {/* Form Fields - Appear after selection */}
+                    {isSubmitted ? (
+                        // Success Message
                         <motion.div
-                            className="form-fields"
-                            initial={false}
-                            animate={{
-                                opacity: selectedOption ? 1 : 0.3,
-                                y: selectedOption ? 0 : 10
-                            }}
-                            transition={{ duration: 0.4 }}
+                            className="success-message"
+                            initial={{ opacity: 0, scale: 0.9 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
                         >
-                            <div className="form-row">
-                                <div className="form-group">
-                                    <label htmlFor="collab-name">Name or Organization</label>
-                                    <input
-                                        id="collab-name"
-                                        type="text"
-                                        value={formData.name}
-                                        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                                        disabled={!selectedOption}
-                                        required
-                                    />
-                                </div>
-                                <div className="form-group">
-                                    <label htmlFor="collab-email">Email</label>
-                                    <input
-                                        id="collab-email"
-                                        type="email"
-                                        value={formData.email}
-                                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                                        disabled={!selectedOption}
-                                        required
-                                    />
-                                </div>
-                            </div>
-
-                            <div className="form-group">
-                                <label htmlFor="collab-message">Your message</label>
-                                <textarea
-                                    id="collab-message"
-                                    rows="5"
-                                    value={formData.message}
-                                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                                    placeholder={
-                                        selectedOption
-                                            ? collaborationOptions.find(o => o.id === selectedOption)?.placeholder
-                                            : 'Select an option above to continue...'
-                                    }
-                                    disabled={!selectedOption}
-                                    required
-                                />
-                            </div>
-
-                            <button
-                                type="submit"
-                                className="submit-btn"
-                                disabled={!selectedOption}
+                            <motion.div
+                                className="success-icon"
+                                initial={{ scale: 0 }}
+                                animate={{ scale: 1 }}
+                                transition={{ duration: 0.5, delay: 0.2, type: "spring", stiffness: 200 }}
                             >
-                                <span>Send proposal</span>
-                                <svg
-                                    width="20"
-                                    height="20"
-                                    viewBox="0 0 24 24"
-                                    fill="none"
-                                    stroke="currentColor"
-                                    strokeWidth="2"
-                                >
-                                    <path d="M5 12h14M12 5l7 7-7 7" />
+                                <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                                    <polyline points="22 4 12 14.01 9 11.01" />
                                 </svg>
-                            </button>
+                            </motion.div>
+                            <motion.h3
+                                className="success-title"
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.6, delay: 0.4 }}
+                            >
+                                Thank you for reaching out
+                            </motion.h3>
+                            <motion.p
+                                className="success-text"
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.6, delay: 0.5 }}
+                            >
+                                We've received your proposal and will be in touch soon.
+                                <br />
+                                Looking forward to creating something meaningful together.
+                            </motion.p>
                         </motion.div>
-                    </motion.form>
+                    ) : (
+                        // Form
+                        <motion.form
+                            className="collab-form"
+                            onSubmit={handleSubmit}
+                            initial={{ opacity: 0 }}
+                            whileInView={{ opacity: 1 }}
+                            viewport={{ once: true, margin: "-50px" }}
+                            transition={{ duration: 0.8, delay: 0.2 }}
+                        >
+                            {/* Option Selection */}
+                            <div className="form-options">
+                                {collaborationOptions.map((option) => (
+                                    <button
+                                        key={option.id}
+                                        type="button"
+                                        className={`form-option ${selectedOption === option.id ? 'active' : ''}`}
+                                        onClick={() => setSelectedOption(option.id)}
+                                    >
+                                        <span className="option-indicator" />
+                                        <span className="option-label">{option.label}</span>
+                                    </button>
+                                ))}
+                            </div>
+
+                            {/* Form Fields - Appear after selection */}
+                            <motion.div
+                                className="form-fields"
+                                initial={false}
+                                animate={{
+                                    opacity: selectedOption ? 1 : 0.3,
+                                    y: selectedOption ? 0 : 10
+                                }}
+                                transition={{ duration: 0.4 }}
+                            >
+                                <div className="form-row">
+                                    <div className="form-group">
+                                        <label htmlFor="collab-name">Name or Organization</label>
+                                        <input
+                                            id="collab-name"
+                                            type="text"
+                                            value={formData.name}
+                                            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                                            disabled={!selectedOption}
+                                            required
+                                        />
+                                    </div>
+                                    <div className="form-group">
+                                        <label htmlFor="collab-email">Email</label>
+                                        <input
+                                            id="collab-email"
+                                            type="email"
+                                            value={formData.email}
+                                            onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                                            disabled={!selectedOption}
+                                            required
+                                        />
+                                    </div>
+                                </div>
+
+                                <div className="form-group">
+                                    <label htmlFor="collab-message">Your message</label>
+                                    <textarea
+                                        id="collab-message"
+                                        rows="5"
+                                        value={formData.message}
+                                        onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                                        placeholder={
+                                            selectedOption
+                                                ? collaborationOptions.find(o => o.id === selectedOption)?.placeholder
+                                                : 'Select an option above to continue...'
+                                        }
+                                        disabled={!selectedOption}
+                                        required
+                                    />
+                                </div>
+
+                                <button
+                                    type="submit"
+                                    className="submit-btn"
+                                    disabled={!selectedOption}
+                                >
+                                    <span>Send proposal</span>
+                                    <svg
+                                        width="20"
+                                        height="20"
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        strokeWidth="2"
+                                    >
+                                        <path d="M5 12h14M12 5l7 7-7 7" />
+                                    </svg>
+                                </button>
+                            </motion.div>
+                        </motion.form>
+                    )}
                 </div>
             </section>
         </div>

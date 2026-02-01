@@ -206,8 +206,8 @@
 }
 
 .footer-line {
-    width: 1px;
-    height: 40px;
+    width: 2px;
+    height: 80px;
     background: linear-gradient(to bottom, transparent, var(--color-secondary), transparent);
     margin: 0 auto 1.5rem auto;
 }
