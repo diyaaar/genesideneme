@@ -60,7 +60,7 @@ const EVENTS = [
         date: '13',
         month: 'May',
         year: '2026',
-        location: 'Acıbadem Üniversitesi Konferans Merkezi',
+        location: 'Acıbadem Üni. Konferans Merkezi',
         capacity: '750 people'
     },
     {
