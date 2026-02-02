@@ -146,9 +146,9 @@
         /* Hide scrollbar Firefox */
         -webkit-overflow-scrolling: touch;
         /* Momentum scroll */
-        mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
-        /* Fade edges */
-        -webkit-mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
+        mask-image: linear-gradient(to right, transparent 0%, black 5%, black 100%);
+        /* Fade edges only on left */
+        -webkit-mask-image: linear-gradient(to right, transparent 0%, black 5%, black 100%);
     }
 
     .nav-menu::-webkit-scrollbar {
@@ -159,6 +159,30 @@
     .nav-menu li {
         flex-shrink: 0;
         /* Prevent squishing */
+    }
+
+    .lang-switcher-item {
+        position: sticky;
+        right: 0;
+        z-index: 10;
+        background-color: rgba(17, 21, 36, 0.95);
+        /* Increased opacity for better legibility */
+        padding-left: 1.25rem;
+        padding-right: 1.5rem;
+        margin-right: -1.5rem;
+        display: flex;
+        align-items: center;
+        /* Dual-sided fade effect using shadows */
+        box-shadow: -15px 0 15px rgba(17, 21, 36, 0.95),
+            10px 0 15px rgba(17, 21, 36, 0.95);
+    }
+
+    /* Adjust for sticky header state */
+    .sticky-header .lang-switcher-item {
+        background-color: rgba(17, 21, 36, 0.9);
+        /* Increased opacity in sticky state */
+        box-shadow: -15px 0 15px rgba(17, 21, 36, 0.9),
+            10px 0 15px rgba(17, 21, 36, 0.9);
     }
 
     /* Adjust container to handle the full width scroll */
@@ -196,5 +220,44 @@
 
     .nav-link {
         font-size: 0.7rem;
+    }
+}
+
+.language-switcher {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-left: 1rem;
+    font-family: var(--font-primary);
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.6);
+    cursor: default;
+}
+
+.lang-opt {
+    cursor: pointer;
+    transition: color 0.3s ease;
+    letter-spacing: 1px;
+}
+
+.lang-opt:hover {
+    color: #fff;
+}
+
+.lang-opt.active {
+    color: var(--color-secondary);
+    font-weight: 700;
+}
+
+.lang-sep {
+    color: rgba(255, 255, 255, 0.3);
+}
+
+@media (max-width: 768px) {
+    .language-switcher {
+        margin-left: 0;
+        padding-left: 1rem;
+        border-left: 1px solid rgba(255, 255, 255, 0.1);
     }
 }

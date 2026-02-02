@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import { motion, AnimatePresence } from 'framer-motion';
 import ScrollReveal from './ScrollReveal';
 import OptimizedImage from './OptimizedImage';
 import './Footer.css';
@@ -30,15 +32,24 @@ const SocialIcon = ({ name, href, src }) => (
 );
 
 const Footer = () => {
+    const { t } = useTranslation();
     const [email, setEmail] = useState('');
     const [name, setName] = useState('');
+    const [status, setStatus] = useState('idle'); // idle, submitting, success
 
     const handleSubscribe = (e) => {
         e.preventDefault();
-        console.log('Subscribed:', { name, email });
-        alert("Thank you for subscribing! We'll keep you updated.");
-        setName('');
-        setEmail('');
+        setStatus('submitting');
+
+        // Simulate API interaction
+        setTimeout(() => {
+            setStatus('success');
+            setName('');
+            setEmail('');
+
+            // Revert to idle after 5 seconds to allow another subscription if needed
+            setTimeout(() => setStatus('idle'), 5000);
+        }, 800);
     };
 
     React.useEffect(() => {
@@ -47,15 +58,14 @@ const Footer = () => {
             if (syncedEmail) {
                 setEmail(syncedEmail);
                 setName(''); // Ensure name is empty
+                setStatus('idle'); // Reset status if it was success
 
                 const newsletterSection = document.getElementById('newsletter-section');
                 const emailInput = document.getElementById('footer-email-input');
 
                 if (newsletterSection) {
                     newsletterSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    // Remove class first to re-trigger animation if needed
                     newsletterSection.classList.remove('highlight-subtly');
-                    // Force reflow
                     void newsletterSection.offsetWidth;
                     newsletterSection.classList.add('highlight-subtly');
 
@@ -65,7 +75,6 @@ const Footer = () => {
                 }
 
                 if (emailInput) {
-                    // Small delay to allow scroll to settle before focus
                     setTimeout(() => {
                         emailInput.focus({ preventScroll: true });
                     }, 600);
@@ -86,37 +95,74 @@ const Footer = () => {
                         <div className="brand-column">
                             <div className="brand-info">
                                 <h2>Genesi Nova</h2>
-
                             </div>
 
                             {/* Compact Newsletter */}
                             <div id="newsletter-section" className="compact-newsletter">
-                                <h4 className="compact-title">Let’s stay close.</h4>
-                                <p className="newsletter-subtext">No worries, we promise not to be a nuisance.</p>
-                                <form className="newsletter-form-compact" onSubmit={handleSubscribe}>
-                                    <div className="input-row">
-                                        <input
-                                            type="text"
-                                            placeholder="Full Name *"
-                                            className="compact-input"
-                                            value={name}
-                                            onChange={(e) => setName(e.target.value)}
-                                            required
-                                        />
-                                        <input
-                                            id="footer-email-input"
-                                            type="email"
-                                            placeholder="Email Address *"
-                                            className="compact-input"
-                                            value={email}
-                                            onChange={(e) => setEmail(e.target.value)}
-                                            required
-                                        />
-                                    </div>
-                                    <button type="submit" className="compact-submit-btn">
-                                        Subscribe
-                                    </button>
-                                </form>
+                                <AnimatePresence mode="wait">
+                                    {status === 'success' ? (
+                                        <motion.div
+                                            key="success"
+                                            className="newsletter-success-state"
+                                            initial={{ opacity: 0, y: 10 }}
+                                            animate={{ opacity: 1, y: 0 }}
+                                            exit={{ opacity: 0, y: -10 }}
+                                            transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                                        >
+                                            <div className="success-check-icon">
+                                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                                                    <path d="M20 6L9 17L4 12" />
+                                                </svg>
+                                            </div>
+                                            <div className="success-text-group">
+                                                <h4 className="success-headline">{t('footer.success.title')}</h4>
+                                                <p className="success-desc">{t('footer.success.message')}</p>
+                                            </div>
+                                        </motion.div>
+                                    ) : (
+                                        <motion.div
+                                            key="form"
+                                            initial={{ opacity: 0 }}
+                                            animate={{ opacity: 1 }}
+                                            exit={{ opacity: 0 }}
+                                        >
+                                            <h4 className="compact-title">{t('footer.stay_close')}</h4>
+                                            <p className="newsletter-subtext">{t('footer.no_nuisance')}</p>
+                                            <form className="newsletter-form-compact" onSubmit={handleSubscribe}>
+                                                <div className="input-row">
+                                                    <input
+                                                        type="text"
+                                                        placeholder={t('footer.full_name')}
+                                                        className="compact-input"
+                                                        value={name}
+                                                        onChange={(e) => setName(e.target.value)}
+                                                        required
+                                                        disabled={status === 'submitting'}
+                                                    />
+                                                    <input
+                                                        id="footer-email-input"
+                                                        type="email"
+                                                        placeholder={t('footer.email')}
+                                                        className="compact-input"
+                                                        value={email}
+                                                        onChange={(e) => setEmail(e.target.value)}
+                                                        required
+                                                        disabled={status === 'submitting'}
+                                                    />
+                                                </div>
+                                                <button
+                                                    type="submit"
+                                                    className={`compact-submit-btn ${status === 'submitting' ? 'submitting' : ''}`}
+                                                    disabled={status === 'submitting'}
+                                                >
+                                                    {status === 'submitting' ? (
+                                                        <span className="btn-loader"></span>
+                                                    ) : t('footer.subscribe')}
+                                                </button>
+                                            </form>
+                                        </motion.div>
+                                    )}
+                                </AnimatePresence>
                             </div>
 
                             <div className="social-links">
@@ -130,30 +176,30 @@ const Footer = () => {
 
                         {/* Column 2: More About Us */}
                         <div>
-                            <span className="footer-col-title">More About Us</span>
+                            <span className="footer-col-title">{t('footer.more_about')}</span>
                             <div className="footer-links">
-                                <Link to="/about" className="footer-link">About Us</Link>
-                                <Link to="/contact" className="footer-link">Contact</Link>
-                                <Link to="/store" className="footer-link">Store</Link>
-                                <Link to="/collab" className="footer-link">Collab</Link>
+                                <Link to="/about" className="footer-link">{t('footer.about_us')}</Link>
+                                <Link to="/contact" className="footer-link">{t('footer.contact')}</Link>
+                                <Link to="/store" className="footer-link">{t('header.store')}</Link>
+                                <Link to="/collab" className="footer-link">{t('footer.collab')}</Link>
                             </div>
                         </div>
 
                         {/* Column 3: Creative Works */}
                         <div>
-                            <span className="footer-col-title">Creative Works</span>
+                            <span className="footer-col-title">{t('footer.creative_works')}</span>
                             <div className="footer-links">
-                                <Link to="/choir" className="footer-link">Choir</Link>
-                                <Link to="/podcast" className="footer-link">Podcast</Link>
-                                <Link to="/media" className="footer-link">Media</Link>
-                                <Link to="/blog" className="footer-link">Blog</Link>
+                                <Link to="/choir" className="footer-link">{t('footer.choir')}</Link>
+                                <Link to="/podcast" className="footer-link">{t('header.podcast')}</Link>
+                                <Link to="/media" className="footer-link">{t('header.media')}</Link>
+                                <Link to="/blog" className="footer-link">{t('header.blog')}</Link>
                             </div>
                         </div>
                     </div>
 
                     {/* Footer Bottom */}
                     <div className="footer-bottom">
-                        <p>&copy; {new Date().getFullYear()} Genesi Nova Choir. All rights reserved.</p>
+                        <p>&copy; {new Date().getFullYear()} {t('footer.copyright_text')}</p>
                     </div>
                 </ScrollReveal>
             </div>

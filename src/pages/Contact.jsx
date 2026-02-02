@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 
 
 import OptimizedImage from '../components/OptimizedImage';
@@ -12,6 +13,7 @@ import youtubeIcon from '../assets/icons/youtube.svg';
 import linkedinIcon from '../assets/icons/linkedin.svg';
 
 const Contact = () => {
+    const { t } = useTranslation();
     const [formData, setFormData] = useState({
         name: '',
         email: '',
@@ -33,16 +35,16 @@ const Contact = () => {
 
     const validate = () => {
         const newErrors = {};
-        if (!formData.name.trim()) newErrors.name = 'Name is required';
+        if (!formData.name.trim()) newErrors.name = t('contact.form.errors.name');
 
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!formData.email.trim()) {
-            newErrors.email = 'Email is required';
+            newErrors.email = t('contact.form.errors.email_required');
         } else if (!emailRegex.test(formData.email)) {
-            newErrors.email = 'Please enter a valid email';
+            newErrors.email = t('contact.form.errors.email_invalid');
         }
 
-        if (!formData.message.trim()) newErrors.message = 'Message is required';
+        if (!formData.message.trim()) newErrors.message = t('contact.form.errors.message');
 
         setErrors(newErrors);
         return Object.keys(newErrors).length === 0;
@@ -73,29 +75,29 @@ const Contact = () => {
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
                     >
-                        <span className="contact-label">Contact</span>
-                        <h1 className="contact-headline">Let's get in touch!</h1>
+                        <span className="contact-label">{t('contact.label')}</span>
+                        <h1 className="contact-headline">{t('contact.headline')}</h1>
                         <p className="contact-description">
-                            Whether it's a concert inquiry, a workshop collaboration, or just a note to say hello — we'd love to hear from you.
+                            {t('contact.description')}
                         </p>
 
                         <div className="contact-details-grid">
                             <div className="detail-item">
-                                <span className="detail-label">Email</span>
+                                <span className="detail-label">{t('contact.details.email')}</span>
                                 <span className="detail-value">hello@genesinovachoir.com</span>
                             </div>
                             <div className="detail-item">
-                                <span className="detail-label">Location</span>
-                                <span className="detail-value">Istanbul, Turkey</span>
+                                <span className="detail-label">{t('contact.details.location')}</span>
+                                <span className="detail-value">{t('contact.details.location_value')}</span>
                             </div>
                             <div className="detail-item">
-                                <span className="detail-label">Phone</span>
+                                <span className="detail-label">{t('contact.details.phone')}</span>
                                 <span className="detail-value">+90 531 568 18 00</span>
                             </div>
                             <div className="detail-item">
-                                <span className="detail-label">Rehearsals</span>
+                                <span className="detail-label">{t('contact.details.rehearsals')}</span>
                                 <span className="detail-value">
-                                    Tuesdays & Fridays
+                                    {t('contact.details.rehearsal_days')}
                                     <br />
                                     18:00–20:30
                                 </span>
@@ -133,20 +135,20 @@ const Contact = () => {
                                     animate={{ opacity: 1 }}
                                 >
                                     <span className="success-icon">✓</span>
-                                    <h3 className="success-title">Message Sent</h3>
-                                    <p className="success-desc">Thank you for reaching out. We'll be in touch shortly.</p>
+                                    <h3 className="success-title">{t('contact.form.success.title')}</h3>
+                                    <p className="success-desc">{t('contact.form.success.desc')}</p>
                                     <button
                                         className="submit-btn"
                                         onClick={() => setStatus('idle')}
                                         style={{ marginTop: '2rem', alignSelf: 'center' }}
                                     >
-                                        Send Another
+                                        {t('contact.form.success.another')}
                                     </button>
                                 </motion.div>
                             ) : (
                                 <form className="contact-form" onSubmit={handleSubmit}>
                                     <div className="form-group">
-                                        <label htmlFor="name" className="form-label">Full Name</label>
+                                        <label htmlFor="name" className="form-label">{t('contact.form.fullname')}</label>
                                         <input
                                             type="text"
                                             id="name"
@@ -154,13 +156,13 @@ const Contact = () => {
                                             className={`form-input ${errors.name ? 'error' : ''}`}
                                             value={formData.name}
                                             onChange={handleChange}
-                                            placeholder="Jane Doe"
+                                            placeholder={t('contact.form.placeholder_name')}
                                         />
                                         {errors.name && <span className="error-msg">{errors.name}</span>}
                                     </div>
 
                                     <div className="form-group">
-                                        <label htmlFor="email" className="form-label">Email Address</label>
+                                        <label htmlFor="email" className="form-label">{t('contact.form.email')}</label>
                                         <input
                                             type="email"
                                             id="email"
@@ -168,13 +170,13 @@ const Contact = () => {
                                             className={`form-input ${errors.email ? 'error' : ''}`}
                                             value={formData.email}
                                             onChange={handleChange}
-                                            placeholder="jane@example.com"
+                                            placeholder={t('contact.form.placeholder_email')}
                                         />
                                         {errors.email && <span className="error-msg">{errors.email}</span>}
                                     </div>
 
                                     <div className="form-group">
-                                        <label htmlFor="subject" className="form-label">Subject (Optional)</label>
+                                        <label htmlFor="subject" className="form-label">{t('contact.form.subject')}</label>
                                         <input
                                             type="text"
                                             id="subject"
@@ -182,19 +184,19 @@ const Contact = () => {
                                             className="form-input"
                                             value={formData.subject}
                                             onChange={handleChange}
-                                            placeholder="Concert Inquiry"
+                                            placeholder={t('contact.form.placeholder_subject')}
                                         />
                                     </div>
 
                                     <div className="form-group">
-                                        <label htmlFor="message" className="form-label">Message</label>
+                                        <label htmlFor="message" className="form-label">{t('contact.form.message')}</label>
                                         <textarea
                                             id="message"
                                             name="message"
                                             className={`form-textarea ${errors.message ? 'error' : ''}`}
                                             value={formData.message}
                                             onChange={handleChange}
-                                            placeholder="Tell us what's on your mind..."
+                                            placeholder={t('contact.form.placeholder_message')}
                                         />
                                         {errors.message && <span className="error-msg">{errors.message}</span>}
                                     </div>
@@ -204,7 +206,7 @@ const Contact = () => {
                                         className="submit-btn"
                                         disabled={status === 'submitting'}
                                     >
-                                        {status === 'submitting' ? 'Sending...' : 'Send Message'}
+                                        {status === 'submitting' ? t('contact.form.sending') : t('contact.form.submit')}
                                     </button>
                                 </form>
                             )}
@@ -212,7 +214,6 @@ const Contact = () => {
                     </motion.div>
                 </div>
             </main>
-
         </div>
     );
 };

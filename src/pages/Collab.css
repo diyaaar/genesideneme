@@ -55,6 +55,7 @@
     color: var(--color-secondary);
     margin-bottom: 2rem;
     opacity: 0.9;
+    padding-left: 4px;
 }
 
 .hero-headline {

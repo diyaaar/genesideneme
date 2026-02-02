@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
+import { useTranslation, Trans } from 'react-i18next';
 import OptimizedImage from '../components/OptimizedImage';
 import './Collab.css';
 
 const Collab = () => {
+    const { t } = useTranslation();
     const [selectedOption, setSelectedOption] = useState(null);
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [formData, setFormData] = useState({
@@ -15,18 +17,18 @@ const Collab = () => {
     const collaborationOptions = [
         {
             id: 'invite',
-            label: 'Invite us to an existing project',
-            placeholder: 'Tell us about the project and how we might contribute...'
+            label: t('collab.form.options.invite'),
+            placeholder: t('collab.form.placeholders.invite')
         },
         {
             id: 'create',
-            label: 'Create a project together',
-            placeholder: 'What kind of vision do you want to build with us?'
+            label: t('collab.form.options.create'),
+            placeholder: t('collab.form.placeholders.create')
         },
         {
             id: 'sponsor',
-            label: 'Sponsor our work',
-            placeholder: 'How would you like to support our journey?'
+            label: t('collab.form.options.sponsor'),
+            placeholder: t('collab.form.placeholders.sponsor')
         }
     ];
 
@@ -77,7 +79,7 @@ const Collab = () => {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8, delay: 0.2 }}
                     >
-                        Collaboration
+                        {t('collab.hero.eyebrow')}
                     </motion.div>
 
                     <motion.h1
@@ -86,9 +88,7 @@ const Collab = () => {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 1, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
                     >
-                        Where voices meet,
-                        <br />
-                        <span className="italic">ideas intersect.</span>
+                        <Trans i18nKey="collab.hero.headline" components={{ br: <br />, span: <span className="italic" /> }} />
                     </motion.h1>
 
                     <motion.p
@@ -97,8 +97,7 @@ const Collab = () => {
                         animate={{ opacity: 1 }}
                         transition={{ duration: 1, delay: 0.8 }}
                     >
-                        This is a space for shared rituals — where artists, institutions,
-                        and ideas come together to create something beyond the expected.
+                        {t('collab.hero.subtext')}
                     </motion.p>
 
                     <motion.button
@@ -110,7 +109,7 @@ const Collab = () => {
                         whileHover={{ scale: 1.02 }}
                         whileTap={{ scale: 0.98 }}
                     >
-                        <span>Collaborate</span>
+                        <span>{t('collab.hero.cta')}</span>
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                             <path d="M5 12h14M12 5l7 7-7 7" />
                         </svg>
@@ -132,7 +131,7 @@ const Collab = () => {
                         viewport={{ once: true, margin: "-100px" }}
                         transition={{ duration: 1 }}
                     >
-                        <h2 className="event-title">Holyween</h2>
+                        <h2 className="event-title">{t('collab.showcase.title')}</h2>
                         <div className="showcase-meta">
                             <div className="meta-item">
                                 <svg className="meta-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -149,7 +148,7 @@ const Collab = () => {
                                     <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
                                     <circle cx="12" cy="10" r="3"></circle>
                                 </svg>
-                                <span className="meta-venue">En Passant, Beyoğlu</span>
+                                <span className="meta-venue">{t('collab.showcase.venue')}</span>
                             </div>
                         </div>
                     </motion.div>
@@ -207,13 +206,13 @@ const Collab = () => {
                         {/* Right: Editorial Text */}
                         <div className="showcase-text">
                             <p className="showcase-lead">
-                                Together with Şalter, Genesi Nova transformed En Passant into a living soundscape.
+                                {t('collab.showcase.lead')}
                             </p>
                             <p className="showcase-body">
-                                In a church-turned-stage, voices echoed beyond genre, creating a night shaped by ritual, presence, and shared listening.
+                                {t('collab.showcase.body')}
                             </p>
                             <p className="showcase-hint">
-                                Two perspectives. One night. Click the logos.
+                                {t('collab.showcase.hint')}
                             </p>
                         </div>
                     </motion.div>
@@ -267,9 +266,9 @@ const Collab = () => {
                         viewport={{ once: true, margin: "-100px" }}
                         transition={{ duration: 0.8 }}
                     >
-                        <h2 className="cta-title">Collaborate with us</h2>
+                        <h2 className="cta-title">{t('collab.form.title')}</h2>
                         <p className="cta-subtitle">
-                            We're open to conversations that lead somewhere meaningful.
+                            {t('collab.form.subtitle')}
                         </p>
                     </motion.div>
 
@@ -298,7 +297,7 @@ const Collab = () => {
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ duration: 0.6, delay: 0.4 }}
                             >
-                                Thank you for reaching out
+                                {t('collab.form.success.title')}
                             </motion.h3>
                             <motion.p
                                 className="success-text"
@@ -306,9 +305,7 @@ const Collab = () => {
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ duration: 0.6, delay: 0.5 }}
                             >
-                                We've received your proposal and will be in touch soon.
-                                <br />
-                                Looking forward to creating something meaningful together.
+                                <Trans i18nKey="collab.form.success.message" components={{ br: <br /> }} />
                             </motion.p>
                         </motion.div>
                     ) : (
@@ -348,7 +345,7 @@ const Collab = () => {
                             >
                                 <div className="form-row">
                                     <div className="form-group">
-                                        <label htmlFor="collab-name">Name or Organization</label>
+                                        <label htmlFor="collab-name">{t('collab.form.labels.name')}</label>
                                         <input
                                             id="collab-name"
                                             type="text"
@@ -359,7 +356,7 @@ const Collab = () => {
                                         />
                                     </div>
                                     <div className="form-group">
-                                        <label htmlFor="collab-email">Email</label>
+                                        <label htmlFor="collab-email">{t('collab.form.labels.email')}</label>
                                         <input
                                             id="collab-email"
                                             type="email"
@@ -372,7 +369,7 @@ const Collab = () => {
                                 </div>
 
                                 <div className="form-group">
-                                    <label htmlFor="collab-message">Your message</label>
+                                    <label htmlFor="collab-message">{t('collab.form.labels.message')}</label>
                                     <textarea
                                         id="collab-message"
                                         rows="5"
@@ -381,7 +378,7 @@ const Collab = () => {
                                         placeholder={
                                             selectedOption
                                                 ? collaborationOptions.find(o => o.id === selectedOption)?.placeholder
-                                                : 'Select an option above to continue...'
+                                                : t('collab.form.placeholders.default')
                                         }
                                         disabled={!selectedOption}
                                         required
@@ -393,7 +390,7 @@ const Collab = () => {
                                     className="submit-btn"
                                     disabled={!selectedOption}
                                 >
-                                    <span>Send proposal</span>
+                                    <span>{t('collab.form.submit')}</span>
                                     <svg
                                         width="20"
                                         height="20"

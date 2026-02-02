@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useTranslation, Trans } from 'react-i18next';
 import './FeaturedPerformance.css';
 
 /**
@@ -8,6 +9,7 @@ import './FeaturedPerformance.css';
  * Visual metaphor: "One song on stage under a spotlight."
  */
 const FeaturedPerformance = () => {
+    const { t } = useTranslation();
     const [isPlaying, setIsPlaying] = useState(false);
     const videoId = "_GCj_UDD24Y";
 
@@ -24,17 +26,17 @@ const FeaturedPerformance = () => {
                     <div className="featured-text">
                         <div className="featured-title-block">
                             <span className="featured-subtitle">
-                                Genesi Nova Original Arrangement
+                                {t('home.performance.subtitle')}
                             </span>
                             <h2 className="featured-title">
-                                Çanakkale Türküsü
+                                {t('home.performance.title')}
                             </h2>
                         </div>
 
                         <p className="featured-quote">
-                            A lament, a memory, a moment of silence.<br />
-                            'Çanakkale Türküsü' is reinterpreted by Genesi Nova
-                            in remembrance of the fallen.
+                            <Trans i18nKey="home.performance.quote" components={{ br: <br /> }} />
+                            <br />
+                            {t('home.performance.description')}
                         </p>
                     </div>
 

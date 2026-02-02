@@ -2,9 +2,11 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import OptimizedImage from './OptimizedImage';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import './Header.css';
 
 const Header = () => {
+    const { t, i18n } = useTranslation();
     const [activeSection, setActiveSection] = React.useState('home');
     const [isSticky, setIsSticky] = React.useState(false);
 
@@ -190,11 +192,29 @@ const Header = () => {
                                         className={`nav-link ${isActive ? 'active' : ''}`}
                                         onClick={(e) => handleNavClick(e, item)}
                                     >
-                                        {item}
+                                        {t(`header.${sectionId}`)}
                                     </a>
                                 </li>
                             );
                         })}
+                        {/* Language Switcher */}
+                        <li key="lang-switcher" className="lang-switcher-item">
+                            <div className="language-switcher">
+                                <span
+                                    className={`lang-opt ${i18n.language === 'tr' ? 'active' : ''}`}
+                                    onClick={() => i18n.changeLanguage('tr')}
+                                >
+                                    TR
+                                </span>
+                                <span className="lang-sep">|</span>
+                                <span
+                                    className={`lang-opt ${i18n.language === 'en' ? 'active' : ''}`}
+                                    onClick={() => i18n.changeLanguage('en')}
+                                >
+                                    EN
+                                </span>
+                            </div>
+                        </li>
                     </motion.ul>
                 </nav>
             </div>

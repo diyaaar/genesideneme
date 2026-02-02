@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, useAnimation, useMotionValue } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 import './EventCalendar.css';
 
 const EVENTS = [
@@ -21,7 +22,7 @@ const EVENTS = [
         month: 'Mar',
         year: '2026',
         location: 'Ortaköy Kethüda Hamamı',
-        capacity: '150–250 people'
+        capacity: '150–250'
     },
     {
         id: 3,
@@ -31,7 +32,7 @@ const EVENTS = [
         month: 'Apr',
         year: '2026',
         location: 'Bakırköy Cem Karaca Kültür Merkezi',
-        capacity: '460 people'
+        capacity: '460'
     },
     {
         id: 4,
@@ -41,7 +42,7 @@ const EVENTS = [
         month: 'Apr',
         year: '2026',
         location: 'YTÜ Davutpaşa Kongre Merkezi',
-        capacity: '800–1000 people'
+        capacity: '800–1000'
     },
     {
         id: 5,
@@ -51,7 +52,7 @@ const EVENTS = [
         month: 'May',
         year: '2026',
         location: 'Maltepe Türkan Saylan Kültür Merkezi',
-        capacity: '400–500 people'
+        capacity: '400–500'
     },
     {
         id: 6,
@@ -61,7 +62,7 @@ const EVENTS = [
         month: 'May',
         year: '2026',
         location: 'Acıbadem Üni. Konferans Merkezi',
-        capacity: '750 people'
+        capacity: '750'
     },
     {
         id: 7,
@@ -71,11 +72,12 @@ const EVENTS = [
         month: 'May',
         year: '2026',
         location: 'AAS Sanat Merkezi, İzmir',
-        capacity: '1130 people'
+        capacity: '1130'
     }
 ];
 
 const EventCalendar = () => {
+    const { t } = useTranslation();
     const [index, setIndex] = useState(0);
     const [itemsPerPage, setItemsPerPage] = useState(3);
     const [gap, setGap] = useState(32); // 2rem = 32px
@@ -130,42 +132,12 @@ const EventCalendar = () => {
         }
     };
 
-    // Calculate percentage-based transform to avoid px parsing issues
-    // Using CSS variables to handle the gap logic is cleaner, but for framer motion x value:
-    // We can animate x as a percentage string " - (index * percent)%"
-    // But gap complicates it. 
-    // Simplified: Just use % logic assuming the CSS gap is handled by the container width? No.
-    // The previous CSS had: min-width: calc((100% - 4rem) / 3);
-    // Let's use formatting variants.
-
-    // Actually, simplest way for Gap + Framer Motion:
-    // Move by (100% / itemsPerPage) + adjustment?
-    // Let's rely on the fact that each item is (100% - totalGap) / itemsPerPage
-    // Total width of one "slot" (card + gap) = (100% + gap) / itemsPerPage ? No.
-    // Let's try pure percentage movement and let CSS Flex 'gap' handle spacing visually,
-    // BUT gap isn't part of the percent width.
-    // To make it perfectly align, we can calculate percentage step:
-    // width of item = W. gap = G.
-    // Step = W + G.
-    // Container width = C.
-    // itemsPerPage = N.
-    // W = (C - (N-1)*G) / N.
-    // Step as % of C = (1/N) * 100 + (G/C * ...) - wait, too complex for responsive.
-
-    // Better: translateX using percentage: -(index * 100 / itemsPerPage)%
-    // AND we set the width of the track to: calc(100% + some_overlap)?
-
-    // ALTERNATIVE: Use scroll container with 'scrollTo' logic if framer math gets hard.
-    // BUT I want to stick to Framer Motion.
-    // I will use a simple animation variant that calculates the x offset based on index and the assumption of equal distribution.
-    // We'll trust the mapping.
-
     return (
         <section className="event-calendar-section">
             <div className="event-calendar-container">
                 <div className="event-calendar-header">
-                    <span className="event-calendar-eyebrow">Event Calendar</span>
-                    <h2 className="event-calendar-title">Season 2026</h2>
+                    <span className="event-calendar-eyebrow">{t('calendar.eyebrow')}</span>
+                    <h2 className="event-calendar-title">{t('calendar.season')} 2026</h2>
                 </div>
 
                 <div className="calendar-carousel-wrapper">
@@ -189,9 +161,9 @@ const EventCalendar = () => {
                                 <div className="card-top">
                                     <div className="card-date-group">
                                         <span className="card-date-numerals">{event.date}</span>
-                                        <span className="card-date-month">{event.month} {event.year}</span>
+                                        <span className="card-date-month">{t(`calendar.months.${event.month}`)} {event.year}</span>
                                     </div>
-                                    <span className="card-type">{event.type}</span>
+                                    <span className="card-type">{t(`calendar.types.${event.type}`)}</span>
                                     <h3 className="card-title">{event.title}</h3>
                                 </div>
 
@@ -212,7 +184,7 @@ const EventCalendar = () => {
                                                 <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
                                                 <path d="M16 3.13a4 4 0 0 1 0 7.75" />
                                             </svg>
-                                            <span>{event.capacity}</span>
+                                            <span>{event.capacity} {t('calendar.capacity_unit')}</span>
                                         </div>
                                     ) : (
                                         <div className="meta-row" style={{ opacity: 0, pointerEvents: 'none' }}>
@@ -226,7 +198,7 @@ const EventCalendar = () => {
                                 </div>
 
                                 <div className="card-actions">
-                                    <button className="details-btn">Details</button>
+                                    <button className="details-btn">{t('calendar.details')}</button>
                                 </div>
                             </motion.div>
                         ))}

@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import './Podcast.css';
 
 const Podcast = () => {
+    const { t } = useTranslation();
     const [email, setEmail] = useState('');
     const [isError, setIsError] = useState(false);
 
@@ -73,20 +75,20 @@ const Podcast = () => {
                     {/* Badge */}
                     <div className="podcast-badge">
                         <span className="badge-dot" />
-                        <span className="badge-text">Coming Soon</span>
+                        <span className="badge-text">{t('podcast.badge')}</span>
                     </div>
 
                     {/* Headline */}
                     <h1 className="podcast-headline">
-                        <span className="headline-main">Genova Podcast</span>
-                        <span className="headline-accent">Coming Soon</span>
+                        <span className="headline-main">{t('podcast.headline.main')}</span>
+                        <span className="headline-accent">{t('podcast.headline.accent')}</span>
                     </h1>
 
                     {/* Subtext */}
                     <p className="podcast-subtext">
-                        Stories, ideas, and conversations where music becomes the center of everything.
+                        {t('podcast.subtext.line1')}
                         <br />
-                        Be the first to know when we launch.
+                        {t('podcast.subtext.line2')}
                     </p>
 
                     {/* Hero Visuals - Mic & Headphones */}
@@ -110,7 +112,7 @@ const Podcast = () => {
 
                 {/* Bottom-Left Corner: Platform Icons */}
                 <div className="podcast-platforms podcast-platforms--corner">
-                    <p className="platforms-label">Available on</p>
+                    <p className="platforms-label">{t('podcast.platforms_label')}</p>
                     <div className="platforms-icons">
                         {platforms.map((platform) => (
                             <div
@@ -132,7 +134,7 @@ const Podcast = () => {
                                 type="email"
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
-                                placeholder="Enter your email"
+                                placeholder={t('podcast.cta.placeholder')}
                                 className="cta-input"
                                 required
                             />
@@ -140,14 +142,14 @@ const Podcast = () => {
                                 type="submit"
                                 className="cta-button"
                             >
-                                <span>Notify Me</span>
+                                <span>{t('podcast.cta.button')}</span>
                                 <svg className="cta-icon-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                                     <path d="M14 5l7 7m0 0l-7 7m7-7H3" />
                                 </svg>
                             </button>
                         </div>
                     </form>
-                    <p className="cta-helper">Join the waitlist • No spam, ever</p>
+                    <p className="cta-helper">{t('podcast.cta.helper')}</p>
                 </div>
             </section>
         </div>

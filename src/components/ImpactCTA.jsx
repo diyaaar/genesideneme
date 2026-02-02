@@ -1,8 +1,11 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import OptimizedImage from './OptimizedImage';
 import './ImpactCTA.css';
 
 const ImpactCTA = () => {
+    const { t } = useTranslation();
+
     return (
         <section className="impact-cta">
             <div className="cta-reference-wrapper">
@@ -20,8 +23,8 @@ const ImpactCTA = () => {
                 </div>
 
                 <div className="cta-content">
-                    <p className="cta-label">We're building something new.</p>
-                    <h2 className="cta-headline">Be part of the journey.</h2>
+                    <p className="cta-label">{t('home.cta.title')}</p>
+                    <h2 className="cta-headline">{t('home.cta.subtitle')}</h2>
                 </div>
             </div>
         </section>

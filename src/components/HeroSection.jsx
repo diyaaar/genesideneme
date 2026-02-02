@@ -1,10 +1,12 @@
 import React, { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 import TypewriterText from './TypewriterText';
 import OptimizedImage from './OptimizedImage';
 import './HeroSection.css';
 
 const HeroSection = () => {
+    const { t } = useTranslation();
     const ref = useRef(null);
     const { scrollYProgress } = useScroll({
         target: ref,
@@ -97,7 +99,7 @@ const HeroSection = () => {
                                 transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
                                 style={{ display: 'block' }}
                             >
-                                GENESI NOVA
+                                {t('home.hero.title_part1')}
                             </motion.span>
                         </span>
                         <span style={{ display: 'block', overflow: 'hidden', marginTop: '-0.2em' }}>
@@ -107,7 +109,7 @@ const HeroSection = () => {
                                 transition={{ duration: 1, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
                                 style={{ display: 'block', fontStyle: 'italic', opacity: 0.9, color: 'var(--color-secondary)' }}
                             >
-                                CHOIR
+                                {t('home.hero.title_part2')}
                             </motion.span>
                         </span>
                     </h1>
@@ -131,7 +133,7 @@ const HeroSection = () => {
                                 animate={{ y: 0 }}
                                 transition={{ duration: 0.8, delay: 0.8, ease: [0.22, 1, 0.36, 1] }}
                             >
-                                This is not just an a cappella group.
+                                {t('home.hero.tagline1')}
                             </motion.div>
                         </div>
                         <div style={{ overflow: 'hidden' }}>
@@ -140,7 +142,7 @@ const HeroSection = () => {
                                 animate={{ y: 0 }}
                                 transition={{ duration: 0.8, delay: 1.0, ease: [0.22, 1, 0.36, 1] }}
                             >
-                                It's a collective of voices, shaping a new sound culture.
+                                {t('home.hero.tagline2')}
                             </motion.div>
                         </div>
                     </div>
@@ -178,7 +180,7 @@ const HeroSection = () => {
                         textTransform: 'uppercase',
                         color: 'rgba(255, 255, 255, 0.5)'
                     }}>
-                        Based in İstanbul
+                        {t('home.hero.location')}
                     </span>
                 </motion.div>
             </motion.div>
