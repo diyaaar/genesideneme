@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import ScrollReveal from '../components/ScrollReveal';
@@ -48,6 +48,22 @@ const Blog = () => {
     const subscribeCtaRef = useRef(null);
     const notebookRef = useRef(null);
     const introRef = useRef(null);
+    const [isMobile, setIsMobile] = useState(false);
+
+    // Properly detect mobile devices with useEffect
+    useEffect(() => {
+        const checkMobile = () => {
+            setIsMobile(window.innerWidth <= 768);
+        };
+
+        // Check on mount
+        checkMobile();
+
+        // Add resize listener
+        window.addEventListener('resize', checkMobile);
+
+        return () => window.removeEventListener('resize', checkMobile);
+    }, []);
 
     // Parallax Logic matching Home Page
     const { scrollYProgress } = useScroll({
@@ -61,7 +77,6 @@ const Blog = () => {
         ? POSTS.map(post => post.title)
         : (FALLBACK_HEADLINES[currentLang] || FALLBACK_HEADLINES.en);
 
-    const isMobile = typeof window !== 'undefined' && window.innerWidth <= 768;
     const yContent = useTransform(scrollYProgress, [0, 1], isMobile ? ["0%", "0%"] : ["0%", "100%"]);
     const opacityContent = useTransform(scrollYProgress, [0, 0.5], [1, isMobile ? 1 : 0]);
 

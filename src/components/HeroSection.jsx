@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import TypewriterText from './TypewriterText';
@@ -8,13 +8,27 @@ import './HeroSection.css';
 const HeroSection = () => {
     const { t } = useTranslation();
     const ref = useRef(null);
+    const [isMobile, setIsMobile] = useState(false);
+
+    // Properly detect mobile devices with useEffect
+    useEffect(() => {
+        const checkMobile = () => {
+            setIsMobile(window.innerWidth <= 768);
+        };
+
+        // Check on mount
+        checkMobile();
+
+        // Add resize listener
+        window.addEventListener('resize', checkMobile);
+
+        return () => window.removeEventListener('resize', checkMobile);
+    }, []);
+
     const { scrollYProgress } = useScroll({
         target: ref,
         offset: ["start start", "end start"]
     });
-
-    // Detect mobile for performance optimization (disable parallax on mobile)
-    const isMobile = typeof window !== 'undefined' && window.innerWidth <= 768;
 
     // Only apply parallax transforms on desktop for smooth mobile scrolling
     const yBg = useTransform(scrollYProgress, [0, 1], isMobile ? ["0%", "0%"] : ["0%", "50%"]);
