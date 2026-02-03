@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 
 
@@ -23,6 +23,7 @@ const Contact = () => {
 
     const [status, setStatus] = useState('idle'); // idle, submitting, success, error
     const [errors, setErrors] = useState({});
+    const [isPhoneExpanded, setIsPhoneExpanded] = useState(false);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -66,6 +67,23 @@ const Contact = () => {
 
     return (
         <div className="contact-page">
+            {/* Cinematic Background Layer */}
+            <motion.div
+                className="contact-bg-container"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 0.25 }}
+                transition={{ duration: 2.5, ease: "easeOut" }}
+            >
+                <img
+                    src="/contact.svg"
+                    alt=""
+                    className="contact-bg-image"
+                    aria-hidden="true"
+                />
+                <div className="contact-bg-overlay" />
+                <div className="contact-bg-vignette" />
+            </motion.div>
+
             <main className="contact-hero">
                 <div className="contact-grid">
                     {/* Left Column: Info */}
@@ -90,9 +108,55 @@ const Contact = () => {
                                 <span className="detail-label">{t('contact.details.location')}</span>
                                 <span className="detail-value">{t('contact.details.location_value')}</span>
                             </div>
-                            <div className="detail-item">
-                                <span className="detail-label">{t('contact.details.phone')}</span>
-                                <span className="detail-value">+90 531 568 18 00</span>
+                            <div className="detail-item phone-expandable">
+                                <button
+                                    className={`detail-label expand-trigger ${isPhoneExpanded ? 'active' : ''}`}
+                                    onClick={() => setIsPhoneExpanded(!isPhoneExpanded)}
+                                >
+                                    {t('contact.details.phone')}
+                                    <span className={`expand-icon ${isPhoneExpanded ? 'open' : ''}`}>
+                                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                                            <polyline points="6 9 12 15 18 9"></polyline>
+                                        </svg>
+                                    </span>
+                                </button>
+
+                                <AnimatePresence>
+                                    {isPhoneExpanded && (
+                                        <motion.div
+                                            className="phone-cards-container"
+                                            initial={{ height: 0, opacity: 0 }}
+                                            animate={{ height: 'auto', opacity: 1 }}
+                                            exit={{ height: 0, opacity: 0 }}
+                                            transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                                        >
+                                            <div className="phone-cards-list">
+                                                {[
+                                                    { name: "Abdurrahim Pekacar", role: t('contact.details.persons.chef'), phone: "+90 531 568 18 00" },
+                                                    { name: "Aybüke Ösen", role: t('contact.details.persons.marketing'), phone: "+90 543 383 17 95" },
+                                                    { name: "Ali Diyar Duran", role: t('contact.details.persons.communication'), phone: "+90 552 013 18 27" }
+                                                ].map((person, idx) => (
+                                                    <motion.div
+                                                        key={idx}
+                                                        className="person-mini-card"
+                                                        initial={{ x: -10, opacity: 0 }}
+                                                        animate={{ x: 0, opacity: 1 }}
+                                                        transition={{ delay: 0.1 + idx * 0.1 }}
+                                                    >
+                                                        <div className="person-avatar">{person.name.charAt(0)}</div>
+                                                        <div className="person-info-wrap">
+                                                            <div className="person-name">{person.name}</div>
+                                                            <div className="person-role">{person.role}</div>
+                                                            <a href={`tel:${person.phone.replace(/\s/g, '')}`} className="person-phone">
+                                                                {person.phone}
+                                                            </a>
+                                                        </div>
+                                                    </motion.div>
+                                                ))}
+                                            </div>
+                                        </motion.div>
+                                    )}
+                                </AnimatePresence>
                             </div>
                             <div className="detail-item">
                                 <span className="detail-label">{t('contact.details.rehearsals')}</span>

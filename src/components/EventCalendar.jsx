@@ -205,20 +205,8 @@ const EventCalendar = () => {
                     </motion.div>
                 </div>
 
-                {/* Navigation Controls */}
-                {/* Dots */}
-                <div className="carousel-dots-container">
-                    {Array.from({ length: maxIndex + 1 }).map((_, i) => (
-                        <div
-                            key={i}
-                            className={`dot ${i === index ? 'active' : ''}`}
-                            onClick={() => slideTo(i)}
-                        />
-                    ))}
-                </div>
-
-                {/* Arrow Buttons */}
-                <div className="carousel-arrows-container">
+                {/* Unified Navigation Controls */}
+                <div className="calendar-navigation">
                     <button
                         className="nav-arrow prev"
                         onClick={handlePrev}
@@ -229,6 +217,16 @@ const EventCalendar = () => {
                             <path d="M15 18l-6-6 6-6" />
                         </svg>
                     </button>
+
+                    <div className="calendar-dots">
+                        {Array.from({ length: maxIndex + 1 }).map((_, i) => (
+                            <div
+                                key={i}
+                                className={`dot ${i === index ? 'active' : ''}`}
+                                onClick={() => slideTo(i)}
+                            />
+                        ))}
+                    </div>
 
                     <button
                         className="nav-arrow next"

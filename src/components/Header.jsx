@@ -1,5 +1,5 @@
 import React from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import OptimizedImage from './OptimizedImage';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -106,7 +106,7 @@ const Header = () => {
         }
 
         if (sectionId === 'home') {
-            if (isStorePage || isCollabPage || isBlogPage || isMediaPage || isContactPage) {
+            if (isStorePage || isCollabPage || isBlogPage || isMediaPage || isContactPage || isPodcastPage) {
                 navigate('/');
             } else {
                 window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -197,28 +197,83 @@ const Header = () => {
                                 </li>
                             );
                         })}
-                        {/* Language Switcher */}
+
+                        {/* Pinned Language Switcher with World Icon */}
                         <li key="lang-switcher" className="lang-switcher-item">
-                            <div className="language-switcher">
-                                <span
-                                    className={`lang-opt ${i18n.language === 'tr' ? 'active' : ''}`}
-                                    onClick={() => i18n.changeLanguage('tr')}
-                                >
-                                    TR
-                                </span>
-                                <span className="lang-sep">|</span>
-                                <span
-                                    className={`lang-opt ${i18n.language === 'en' ? 'active' : ''}`}
-                                    onClick={() => i18n.changeLanguage('en')}
-                                >
-                                    EN
-                                </span>
-                            </div>
+                            <LanguageDropdown currentLang={i18n.language} onLangChange={(lang) => i18n.changeLanguage(lang)} />
                         </li>
                     </motion.ul>
                 </nav>
             </div>
         </header>
+    );
+};
+
+// Sub-component for the premium language dropdown
+const LanguageDropdown = ({ currentLang, onLangChange }) => {
+    const [isOpen, setIsOpen] = React.useState(false);
+    const dropdownRef = React.useRef(null);
+
+    // Close on click outside
+    React.useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+                setIsOpen(false);
+            }
+        };
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => document.removeEventListener('mousedown', handleClickOutside);
+    }, []);
+
+    const toggleDropdown = () => setIsOpen(!isOpen);
+
+    const handleSelect = (lang) => {
+        onLangChange(lang);
+        setIsOpen(false);
+    };
+
+    return (
+        <div className="lang-dropdown-container" ref={dropdownRef}>
+            <button
+                className={`lang-globe-btn ${isOpen ? 'active' : ''}`}
+                onClick={toggleDropdown}
+                aria-label="Change Language"
+            >
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                    <circle cx="12" cy="12" r="10" />
+                    <line x1="2" y1="12" x2="22" y2="12" />
+                    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+                </svg>
+            </button>
+
+            <AnimatePresence>
+                {isOpen && (
+                    <motion.div
+                        className="lang-dropdown-menu"
+                        initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                        transition={{ duration: 0.2 }}
+                    >
+                        <div className="lang-dropdown-header">Select Language</div>
+                        <div className="lang-dropdown-options">
+                            <button
+                                className={`lang-dropdown-opt ${currentLang === 'tr' ? 'active' : ''}`}
+                                onClick={() => handleSelect('tr')}
+                            >
+                                Türkçe (TR)
+                            </button>
+                            <button
+                                className={`lang-dropdown-opt ${currentLang === 'en' ? 'active' : ''}`}
+                                onClick={() => handleSelect('en')}
+                            >
+                                English (EN)
+                            </button>
+                        </div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
+        </div>
     );
 };
 

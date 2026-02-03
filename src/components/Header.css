@@ -12,7 +12,6 @@
     width: 100%;
     transition: all 0.4s ease;
     /* Smooth transition for height/padding */
-    overflow: hidden;
     z-index: 50;
     /* Ensure it stays on top */
 }
@@ -93,6 +92,8 @@
     margin: 0;
     flex-wrap: wrap;
     justify-content: center;
+    align-items: center;
+    /* Vertically center all items including the globe */
 }
 
 .nav-link {
@@ -141,14 +142,14 @@
         width: 100vw;
         /* Full width swipe area */
         padding: 0 1.5rem;
+        /* Balanced padding for scrolling */
         /* Horizontal start/end padding */
         scrollbar-width: none;
         /* Hide scrollbar Firefox */
         -webkit-overflow-scrolling: touch;
         /* Momentum scroll */
-        mask-image: linear-gradient(to right, transparent 0%, black 5%, black 100%);
-        /* Fade edges only on left */
-        -webkit-mask-image: linear-gradient(to right, transparent 0%, black 5%, black 100%);
+
+        /* Removed mask-image that was hiding the pinned icon */
     }
 
     .nav-menu::-webkit-scrollbar {
@@ -162,35 +163,30 @@
     }
 
     .lang-switcher-item {
-        position: sticky;
-        right: 0;
-        z-index: 10;
-        background-color: rgba(17, 21, 36, 0.95);
-        /* Increased opacity for better legibility */
-        padding-left: 1.25rem;
-        padding-right: 1.5rem;
-        margin-right: -1.5rem;
+        position: absolute;
+        top: 1.25rem;
+        /* Align with logo area */
+        right: 1.5rem;
+        z-index: 100;
         display: flex;
         align-items: center;
-        /* Dual-sided fade effect using shadows */
-        box-shadow: -15px 0 15px rgba(17, 21, 36, 0.95),
-            10px 0 15px rgba(17, 21, 36, 0.95);
+        transition: all 0.4s ease;
+        opacity: 1;
     }
 
-    /* Adjust for sticky header state */
+    /* Make it disappear on scroll like the logo */
     .sticky-header .lang-switcher-item {
-        background-color: rgba(17, 21, 36, 0.9);
-        /* Increased opacity in sticky state */
-        box-shadow: -15px 0 15px rgba(17, 21, 36, 0.9),
-            10px 0 15px rgba(17, 21, 36, 0.9);
+        opacity: 0;
+        pointer-events: none;
+        transform: translateY(-20px);
     }
 
     /* Adjust container to handle the full width scroll */
     .header-content {
         width: 100%;
         max-width: 100%;
-        overflow: hidden;
-        /* Contain the scroll items */
+        overflow: visible;
+        /* Need to show dropdown overflows */
     }
 
     .logo-container {
@@ -223,41 +219,115 @@
     }
 }
 
-.language-switcher {
+.lang-dropdown-container {
+    position: relative;
+    display: inline-block;
+}
+
+.lang-globe-btn {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: rgba(186, 180, 162, 0.8);
+    width: 32px;
+    /* Slightly smaller to match text height better */
+    height: 32px;
+    border-radius: 50%;
     display: flex;
     align-items: center;
-    gap: 0.5rem;
-    margin-left: 1rem;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(4px);
+    padding: 0;
+    margin-top: -2px;
+    /* Fine-tune optical alignment with text baseline */
+}
+
+.lang-globe-btn:hover,
+.lang-globe-btn.active {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: var(--color-secondary);
+    color: var(--color-secondary);
+    box-shadow: 0 0 15px rgba(186, 180, 162, 0.2);
+}
+
+.lang-dropdown-menu {
+    position: absolute;
+    top: calc(100% + 12px);
+    right: 0;
+    min-width: 160px;
+    background: #1a1f33;
+    border: 1px solid rgba(186, 180, 162, 0.15);
+    border-radius: 8px;
+    padding: 0.5rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    z-index: 10000;
+    backdrop-filter: blur(20px);
+}
+
+/* Arrow indicator on menu */
+.lang-dropdown-menu::after {
+    content: '';
+    position: absolute;
+    top: -6px;
+    right: 14px;
+    width: 10px;
+    height: 10px;
+    background: #1a1f33;
+    border-top: 1px solid rgba(186, 180, 162, 0.15);
+    border-left: 1px solid rgba(186, 180, 162, 0.15);
+    transform: rotate(45deg);
+}
+
+.lang-dropdown-header {
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: rgba(255, 255, 255, 0.4);
+    padding: 0.5rem 0.75rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    margin-bottom: 0.25rem;
+}
+
+.lang-dropdown-options {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.lang-dropdown-opt {
+    background: transparent;
+    border: none;
+    color: rgba(255, 255, 255, 0.7);
+    padding: 0.6rem 0.75rem;
+    text-align: left;
     font-family: var(--font-primary);
     font-size: 0.85rem;
-    font-weight: 500;
-    color: rgba(255, 255, 255, 0.6);
-    cursor: default;
-}
-
-.lang-opt {
+    border-radius: 4px;
     cursor: pointer;
-    transition: color 0.3s ease;
-    letter-spacing: 1px;
+    transition: all 0.2s ease;
 }
 
-.lang-opt:hover {
+.lang-dropdown-opt:hover {
+    background: rgba(255, 255, 255, 0.05);
     color: #fff;
 }
 
-.lang-opt.active {
+.lang-dropdown-opt.active {
     color: var(--color-secondary);
-    font-weight: 700;
-}
-
-.lang-sep {
-    color: rgba(255, 255, 255, 0.3);
+    background: rgba(186, 180, 162, 0.1);
 }
 
 @media (max-width: 768px) {
-    .language-switcher {
-        margin-left: 0;
-        padding-left: 1rem;
-        border-left: 1px solid rgba(255, 255, 255, 0.1);
+    .lang-dropdown-menu {
+        position: absolute;
+        top: calc(100% + 12px);
+        right: 0;
+        z-index: 10001;
+    }
+
+    /* Keep container relative so menu is positioned correctly */
+    .lang-dropdown-container {
+        position: relative;
     }
 }

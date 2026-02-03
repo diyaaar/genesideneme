@@ -93,6 +93,13 @@ const EventModal = ({ isOpen, onClose, event }) => {
                         transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }} // Elegant ease
                         onClick={(e) => e.stopPropagation()}
                     >
+                        {/* Global Close Button */}
+                        <div className="modal-close-trigger" onClick={onClose}>
+                            <CloseIcon />
+                        </div>
+
+                        {/* Mobile Drag Handle Indicator */}
+                        <div className="modal-drag-handle" />
 
                         {/* LEFT: Image Carousel */}
                         <div className="event-modal-visuals">
@@ -154,11 +161,6 @@ const EventModal = ({ isOpen, onClose, event }) => {
 
                         {/* RIGHT: Details Panel */}
                         <div className="event-modal-details">
-                            {/* Close Trigger (Mobile/Desktop) - Inside mostly for mobile, but good for UX */}
-                            <div className="modal-close-trigger" onClick={onClose}>
-                                <CloseIcon />
-                            </div>
-
                             {/* Header */}
                             <div className="details-header">
                                 <div className="details-avatar">

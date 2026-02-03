@@ -61,7 +61,7 @@
             },
             "cta": {
                 "title": "Yeni bir şeyler inşa ediyoruz.",
-                "subtitle": "YOLCULUĞUN PARÇASI OLUN"
+                "subtitle": "YOLCULUĞUN PARÇASI OL"
             }
         },
         "collab": {
@@ -183,7 +183,12 @@
                 "phone": "Telefon",
                 "rehearsals": "Provalar",
                 "location_value": "İstanbul, Türkiye",
-                "rehearsal_days": "Salı & Cuma"
+                "rehearsal_days": "Salı & Cuma",
+                "persons": {
+                    "chef": "ŞEF",
+                    "marketing": "PAZARLAMA & SOSYAL MEDYA SORUMLUSU",
+                    "communication": "İLETİŞİM SORUMLUSU"
+                }
             },
             "form": {
                 "fullname": "ŞAHIS/ORGANİZASYON İSMİNİZ",

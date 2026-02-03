@@ -20,18 +20,29 @@ const podcastImg = manifest['podcast-hero'];
 const blogSmall = manifest['blog-hero'];
 const choirSmall = manifest['choir-hero'];
 
-// Sample blog headlines for typewriter effect
-const TYPEWRITER_HEADLINES = [
-    "The Resurgence of Polyphony in Modern Pop",
-    "Echoes from the Past: The Making of Our New Album",
-    "The Science of Harmony: Why We Love Chords",
-    "Vocal Health 101 for Touring Choirs",
-    "Interview: The Future of Choral Music"
-];
-
 import { POSTS } from '../data/blogPosts';
+import { useTranslation } from 'react-i18next';
+
+// Fallback headlines if POSTS is empty (though unlikely)
+const FALLBACK_HEADLINES = {
+    en: [
+        "The Resurgence of Polyphony in Modern Pop",
+        "Echoes from the Past: The Making of Our New Album",
+        "The Science of Harmony: Why We Love Chords",
+        "Vocal Health 101 for Touring Choirs"
+    ],
+    tr: [
+        "Modern Popta Polifoninin Yeniden Doğuşu",
+        "Geçmişten Yankılar: Yeni Albümümüzün Hazırlığı",
+        "Armoni Bilimi: Akorları Neden Seviyoruz?",
+        "Korolar İçin Ses Sağlığı Rehberi"
+    ]
+};
 
 const Blog = () => {
+    const { i18n } = useTranslation();
+    const currentLang = i18n.language || 'tr';
+
     const navigate = useNavigate();
     // Refs for dynamic typewriter positioning
     const subscribeCtaRef = useRef(null);
@@ -43,6 +54,12 @@ const Blog = () => {
         target: introRef,
         offset: ["start start", "end start"]
     });
+
+    // Dynamically get headlines from real blog posts
+    // We prioritize real post titles, fall back to language-specific defaults
+    const TYPEWRITER_HEADLINES = POSTS.length > 0
+        ? POSTS.map(post => post.title)
+        : (FALLBACK_HEADLINES[currentLang] || FALLBACK_HEADLINES.en);
 
     const isMobile = typeof window !== 'undefined' && window.innerWidth <= 768;
     const yContent = useTransform(scrollYProgress, [0, 1], isMobile ? ["0%", "0%"] : ["0%", "100%"]);

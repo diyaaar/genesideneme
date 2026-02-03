@@ -17,6 +17,7 @@
     width: 100%;
     max-width: 1100px;
     height: 85vh;
+    height: 85dvh;
     max-height: 800px;
     background: #0d1117;
     border: 1px solid rgba(186, 180, 162, 0.1);
@@ -172,6 +173,18 @@
     flex: 1;
     overflow-y: auto;
     padding: 1.5rem;
+    min-height: 0;
+    /* Crucial for flex scrolling */
+    -webkit-overflow-scrolling: touch;
+    /* Smooth iOS scrolling */
+
+    /* Scroll Indicators Mask */
+    mask-image: linear-gradient(to bottom,
+            transparent 0%,
+            black 2%,
+            black 92%,
+            transparent 100%);
+
     /* Custom Scrollbar */
     scrollbar-width: thin;
     scrollbar-color: rgba(255, 255, 255, 0.1) transparent;
@@ -248,21 +261,30 @@
 /* Close Button (Global) */
 .modal-close-trigger {
     position: absolute;
-    top: 1rem;
-    right: 1rem;
-    width: 32px;
-    height: 32px;
+    top: 1.25rem;
+    right: 1.25rem;
+    width: 38px;
+    height: 38px;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    color: rgba(255, 255, 255, 0.5);
-    z-index: 50;
-    transition: color 0.3s ease;
+    color: #fff;
+    background: rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    z-index: 100;
+    transition: all 0.3s ease;
 }
 
 .modal-close-trigger:hover {
-    color: #fff;
+    background: rgba(0, 0, 0, 0.4);
+    transform: scale(1.1);
+}
+
+.modal-drag-handle {
+    display: none;
 }
 
 /* ══════════════════════════════════════════════
@@ -272,22 +294,67 @@
     .event-modal-container {
         flex-direction: column;
         height: 90vh;
-        max-width: 90vw;
+        height: 90dvh;
+        max-width: 95vw;
+        max-height: none;
+        /* Allow more height on mobile if needed */
+        border-radius: 12px 12px 0 0;
+        /* Bottom-sheet-like on mobile */
+        margin-top: 10vh;
+        align-self: flex-end;
     }
 
     .event-modal-visuals {
-        flex: 5;
-        min-height: 40vh;
+        flex: 0 0 35%;
+        /* Fixed height for image area */
+        min-height: 250px;
     }
 
     .event-modal-details {
-        flex: 5;
+        flex: 1;
+        /* Take the rest of the 90vh */
         min-width: 100%;
         border-left: none;
         border-top: 1px solid rgba(186, 180, 162, 0.08);
+        overflow: hidden;
+        /* Contain the scrollable details-content */
+    }
+
+    .details-content {
+        padding: 1.25rem;
+        /* Less aggressive mask on mobile */
+        mask-image: linear-gradient(to bottom,
+                black 90%,
+                transparent 100%);
     }
 
     .event-headline {
         font-size: 1.4rem;
+    }
+
+    .details-header {
+        padding: 1rem;
+    }
+
+    .details-actions {
+        padding: 1rem;
+    }
+
+    .modal-drag-handle {
+        display: block;
+        position: absolute;
+        top: 8px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 40px;
+        height: 4px;
+        background: rgba(255, 255, 255, 0.15);
+        border-radius: 2px;
+        z-index: 101;
+    }
+
+    .modal-close-trigger {
+        top: 1.5rem;
+        right: 1.5rem;
     }
 }

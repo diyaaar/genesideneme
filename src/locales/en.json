@@ -182,7 +182,12 @@
                 "phone": "Phone",
                 "rehearsals": "Rehearsals",
                 "location_value": "Istanbul, Turkey",
-                "rehearsal_days": "Tuesdays & Fridays"
+                "rehearsal_days": "Tuesday & Friday",
+                "persons": {
+                    "chef": "CONDUCTOR",
+                    "marketing": "MARKETING & SOCIAL MEDIA COORDINATOR",
+                    "communication": "COMMUNICATION COORDINATOR"
+                }
             },
             "form": {
                 "fullname": "Full Name",
