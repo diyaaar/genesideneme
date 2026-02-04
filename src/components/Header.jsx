@@ -173,7 +173,8 @@ const Header = () => {
                         animate={{ opacity: 1 }}
                         transition={{ delay: 0.3, duration: 0.8 }}
                     >
-                        {navItems.map((item) => {
+                        <li className="desktop-nav-spacer" aria-hidden="true" key="spacer-left"></li>
+                        {navItems.map((item, index) => {
                             const sectionId = item.toLowerCase();
                             const isActive = activeSection === sectionId;
 
@@ -186,15 +187,22 @@ const Header = () => {
                             if (sectionId === 'contact') href = '/contact';
 
                             return (
-                                <li key={item}>
-                                    <a
-                                        href={href}
-                                        className={`nav-link ${isActive ? 'active' : ''}`}
-                                        onClick={(e) => handleNavClick(e, item)}
-                                    >
-                                        {t(`header.${sectionId}`)}
-                                    </a>
-                                </li>
+                                <React.Fragment key={item}>
+                                    <li>
+                                        <a
+                                            href={href}
+                                            className={`nav-link ${isActive ? 'active' : ''}`}
+                                            onClick={(e) => handleNavClick(e, item)}
+                                        >
+                                            {t(`header.${sectionId}`)}
+                                        </a>
+                                    </li>
+                                    {index < navItems.length - 1 && (
+                                        <li className="nav-separator" aria-hidden="true">
+                                            •
+                                        </li>
+                                    )}
+                                </React.Fragment>
                             );
                         })}
 

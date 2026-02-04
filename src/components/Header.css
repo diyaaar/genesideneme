@@ -18,8 +18,8 @@
 
 /* Minimal Sticky State */
 .header-container.sticky-header {
-    padding: 0.25rem 0;
-    /* Even tighter sticky */
+    padding: 0.4rem 0;
+    /* Slightly more padding for better icon centering */
     background-color: rgba(17, 21, 36, 0.65);
     /* 65% opacity for elegance */
     backdrop-filter: blur(10px);
@@ -86,7 +86,8 @@
 
 .nav-menu {
     display: flex;
-    gap: 2.5rem;
+    gap: 1.25rem;
+    /* Half of original 2.5rem to accommodate separators */
     list-style: none;
     padding: 0;
     margin: 0;
@@ -94,6 +95,10 @@
     justify-content: center;
     align-items: center;
     /* Vertically center all items including the globe */
+}
+
+.desktop-nav-spacer {
+    display: none;
 }
 
 .nav-link {
@@ -108,6 +113,18 @@
     position: relative;
     padding: 0.5rem 0;
     transition: color 0.3s ease;
+}
+
+.nav-separator {
+    color: var(--color-secondary);
+    opacity: 0.3;
+    font-size: 0.6rem;
+    pointer-events: none;
+    user-select: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
 }
 
 .nav-link::after {
@@ -134,7 +151,8 @@
 
 @media (max-width: 768px) {
     .nav-menu {
-        gap: 2rem;
+        gap: 1rem;
+        /* Half of original 2rem */
         flex-wrap: nowrap;
         justify-content: flex-start;
         /* items flow from left */
@@ -209,6 +227,31 @@
     }
 }
 
+/* Desktop Horizontal Offset for Globe */
+@media (min-width: 769px) {
+    .header-content nav {
+        width: 100%;
+    }
+
+    .nav-menu {
+        width: 100%;
+        gap: 1.25rem;
+    }
+
+    .desktop-nav-spacer {
+        display: block;
+        flex: 1;
+    }
+
+    .lang-switcher-item {
+        flex: 1;
+        display: flex;
+        justify-content: flex-end;
+        padding-right: 2rem;
+        /* Inward from right edge */
+    }
+}
+
 @media (max-width: 400px) {
     .nav-menu {
         gap: 0.5rem 0.8rem;
@@ -239,8 +282,7 @@
     transition: all 0.3s ease;
     backdrop-filter: blur(4px);
     padding: 0;
-    margin-top: -2px;
-    /* Fine-tune optical alignment with text baseline */
+    /* Removed margin-top for proper vertical centering */
 }
 
 .lang-globe-btn:hover,
